@@ -841,9 +841,9 @@ asciidoc.install(3);
 </div>
 </div>
 <div id="content">
-<div class="paragraph"><p>yaVDR Documentation</p></div>
-<div class="exampleblock">
-<div class="content">
+<div class="sect1">
+<h2 id="_preface">Preface</h2>
+<div class="sectionbody">
 <div class="paragraph"><p><span class="image">
 <img alt="yaVDR-Logo" src="data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAJYAAAAxCAYAAAA4GFC0AAAAAXNSR0IArs4c6QAAAAlwSFlzAAAL
@@ -952,7 +952,12 @@ x5H2kk12sP6+EyzrqugnA8XqxmiMEcb/AyIw2X7xKmc+AAAAAElFTkSuQmCC" />
 <div class="paragraph"><p>This document is supposed to explain the operation and internal matters of a yaVDR system. It shall support users to get familiar with these things, that special for yaVDR compared to a regular Ubuntu system. On purpose, this is not an introduction to the operating basics of (Ubuntu) Linux.  Thus, it is recommended to get familar with Ubuntu with the help of documentation, e.g. the very comprehensive <a href="http://wiki.ubuntuusers.de/Startseite">Ubuntu Users Wiki</a>. Furthermore, we will not go into every detail regarding VDR and XBMC in this documentation. Please refer to <a href="http://vdr-wiki.de">VDR-Wiki</a> and <a href="http://wiki.xbmc.org/index.php?title=Main_Page">XBMC-Wiki</a> for more information.</p></div>
 <div class="paragraph"><p>Whenever the description of commands, functions or workflows exceeds the limits for this documentation, appropriate articles will be linked. This reduces the repeating of information.</p></div>
 <div class="paragraph"><p>Thi documentation is also available in form of <a href="yaVDR_doc.pdf">PDF-</a> and as a <a href="yaVDR_doc.html">"all-in-one"</a> version.</p></div>
+<div class="sect2">
+<h3 id="_license">License</h3>
 <div class="paragraph"><p>This documentation is published under <a href="http://www.gnu.org/licenses/fdl-1.3.txt">GNU FDL</a> <span class="footnote"><br />[Free DOC LICENCE, siehe <a href="http://www.gnu.org/copyleft/fdl.html">http://www.gnu.org/copyleft/fdl.html</a>]<br /></span></p></div>
+</div>
+<div class="sect2">
+<h3 id="_conventions">Conventions</h3>
 <div class="paragraph"><p>Commands that are executed in a shell or an xterm window as displays as follows:</p></div>
 <div class="listingblock">
 <div class="title">example command</div>
@@ -1009,7 +1014,6 @@ UUID=83a8163c-195b-4e85-a9ed-18478339dc3f /               ext4    errors=remount
 # swap was on /dev/sdb5 during installation
 UUID=32fc4d86-ab86-4ed8-bf24-68aa98ec6d0c none            swap    sw              0       0</tt></pre>
 </div></div>
-</div></div>
 <div class="admonitionblock">
 <table><tr>
 <td class="icon">
@@ -1064,12 +1068,11 @@ uSP3jMwwjKy4G3AXwB0ugAsx5YzMndW//DOy3OFMjGwrxrKs7NX9LBfAneFFUcxec6rU5zqpvCqA
 qTCT16/0nPgLA/i6xjf+Xw3+B2ll/uiqTaJTAAAAAElFTkSuQmCC" />
 </td>
 <td class="content">
-<div class="title">Tips</div>Tips are marked with this icon</td>
+<div class="title">Tips</div>
+<div class="paragraph"><p>Tips are marked with this icon</p></div>
+</td>
 </tr></table>
 </div>
-<div class="exampleblock">
-<div class="content">
-</div></div>
 <div class="admonitionblock">
 <table><tr>
 <td class="icon">
@@ -1120,12 +1123,11 @@ zKjX661DvHOOJElIkoRSqYT3/vLvRlW15eHCa4VxzdvmpjZDfubzuXeb3vuzqCEixBhbo0NTkyS5
 PAr9L8j/96+U/w3yCoCXW14B8HLLvwDd67nwZIEPdgAAAABJRU5ErkJggg==" />
 </td>
 <td class="content">
-<div class="title">Notes</div>Notes are marked with this icon</td>
+<div class="title">Notes</div>
+<div class="paragraph"><p>Notes are marked with this icon</p></div>
+</td>
 </tr></table>
 </div>
-<div class="exampleblock">
-<div class="content">
-</div></div>
 <div class="admonitionblock">
 <table><tr>
 <td class="icon">
@@ -1180,12 +1182,11 @@ fsAErJoAYItG1mdr+hfvVlACtHDIXkploYXbHvQOikDEe6/ZmjFmAhf9ZvJxOk2Qol88W4kYz32S
 GNQfHLG+TyMTkAVEr88xQfVnkBg7GAKixSIykDYQsL21/wFkW/B5QqT9lwAAAABJRU5ErkJggg==" />
 </td>
 <td class="content">
-<div class="title">Caution!</div>Information is marked with this icons</td>
+<div class="title">Caution!</div>
+<div class="paragraph"><p>Information is marked with this icons</p></div>
+</td>
 </tr></table>
 </div>
-<div class="exampleblock">
-<div class="content">
-</div></div>
 <div class="admonitionblock">
 <table><tr>
 <td class="icon">
@@ -1245,12 +1246,11 @@ JpL5tYCZpEyw2f/nWt1ag2UtM0x3Mq1iAp1j+bH0M7KFCGWDnfmbd8AMnuxfUzL/C0rp/wFnFd4n
 EQn3XQAAAABJRU5ErkJggg==" />
 </td>
 <td class="content">
-<div class="title">Important!</div>Inportant information is emphazised by this icon</td>
+<div class="title">Important!</div>
+<div class="paragraph"><p>Inportant information is emphazised by this icon</p></div>
+</td>
 </tr></table>
 </div>
-<div class="exampleblock">
-<div class="content">
-</div></div>
 <div class="admonitionblock">
 <table><tr>
 <td class="icon">
@@ -1314,22 +1314,24 @@ vr6+wTfK/4tEfzeeMmUKkydPzhg8jJAAREgEg0H6+vrQNC2pFL8ZUVWVrKws8vPzycnJQVXVjH/s
 /F/lgJiyQFHragAAAABJRU5ErkJggg==" />
 </td>
 <td class="content">
-<div class="title">Warning!</div>Warnings are marked with this icon</td>
+<div class="title">Warning!</div>
+<div class="paragraph"><p>Warnings are marked with this icon</p></div>
+</td>
 </tr></table>
 </div>
-<div class="exampleblock">
-<div class="content">
 <div class="sidebarblock">
 <div class="content">
 <div class="title">Remark</div>
 <div class="paragraph"><p>Remarks are displayed with a yellow background.</p></div>
 </div></div>
-</div></div>
+</div>
+</div>
+</div>
 </div>
 <div id="footnotes"><hr /></div>
 <div id="footer">
 <div id="footer-text">
-Letzte Änderung 2012-10-18 09:31:46 CEST
+Letzte Änderung 2012-10-18 09:21:00 CEST
 </div>
 </div>
 </body>
