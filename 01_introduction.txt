@@ -1,0 +1,12 @@
+== Introduction ==
+
+yaVDR footnote:[yaVDR stands for yet another VDR] is a linux distribution that is based on Ubuntu. It has been customized for the use of Klaus Schmidingers http://www.tvdr.de[Video Disk Recorder].
+It is well-suited to receive, record, edit and play digital and analogue footnote:[requires Hauppauge PVR TV cards; reference http://www.vdr-wiki.de/wiki/index.php/Pvrinput-plugin[PVRinput-Plugin]] TV that is broadcasted through the regular receive paths footnote:[DVB-S(2), DVB-C, DVB-T].
+
+In addition, the very powerful HTPC footnote:[Home Theatre PC] software http://www.xbmc.org[XBMC] extends the your yaVDR computer to a complete multimedia station.
+
+For the sake of integration of new features and improved hardware support, yaVDR takes advantage of rather new (and still as stable as possible) development versions.
+
+Supported hardware will be recognized and set up during the installation process. This saves configuration efforts for the users.
+
+The majority of the system settings can be adjusted via an comfortable web frontend.

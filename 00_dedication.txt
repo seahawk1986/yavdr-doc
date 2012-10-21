@@ -1,0 +1,4 @@
+[dedication]
+== Dedication ==
+
+To the team of yaVDR that introduced me to the VDR and to all the hard-working developers and users that assisted me on my way.
