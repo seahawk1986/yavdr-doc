@@ -1,7 +1,7 @@
 yaVDR Documentation
 =======================
 :Author:   marcuszurhorst, seahawk1986
-:Email:    seahawk1986@hotmail.com
+:Email:    marcuszurhorst@gmail.com
 :Date:     October 2012
 :Revision: v0.5
 :encoding: UTF-8
