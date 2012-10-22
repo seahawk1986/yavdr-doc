@@ -1,6 +1,6 @@
 yaVDR Documentation
-=======================
-:Author:   marcuszurhorst, seahawk1986
+===================
+:Author:   marcuszurhorst
 :Email:    seahawk1986@hotmail.com
 :Date:     October 2012
 :Revision: v0.5
@@ -12,6 +12,7 @@ yaVDR Documentation
 :thumbsize: 16
 
 
+
 include::00_dedication_en.txt[]
 
 include::00_preface_en.txt[]
@@ -20,7 +21,5 @@ include::00_preface_en.txt[]
 == yaVDR ==
 
 include::01_introduction_en.txt[]
-
-
 
 include::10_installation_en.txt[]
