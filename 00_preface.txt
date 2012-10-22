@@ -25,7 +25,7 @@ Commands that are executed in a shell or an xterm window as displays as follows:
 ----
 <1>user@yavdr:~$ <2> sudo make me a sandwich 
 ----
-<1> The shell prompt shows that users *user* is logged into computer *yavdr* in his $HOME directory footnote:[the $HOME directory is an individual directory owned by an particular user. Usually, this created in the path '/home/<username>/'.  The tilde character *~* is a shortcut for this directory.].
+<1> The shell prompt shows that users *user* is logged into computer *yavdr* in his $HOME directory footnote:[the $HOME directory is an individual directory owned by an particular user. Usually, this is created in the path '/home/<username>/'.  The tilde character *~* is a shortcut for this directory.].
 <2> this is the command that shall be executed footnote:[this example is aligned with http://xkcd.com/149/ and explains the superuser concept (refer to http://wiki.ubuntuusers.de/sudo).]
 
 Annotations to individual aspects will be highlighted with numbers in small, black circles.
