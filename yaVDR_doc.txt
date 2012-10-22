@@ -20,3 +20,7 @@ include::00_preface_en.txt[]
 == yaVDR ==
 
 include::01_introduction_en.txt[]
+
+
+
+include::10_installation_en.txt[]

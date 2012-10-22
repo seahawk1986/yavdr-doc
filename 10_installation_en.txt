@@ -1,0 +1,118 @@
+[[installation]]
+=== Installation of yaVDR ===
+
+[[download]]
+==== Download ====
+
+The latest, stable version of yaVDR is avaiable in the download area on the http://www.yavdr.org/download[official website].
+
+[[installation]]
+==== Installation ====
+
+Depending on your computer settings (mostly driven by processor, memory and hard disks), a typical installation process of yaVDR will take between 20 and 70 minutes. Your computer needs to be set up that it can boot from a installation CD. How this is done is usually documented in the manual of your mainboard.
+
+[TIP]
+.boot menu
+=====================================================================
+On most modern mainboards, pressing the keys F8 or F12 during the display of the POST procedure footnote:[Power On Self-Test] will open a menu that allows you to select the boot device for the startup.
+=====================================================================
+
+As soon as the system starts from the installation CD, you will be asked to select the language for the installation in a menu.
+
+image:./installation/00_sprachwahl.png[]
+
+You can now proceed with the installation of yaVDR, check the CD for errors, test the computers memory, boot your computer from the next device in the boot order or start a rescue system.
+Select the first list entry to proceed with the installation of yaVDR:
+
+image:./installation/01_bootscreen.png[]
+
+Enter your location to set up language and time zone:
+
+image:./installation/02_standortwahl.png[]
+
+It is recommended to select your keyboard layout manually instead of relying on the automatic detection from the Ubuntu 12.04 Precise Pangolin installer:
+
+image:./installation/03_tastenerkennung.png[]
+
+First, select the country...
+
+image:./installation/04_keyboard_konfig.png[]
+
+\... and afterwards the keyboard layout. Usually, you won't edit literary masterpieces on your yaVDR system, but you will typically change settings in the shell. Thus, we recommend to deactive xxxFIXME: "bietet es sich an, die Akzentzeichen zu deaktieren" <-- are these nodeadkeys? xxx. This will ease the typing of frequently used special characters like e.g. the tilde "~":
+
+image:./installation/05_keyboard_konfig-2.png[]
+
+The system will fetch further files before the configuration continues:
+
+image:./installation/06_vorbereitung.png[]
+
+The next step will try to set up your network configuation automatically, and you can edit the hostname footnote:[this is the name of your yaVDR computer within your network] of your computer:
+
+image:./installation/07_network_name.png[]
+
+Now, the standard user will be created, which will be used to log in for maintenance and admistrative work on your yaVDR system. Please enter the full name:
+
+image:./installation/08_user_name.png[]
+
+The installer will recommend a username. Of course, you can change this accordingly:
+
+image:./installation/09_username.png[]
+
+Please define a secure password.  You will need to enter it twice to avoid typos:
+
+image:./installation/10_password.png[]
+
+Next, the time zone will be set up:
+
+image:./installation/11_zeitzonenvorschlag.png[]
+
+The use of the assembled hard disk(s) will be configured in the next step. The root partition should have not less than 3 GB of size. For the installation of further packages, a size of 8 - 20 GB is recommended. All local media files shall be located underneath /srv/vdr. This is a special, pre-defined location in your yaVDR system. Your VDR recordings will be located in this path, and XBMC expects its media files there as well. Further information regarding the folder structure is available in the section <<directories,*folder structure*>> of this documentation.
+
+Thus, you can let the installer do the partitioning automatically ("*Managed - Use entire hard disk*"). This will create a SWAP partion and the remaining space will be assigned to the root partion (see graphics below).
+Alternately, you can manually create a small partion for the root partion */*, and mount the remaining space (or also another high capacity hard disk) to /srv. The ext4 file system is a good choice.
+
+image:./installation/12_festplatten_partitionieren.png[]
+
+Finally, please confirm that you like to proceed with the suggested partitions:
+
+image:./installation/13_partitionierung_uebernehmen.png[]
+
+The file system(s) will be created and the setup of the system starts:
+
+image:./installation/14_installation_des_grundsystems.png[]
+
+In a last step, please specify whether or not a HTTP proxy server is in use. If this is not the case, (as it is not common for most private networks,) simply leave this field blank:  
+
+image:./installation/15_http_proxy.png[]
+
+The installation will now take some time:
+
+image:./installation/16_installation_der_pakete.png[]
+
+Before the system is ready for the first start, please specify the location for the boot loader. Unless otherwise desired, you can use the default.  This will install Grub in the MBR footnote:[Master Boot Record] of your system hard disk.
+Caution: while this is save for a typical yaVDR computer, please keep in mind that you may require another setup if you operate a multi-boot environment!
+
+image:./installation/17_grub_installation.png[]
+
+Please remove the installation CD and reboot the computer.
+
+image:./installation/18_done.png[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
