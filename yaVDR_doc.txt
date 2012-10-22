@@ -12,5 +12,11 @@ yaVDR Documentation
 :thumbsize: 16
 
 
-include::00_preface.txt[]
-include::01_introduction.txt[]
+include::00_dedication_en.txt[]
+
+include::00_preface_en.txt[]
+
+[[yavdr]]
+== yaVDR ==
+
+include::01_introduction_en.txt[]
