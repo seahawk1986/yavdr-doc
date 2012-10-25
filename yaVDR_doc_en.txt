@@ -1,5 +1,5 @@
 yaVDR Documentation
-====================
+===================
 :Author:   Marcus Zurhorst
 :Email:    marcuszurhorst@gmail.com
 :Date:     October 2012
