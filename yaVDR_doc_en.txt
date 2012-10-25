@@ -1,0 +1,29 @@
+yaVDR Documentation
+====================
+:Author:   Marcus Zurhorst
+:Email:    marcuszurhorst@gmail.com
+:Date:     October 2012
+:Revision: v0.5
+:encoding: UTF-8
+:lang: en
+:version: yaVDR 0.5
+:ubuntu: precise
+:doctype: book
+:thumbsize: 16
+
+include::00_dedication_en.txt[]
+
+include::00_preface_en.txt[]
+
+[[yavdr]]
+== yaVDR ==
+
+include::01_introduction_en.txt[]
+
+include::10_requirements_en.txt[]
+
+include::10_installation_en.txt[]
+
+include::20_first_steps_en.txt[]
+
+<<<<

@@ -1,0 +1,163 @@
+[[first-steps]]
+=== First Steps ===
+
+Right after the installation, yaVDR will have three internet TV stations set up. If the system is connected to the internet, you will see a stream of 3sat (german public TV station).
+
+[TIP]
+.First Steps after the Installation
+=====================================================================
+.The following three items shall be completed to have a useful yaVDR system:
+- <<system-upgrade,update your system>>
+- set up the channel list, e.g.  via  <<wfe-channels,Channelpedia>> in the web frontend
+- <<Remote-HOWTO,set up the remote control>> if it doesn't work out of the box after the installation
+=====================================================================
+
+[[system-upgrade]]
+==== Install the latest updates ====
+
+[CAUTION]
+.Keep your yaVDR system updated
+=====================================================================
+yaVDR receives frequent updates. A lot of "well-known" errors can be avoided when the system is updated on a regular basis.
+
+Especialy *prior* to asking for support in the http://www.vdr-portal.de[forum], please check whether your system is updated. If not, your are asked to update the system, reboot it and check whether or not the error does still occur.
+=====================================================================
+
+.Updating the system
+----
+sudo apt-get update && sudo apt-get dist-upgrade
+----
+
+[[vdr-guide]]
+==== Operating the VDR ====
+
+It is recommended to get familiar with the basic operating instructions and the various configuration options that are presented in the OSD footnote:[On Screen Display], e.g. by reading the user manual: http://vdr-wiki.de/wiki/index.php/Benutzerhandbuch
+
+[[keyboard-table]]
+===== Keyboard Table =====
+
+Even when a remote control adds significant comfort when operating the VDR, it is helpful if the VDR is operatable by the keyboard.
+
+.Keyboard Table in yaVDR
+[cols="h,2*",options="header",width="90%"]
+|=========================================
+|*Key*     |*Function*   |*Comment*
+|*m*         |*Menu*       |
+|*Backspace*  |*Exit*       |Closes the active menu or returns to the upper-level menu
+|*Enter*      |*Ok*         |Outside the OSD menu: small information display Now & Next Shows
+|*Arrow Up*  |*Upwards*  |Outside the OSD menu: *Channel up*
+|*Arrow Down*   |*Downwards* |Outside the OSD menu: *Channel down*
+|*Arrow left*|*To the left* |Outside the OSD menu: Switch of channel group
+|*Arrow right*|*To the right*|Außerhalb des OSD-Menüs Wechsel der Kanalgruppe
+|*i*          |*Info*       |Displays information to a selected list entry (e.g. Recordings, EPG entries, Timer)
+|*p*          |*Power*      |Shuts down VDR. The <<wfe-lifeguard,Lifeguard-addon>> or upcoming timers may interupt or delay this process.
+|*F1*         |*Red*        |The function of the *"red"* key will be shown in the OSD.
+|*F2*         |*Green*       |The function of the *"green"* key will be shown in the OSD.
+|*F3*         |*Yellow*       |The function of the *"yellow"* key will be shown in the OSD.
+|*F4*         |*Blue*       |The function of the *"blue"* key will be shown in the OSD.
+|*F5*         |*Rewind*|
+|*F6*         |*Fast Forward*  |
+|*F10*        |*Mute*       |Toggles the sound on and off
+|*F11*        |*Volume down*     |
+|*F12*        |*Volume up*     |
+|*digit keys*|*Digits 0-9*|
+|==========================================================
+
+[[Remote-HOWTO]]
+===== Configuring the remote control =====
+
+A VDR is not complete unless you can conveniently control it by a remote control.
+{version} supports a wide range of input devices, both infra-red- as well as radio-remote controls. If your own works well out of the box, the steps below may be skipped. If you're combination of remote control and receiver does not automatically work, (or if you're purely interested in background information,) please read the chapters <<eventlirc,remote controls and Eventlircd>> and <<remote.conf,remote.conf>> in this documentation.
+
+Some keys may not work as expected or the VDR does not react on the signals. This is an indicator that yaVDR wasn't able to automatically set up the remote control. The following describes how to proceed in this case:
+
+[TIP]
+.Support Requests in the VDR-Portal
+=====================================================================
+Please gather detailed information regarding your receiver prior to your support request in the http://www.vdr-portal.de/board60-linux/board14-betriebssystem/board96-yavdr/[Forum]. Therefore, add the outputs from the different commands below to your posting. 
+====================================================================
+
+The following is a short guideline that helps to gather required information about your remote control receiver. This eases the search in the internet, supports your help request at http://vdr-portal.de, or when adding your own setup to the yaVDR configuration collection in the https://bugs.yavdr.com/projects/yavdr/issues[yaVDR Bug- & Feature-Tracker].
+
+The appropriate strategy for the setup depends on the on the particular receiver in use. It is recommended to follow the links below for the different receivers to minimize your effort.
+
+.How is your receiver connected?
+* Via <<USB-Remote,USB>>
+* Via <<TV-Card-Remote, TV adapter>>
+* Via <<Serial-Remote, serial port>>
+
+.Special remote controls or receivers
+* <<X10,X10 receiver>>
+* <<lirc_serial,Atric power-on device>>
+* <<lirc_igor,Igor-USB receiver>>
+
+.Further issues
+* Doubled keypresses, reference <<qa-remote,FAQ>>
+* Key needs to be pressed twice with X10 remote controls: <<X10,X10 receiver>>
+
+[[USB-Remote]]
+===== USB receivers and USB DVB sticks =====
+
+[NOTE]
+=====================================================================
+The following commands and their corresponding outputs are given for the "Hama MCE Remote Control". While this example remote control is fully supported out of the box when installing yaVDR, it is still a valid reference.
+=====================================================================
+
+The command lsusb provides and overview about all USB devices that are currently detected by the operating system. It provides information regaring vendor and type of the connected devices.
+
+[[lsusb]]
+.lsusb
+----
+user@yavdr:~$ lsusb
+		       <1>    <2>   <3>
+Bus 002 Device 003: ID 05a4:9881 Ortek Technology, Inc.  <4>
+Bus 002 Device 002: ID 80ee:0021  
+Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
+Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
+----
+<1> Vendor ID
+<2> Product ID	
+<3> Label
+<4> Hama MCE Remote
+
+Running *dmesg* right after plugging an USB device into the system, you'll see whether or not drivers are loaded and device files are created.
+[[dmesg]]
+.dmesg
+----
+user@yavdr:~$ dmesg
+[...]
+[ 7178.064139] usb 2-2: new full speed USB device using ohci_hcd and address 3
+[ 7178.535387] input: HID 05a4:9881 as /devices/pci0000:00/0000:00:06.0/usb2/2-2/2-2:1.0/input/input5
+[ 7178.535645] generic-usb 0003:05A4:9881.0002: input,hidraw1: USB HID v1.10 Keyboard [HID 05a4:9881] on usb-0000:00:06.0-2/input0 <1>
+[ 7178.574745] input: HID 05a4:9881 as /devices/pci0000:00/0000:00:06.0/usb2/2-2/2-2:1.1/input/input6
+[ 7178.574885] generic-usb 0003:05A4:9881.0003: input,hidraw2: USB HID v1.10 Mouse [HID 05a4:9881] on usb-0000:00:06.0-2/input1 <1>
+----
+<1> As you see, there are two input devices (remote control and mouse) recognized.
+
+For further information how the remote control is hooked into the operating system, please follow the recognized devices: <<cat-proc,cat /proc/bus/input/devices>> and work with the section of the documentation that suits to your device.
+
+[[TV-Card-Remote]]
+===== Remote controls of internal TV adapters =====
+
+Receivers that are integral to the TV adapters are usually attached via rc-core and will be configured via <<ir-keytable, ir-keytable>>. There are a few exceptions from this rule.
+Thus, you may check whether or not an corresponding rc-core device has been created:
+
+.rc-core recognized
+----
+user@yavdr:~$ sudo ir-keytable
+Found /sys/class/rc/rc0/ (/dev/input/event3) with:
+	Driver ir-kbd-i2c, table rc-rc5-tv
+	Supported protocols: RC-5
+	Enabled protocols:                  
+Repeat delay = 500 ms, repeat period = 33 ms       
+----
+
+The subsequent setup instructions are described in the section  <<ir-keytable, ir-keytable>> in this manual.
+
+.When there is no rc-core device recognized, the following output is given:
+----
+user@yavdr:~$ sudo ir-keytable
+Couldn't find any node at /sys/class/rc/rc*.
+----
+To identify whether the remote control is recognized and how it is hooked into the sytem, please check the input devices: <<cat-proc,cat /proc/bus/input/devices>>
+
