@@ -27,3 +27,5 @@ include::10_installation_en.txt[]
 include::20_first_steps_en.txt[]
 
 <<<<
+
+include ::21_wfe_en.txt[]
