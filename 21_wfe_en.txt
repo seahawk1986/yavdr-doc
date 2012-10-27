@@ -1,0 +1,208 @@
+[[wfe]]
+=== The Web Frontend ===
+
+The web frontend is accessible via your browser through either IP adress or the hostname of your VDR computer. At the same time, it is the default start adress when starting the pre-installed Mozilla Firefox browser on your yaVDR. The latter one can be reached via the OSD footnote:[On Screen Display] of the VDR (Key "M" on your keyboard or the menu button on your remote control: *Main Menu => "Applications" => "Web"*). Also, you can move the mouse cursor to the middle of the left screen border. Here, a panel will appear where you can select the starter *http:// => Firefox*.
+
+image:wfe/wfe_start.png["Front page of the yaVDR Web Frontend"]
+
+.These three links go to:
+. <<wfe-config,*the configuration web frontend of yaVDR*>>
+. <<vdr-live,*VDR LIVE!*>>
+. <<streamdev-server-http,*the  HTTP interface of the  Streamdev servers*>>
+
+
+[[Dashboard]]
+==== Dashboard ====
+
+.The web frontend starts with the dashboard. This presents an overview about the entire system. Amongst others, the following information is displayed:
+* whether or not the VDR is running
+* free and used hard disk capacity
+* the selected frontend for the VDR
+* screen resolution
+* information regarding shutdown method, CPU, memory and system load
+* the selected options for the audio sinks
+* recordings and upcoming timers
+
+image:wfe/dashboard.png["Dashboard"]
+
+[[wfe-config]]
+==== Overview ====
+
+The majority of the yaVDR settings can be done via the web frontend.
+
+.These are
+* <<wfe-frontend,Setup of VDR frontend>>
+* <<wfe-lifeguard, Lifeguard Addon>>
+* <<wfe-epg_enc,Fix for EPG encoding>>
+* <<wfe-channels,channel management>>
+* <<wfe-remote,remote control(s)>>
+* <<wfe-audio,audio output>>
+* <<wfe-video,graphics settings>>
+* <<wfe-system,system settings>> such as language, shutdown and wakeup methods
+* <<wfe-network,network settings>> to mount remote NFS shares and to wake up remote clients
+* <<wfe-packages,package management>> to install packages for the VDR
+* <<wfe-config-editor,configuration editor>>
+
+[[settings-wfe]]
+==== Settings ====
+The following gives a brief overview about the settings that ca be done through the web frontend:
+
+[[wfe-common]]
+===== VDR: General =====
+image:wfe/logos/preferences-system.png[height=32] 
+
+[[wfe-frontend]]
+
+Here, you can select the VDR frontend. Starting with release {version}, softhddevice is the default when the output is processed by the local graphics adapter of your computer. If you have TT S2-6400 (full-featured HDTV adapter), full-featured SDTV adapter or a Hauppauge PVR350 (analogue adapter card) installed, the corresponding plugins will be automatically installed and aktivated.
+
+image:wfe/settings_frontend.png[]
+
+[[wfe-lifeguard]]
+The <<lifeguard-addon, Lifeguard Addon>> blocks the automatic or manual shutdown of the VDR whn there are any processes or remote connections in use for the selected services:
+
+image:wfe/settings_lifeguard.png[]
+
+[[wfe-epg_enc]]
+The broadcasted EPG footnote:[electronic program guide] of some stations does not comply with the standard. You can set up the VDR that it still displays special characters properly in these cases.
+
+image:wfe/settings_epg_enc.png[]
+
+[[wfe-channels]]
+===== VDR: Channels =====
+image:wfe/logos/address-book-new.png[height=32]
+Here, you can maintain the VDR channels. Available channels can be grouped, reordered (by Drag&Drop) or edited via the context menu (accessible through the context menu).
+You can select multiple channels at once while holding the shift key. The clipboard on the right side can be used as a temporary repository. This is particularly useful if you like to sort channels without scrolling back and forth all the time.
+
+image:wfe/channels.png["Kanalverwaltung"]
+
+Clicking on the image:wfe/left_double.gif[] icon left of the  "Channels" opens the http://channelpedia.yavdr.com/gen/html/index.html[Channelpedia]:
+
+image:wfe/channelpedia.png["Channelpedia"]
+
+All stations in this database can added to the channel list without a channel search. Therefore, use the context menu of a channel or a whole channel group and select to copy the selected entries into the channel list.
+
+image:wfe/channelpedia_add_small.png["Kanal hinzufügen"]
+
+[[wfe-remote]]
+===== Hardware: Remote Control =====
+image:wfe/logos/remote_control.png[height=32] 
+image:wfe/remote.png["Remote Control"]
+
+yaVDR facilitates <<eventlirc,Eventlircd>>, a system service, that recognizes a lot of remote control receivers automatically and sets them up for the remote control which part of the default bundle. These remote controls will work without any further configuration.
+
+Lirc can be activated for special receivers (e.g. the Atric wakeup devices or other ones, that are connected via the <<lirc_serial,serial port>>, or sometimes also the <<X10,X10 receivers>>). The specification of the serial port is mandatory for serial receivers. As before, the keys for some remote controls are already pre-configured. If this is noth case for your remote control, or if you prefer to use another remote control, you have to edit the '/etc/lirc/lircd.conf' file. Keep in mind that you assign key names that comply with the *naming convention*and are aligned with the naming in the '/etc/vdr/remote.conf' file. This makes sure that the remote keys works both with VDR and XBMC.
+Inputs from Lircd will (with support of uinput (userland input)) be directed to Eventlircd and will be passed to VDR similar to the signals of all other Eventlird devices.
+
+[CAUTION]
+.Igor-USB
+=====================================================================
+Do not activate Lirc for Igor USB receivers. See <<lirc_igor,Igor USB receiver>> for setup instructions.
+=====================================================================
+
+[[wfe-audio]]
+===== Hardware: Audio =====
+image:wfe/logos/audio-card.png[height=32] 
+This section allows you to configure the audio sinks for VDR and XBMC. In general, select only the required audio devices to avoid extra system load through Alsa. In case of more complex setups and/or multiple sound adapters in your computer, if may be required to edit <<alsa,alsa>> manually.
+
+[[wfe-video]]
+===== Hardware: Display Settings =====
+image:wfe/logos/video-display.png[height=32] 
+You can set up the use and resolution of attached screens. Furthermore, the deinterlacing methods for SD and HD signals will be configured in this section.
+
+[[overscan]]
+.Overscan
+
+Nvidia introduced a new setting for the compensation of overscan with http://www.nvidia.com/object/linux-display-amd64-302.07-driver.html[version 302.07] of the driver. While the overscan was defined in percent previously, it is now given as so called "view port", with height, width and distance from the upper left corner of the displayed image.
+
+The sketch below provides an overview about these terms:
+
+image:wfe/overscan.png[height=512]
+
+ViewPortIn defines the size of the image that is calculated on the graphics adapter. Afterwards, the image will the scaled to the size of ViewPortOut (*X* x *Y*) and displayed on the screen where it is shifted by *x* and *y* relative to the upper left corner.
+
+To determine the correct parameters, you may display a bright image while moving ViewPortOut via *x* and *y* until the upper left corner is located properly. In a second step, adjust the scaling (*X* and *Y*) until the lower right corner is located properly as well.
+Use the button image:wfe/test-viewport.png[height=24] to test this setting. This will show a preview of the overscan settings.
+
+[[wfe-graphtft]]
+.GraphTFT
+The GraphTFT plugin allows to display status information or the menu of the VDR on another attached screen.
+
+[NOTE]
+.Activate GraphTFT
+=====================================================================
+Right now, the setup of the secondary screen is still tricky. The following describes a strategy which may quite likely yield success if you are faced with issues: 
+
+* Repeat the scanning of screens ("Rescan Displays")
+* Restart the system to make sure that the order of the displays is correct
+* Set up dual screen
+* Check Graphtft and and define resolution and repeat rate of the GraphTFT screen manually
+* If the order of screens is still not correct, define primary and secondary displays again
+=====================================================================
+
+[[wfe-system]]
+===== System: System =====
+image:wfe/logos/computer.png[height=32]
+You can set up the system language on this page. Furthermore, the shutdown and wakeup methods can be specified. Finally, you can define the timeout of the GRUB boot menu.
+
+[[wfe-network]]
+===== System: Network =====
+image:wfe/logos/network-wired.png[height=32] 
+.TODO:
+****
+add image;  add example
+****
+Specify NFS shares from remote computers on this page. Also, you can define the MAC adresses of other computers, that can be woken up by WOL footnote:[Wake On LAN] in the OSD.
+
+[[wfe-edit_config]]
+===== VDR: Edit configuration files =====
+image:wfe/logos/preferences-system.png[height=32]
+You can edit several configuration files directly in you browser. Right now,the following files can be edited via the web frontend:
+
+* '/etc/lirc/lircd.conf'
+* '/etc/vdr/diseqc.conf'
+* '/var/lib/vdr/remote.conf'
+* '/var/lib/vdr/channels.conf'
+* '/var/lib/vdr/.xbmc/userdata/Lircmap.xml'
+
+
+
+[[wfe-packages]]
+===== System: Packages =====
+image:wfe/logos/package-x-generic.png[height=32] 
+The web frontend can be used to maintain plugins, addons and further packages that are related to VDR.
+image:wfe/plugins.png["Plugins nachinstallieren"]
+
+image:wfe/plugins_apt.png[APT Commands]
+Use the buttons above the plugin list to reload the package sources (<<update-packages,"apt-get update">>), uninstall packages that are not required anymore (<<autoremove,"apt-get autoremove">>) and purge the locale copies of downloaded packages Pakete (<<clean,"apt-get clean">>).
+Packages can be installed, removed or (de-)activated via the context menu when clicking with the right mouse button onto the package.
+
+image:wfe/plugin-installation.png["Package Installation"]
+
+
+[[wfe-system-settings]]
+==== System ====
+
+.TODO:
+****
+Explain sub items
+****
+===== Commands =====
+
+* image:wfe/logos/switch-display.png[height=32] Switch temporarly to the second screen
+* image:wfe/logos/reboot.png[height=32] restart your computer
+* image:wfe/logos/xbmc-process-stop.png[height=32] XBMC emergency exit
+* image:wfe/logos/xbmc-edit-delete.png[height=32] reset the XBMC configuration
+* image:wfe/logos/view-refresh.png[height=32] restart VDR
+
+===== Debugging Information =====
+
+* image:wfe/logos/utilities-system-monitor.png[height=32] System Information
+* image:wfe/logos/document-open.png[height=32] System log files
+* image:wfe/logos/xbmc-document-open.png[height=32] XBMC crash log
+* image:wfe/logos/lirc-config.png[height=32] LIRC configuration
+* image:wfe/logos/vdr-config.png[height=32] VDR configuration
+* image:wfe/logos/X11.png[height=32] Xorg Server
+* image:wfe/logos/audio-card.png[height=32] Audio (ALSA)
+* image:wfe/logos/package-x-generic.png[height=32] Package Information
+* image:wfe/logos/drive-harddisk.png[height=32] yaVDR database
+

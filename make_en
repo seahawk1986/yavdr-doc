@@ -1,0 +1,3 @@
+#!/bin/bash
+python /usr/bin/asciidoc -a data-uri -a icons -a lang=en -a toc2 -a toclevels=3 -a theme=flask -o "yaVDR_doc_en.html" "yaVDR_doc_en.txt"
+read -p "Done. Press [ENTER] to exit..."

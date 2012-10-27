@@ -1,0 +1,36 @@
+=== Hardware Requirements ===
+
+yaVDR supports a wide range of TV adapters, remote controls and http://en.wikipedia.org/wiki/Video_Decode_and_Presentation_API_for_Unix[VDPAU]-capable graphics adapters from nVidia.
+
+Starting with release 0.4, yaVDR is exclusively available in a 64bit variant. Thus, an appropriate processing unit footnote:[AMD Athlon64 or better, Intel CPUs with Intel64 support] has to be used.
+////
+In the light of the numerous different configurations, it is quite difficult to define precise hardware requirements. Instead, we will list some example configurations that are basically fully supported by yaVDR:
+
+.Systemempfehlungen - Sinnvoll?
+****
+Macht es Sinn noch alte FF-Karten aufzulisten?
+
+Im Prinzip wäre ja jeweils eine stromsparende Kombinationfür ein Szenario sinnvoll...
+
+Gibt es gute Quellen (außer den Nutzer-Signaturen)?
+****
+////
+The recommended hard disk capacity is strongly dependent on the desired capacity for recordings. The system partition for a default installation of yaVDR should have at least 4 GB. Assigning approx. 6 GB to this partition is preferred. This will have some extra  space for system updates, XBMC meta data or additional software packages.
+Usually, the size of the SWAP partition matches the size of the RAM memory.
+While the bit rates vary from on TV station to another (and also from show to show within the same station), the maximum size of and SDTV recording is approx. 2.7 GB/h. HDTV consumes up to 9 GB/h. For a typical setup, a minimum hard disk capacity of 160 GB is proven design.
+If you plan to archive a lot of recordings, 2 TB (or more) is recommended.
+
+
+http://vdr-wiki.de/wiki/index.php/YaVDR/Hardware-Voraussetzungen[hardware requirements] will answer further questions.
+
+[IMPORTANT]
+.Commissioning Checklist
+=====================================================================
+* VDPAU-capable nVidia graphics adapter or another supported output devide (TT S2-6400, Hauppauge PVR350, full-featured SD adapter) installed?
+* all tuners connected? (If not, don't forget to have an appropriate *udev rule* for the *dynamite plugin* in place!)
+****
+TODO: create udev rule for dynamite and reference it here
+****
+* network cable connected?
+=====================================================================
+

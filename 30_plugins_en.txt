@@ -1,0 +1,4 @@
+=== Plugins ===
+The VDR itself focuses on the core functions such as DVB reception, recordings an a simple EPG administration. Any additional functionality is provided by plugins.
+The page http://vdr-wiki.de/wiki/index.php/Plugins[Plugins] in the VDR Wiki provides a good overview about all plugins and their compatibility with the VDR that is used in yaVDR.
+Most of the compatible plugins are available in the yaVDR package sources and can be conveniently added to your system via the <<wfe-packages,Web frontend>> or the <<install-packages,Shell>>.
