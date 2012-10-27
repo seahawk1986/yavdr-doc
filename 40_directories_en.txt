@@ -1,0 +1,50 @@
+[[directories]]
+=== directory structure ===
+*yaVDR* takes advantag of  multiple services and methods to create a directory structure that supports the merging of local hard disks and remote shares into one file system.
+
+Locally, music, videos and pictures are stored in directories underneath'/srv/'. They are published the network via <<nfs,NFS>> and <<samba,SAMBA>> im Netzwerk. The recordings of VDR are stored in '/srv/vdr/video.00' und will be exported as *recordings* via Samba (see table below)
+
+[[standard-dir]]
+.Standard directories for local multimedia files in yaVDR
+[cols="s,s,s,s",options="header",width="90%"]
+|==========================================================
+|Category     |Path              |NFS          |SAMBA      
+|Pictures     |'/srv/picture'       |'/srv/picture'|*picture*    
+|Music      |'/srv/audio'         |'/srv/audio' |*audio*      
+|Videos     |'/srv/video'         |'/srv/video' |*video*      
+|Recordings  |'/srv/vdr/video.00' footnote:[When there are several video.xx directories, they are exported analogue to this: /srv/vdr/video.01, /srv/vdr/video.02 etc.]  |'/srv/share/vdr' |*recordings* 
+|==========================================================
+
+[[avahi-mounter]]
+==== Avahi Mounter ====
+
+The Avahi mounter is a Python script that is listening for Avahi messages about network shares. If there is an appropriate service configuration for the particular message, the Python script will mount the network share automatically together with the local media to the '/media/<category>/<location of files>'. {version} does this automatically on your computer for all <<standard-dir,local standard directories>>.
+
+If you plan to use a combination of local and remotely mounted files for VDR plugins or XBMC, it is recommended to use '/media/<Category>/' as the standard directory.
+
+The example below shows a directory structure underneath '/media/' on a {version} system, where directories from another computer (also {version}) named "VDR" are mounted automatically. As shown, all local multimedia files are linked into the directory '/local/':
+
+.Output of tree
+----
+/media
+├── Picture
+│   ├── local -> /srv/picture
+│   └── VDR
+├── cdrom
+├── Music
+│   ├── local -> /srv/audio
+│   └── VDR
+├── Record
+├── Other
+└── Video
+    ├── local -> /srv/video
+    └── VDR
+    
+/srv/vdr/video.00/
+└── VDR
+----
+
+[[nfs_mount]]
+==== Mouting NFS Shares ====
+
+There are several options to mount NFS shares in yaVDR. How to set up a server that announces shares per <<avahi-mounter,Avahi Mounter>> tat they are automatically mounted is explained in http://www.yavdr.org/tutorials/mounting-nfs-shares-via-vdr-addon-avahi-mounter/[this articl on the yavdr.org web site]. Directories that contain recordings can also set up in the web frontend in the section <<wfe-network,Network>>.

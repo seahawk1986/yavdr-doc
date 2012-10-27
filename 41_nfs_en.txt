@@ -1,0 +1,8 @@
+[[nfs]]
+=== NFS ===
+
+yaVDR comes along with a pre-configured http://de.wikipedia.org/wiki/Network_File_System[NFS] server that publishs the <<directories,multimedia directories>> to the network. In addition, they will be announced via Avahi. This allows another computer with {version} via the integrated Avahi mounter to e.g. identify all recording directories of all computers with yaVDR >= Version 0.4  in your network and link them to the correct location.
+
+The Avahi mounter can also mount directories from http://de.wikipedia.org/wiki/Network_Attached_Storage[NAS] or other computers. All you need to do is entering the path to the network share in the <<wfe-network,Web Frontend>> and saving the configuration. After a reboot, this new network share should be mounted automatically.
+
+Further directories can be shared via the '/etc/exports' configuration file. The Ubuntuuser wiki hosts a great article about http://wiki.ubuntuusers.de/NFS[NFS], which explains it well also for beginners.
