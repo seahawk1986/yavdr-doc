@@ -1,0 +1,14 @@
+[[samba]]
+=== Samba ===
+
+http://en.wikipedia.org/wiki/Samba_(software)[Samba] replicates the printer and file system shares that are known from Windows. This protocol is well supported in nearly all operation systems. Thus, it is well suited to access the <<directories,multimedia directories>> of the yaVDR from Windows, OS X or Linux systems.
+
+The configuration files are located in '/etc/samba/smb.conf'. The pre-defined <<directories,shares>> of the yaVDR are tied in (via "include" lines):
+
+* '/etc/samba/smb.conf.yavdr.audio' for audio files
+* '/etc/samba/smb.conf.yavdr.custom' for user-defined shares
+* '/etc/samba/smb.conf.yavdr.picture' for pictures
+* '/etc/samba/smb.conf.yavdr.recordings' for recordings
+* '/etc/samba/smb.conf.yavdr.video' for videos
+
+You can specify your own, additional share in the 'smb.conf.yavdr.custom' file. How the entry needs to be speficied and which options are available is described in the wiki articles for the http://wiki.ubuntuusers.de/Samba_Server[Samba server] and for http://wiki.ubuntuusers.de/Samba_Server/smb.conf[smb.conf] configuration file at  http://www.ubuntuusers.de.
