@@ -1,0 +1,35 @@
+[[yaVDR-PPA]]
+=== PPAs for yaVDR ===
+
+yaVDR is using the *stable PPAs* footnote:[*PPA* = **P**ersonal **P**ackage **A**rchive, see http://wiki.ubuntuusers.de/Launchpad/PPA] of the https://launchpad.net/~yavdr[yaVDR team]. The file '/etc/apt/sources.list.d/yavdr.list' includes 4 PPAs and their particular sources:
+
+.'/etc/apt/sources.list.d/yavdr.list'
+----
+# yaVDR-PPAs for {version}
+deb http://ppa.launchpad.net/yavdr/main/ubuntu precise main         <1>
+deb http://ppa.launchpad.net/yavdr/stable-vdr/ubuntu precise main   <2>
+deb http://ppa.launchpad.net/yavdr/stable-xbmc/ubuntu precise main  <3>
+deb http://ppa.launchpad.net/yavdr/stable-yavdr/ubuntu precise main <4>
+
+# sources for the packages in {version}
+deb-src http://ppa.launchpad.net/yavdr/main/ubuntu precise main
+deb-src http://ppa.launchpad.net/yavdr/stable-vdr/ubuntu precise main
+deb-src http://ppa.launchpad.net/yavdr/stable-xbmc/ubuntu precise main
+deb-src http://ppa.launchpad.net/yavdr/stable-yavdr/ubuntu precise main
+----
+<1> *main* hosts drivers for DVB and graphics adapters, customized software packages, addons for VDR etc.
+<2> *stable-vdr* contains the VDR and its plugins
+<3> *stable-xbmc* is the PPA for XBMC
+<4> *stable-yavdr* hosts all yaVDR specific extensions, like e.g. the web frontend, the  Upstart scripts, the Template system etc.
+
+[CAUTION]
+.Using the yaVDR PPAs without yaVDR
+=====================================================================
+Generally, it is possible to use the PPAs *main*, *unstable-/testing-/stable-vdr* und *unstable-/testing-/stable-xbmc* on a regular Ubuntu system, even when it hasn't been installed from the yaVDR installation CD. It is important that you *always* link the main PPA as well, because a lot of packages from the other PPAs rely on the main PPA to resolve dependencies.
+[red]#Regardless of the errors that occur, you are responsible to find a solution on your own. Posts with regard to this do [red underline]*not* belong into the http://www.vdr-portal.de/board60-linux/board14-betriebssystem/board96-yavdr/[yaVDR sub forum]. Instead, you may post thm in the sub forum regarding http://www.vdr-portal.de/board60-linux/board14-betriebssystem/board68-debian-und-derivate/[Debian und seinen Derivaten].#
+
+
+The PPA *unstable-/testing-/stable-yavdr* is not easily useable and may harm your system integrity. The Upstart scripts and other yaVDR specific customizations from this repository may collide with a "regular" Ubuntu desktop installation.
+There is a http://www.vdr-portal.de/board60-linux/board14-betriebssystem/board96-yavdr/p1035108-yavdr-0-4-auf-altem-32bit-notebook/#post1035108[description of some tricks] in the VDR portal how to come *close to a yaVDR* when starting with a Ubuntu minimal installation (e.g. for a 32 bit computer). This instruction worked at the time it was written. This workaround may not work in the future due to changes during the development of yaVDR.
+[red]*Bug fixes for systems that have been installed by these workaround do not have any priority for the yaVDR team.*
+=====================================================================
