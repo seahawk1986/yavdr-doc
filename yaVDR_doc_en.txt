@@ -42,6 +42,7 @@ include::50_remote_en.txt[]
 
 include::60_templates_en.txt[]
 
+include::70_services_en.txt[]
 :leveloffset: +1
 include::41_nfs_en.txt[]
 include::42_samba_en.txt[]
@@ -49,5 +50,4 @@ include::42_samba_en.txt[]
 
 :leveloffset: 0
 include::71_configfiles_en.txt[]
-
 
