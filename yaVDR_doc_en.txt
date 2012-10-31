@@ -51,3 +51,5 @@ include::42_samba_en.txt[]
 :leveloffset: 0
 include::71_configfiles_en.txt[]
 include::75_svdrp_en.txt[]
+
+include::30_plugins_en.txt[]
