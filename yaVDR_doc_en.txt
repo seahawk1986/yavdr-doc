@@ -42,6 +42,7 @@ include::50_remote_en.txt[]
 
 :leveloffset: +1
 include::41_nfs_en.txt[]
+include::42_samba_en.txt[]
 
 
 :leveloffset: 0
