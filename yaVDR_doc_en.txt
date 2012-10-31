@@ -36,6 +36,9 @@ include::25_config_en.txt[]
 == System Description ==
 
 include::40_directories_en.txt[]
+include::43_repositories_en.txt[]
+
+include::50_remote_en.txt[]
 
 :leveloffset: +1
 include::41_nfs_en.txt[]

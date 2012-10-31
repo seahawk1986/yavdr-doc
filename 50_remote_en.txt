@@ -1,0 +1,837 @@
+=== Remote Control ===
+
+A VDR is not complete unless you can conveniently control it by a remote control.
+{version} supports a wide range of input devices, both infra-red- as well as radio-remote controls.
+
+////
+Whether or not your remote control is supported 
+****
+can be read here in the future. (does a list in the yaVDR wiki make sense?)
+****
+////
+
+[TIP]
+.Your support is essential for the yaVDR project.
+=====================================================================================
+In case your remote control is not working OOTB footnote:[Out of the box, that means immdediately working after the installation of yaVDR], please send your configuration files to the developers. This will give them the chance to further enhance the hardware support for upcoming yaVDR versions.
+======================================================================================
+
+[[eventlirc]]
+==== Eventlircd ====
+
+By default, {version} facilitates eventlircd, a system service that helps to harmonize the different drivers and input devices. It acts as a kind of filter, which assesses the key presses of all configured remote controls before it passes them to the VDR.
+
+===== The Theorie footnote:[http://www.vdr-portal.de/board60-linux/board14-betriebssystem/board96-yavdr/p1009867-yavdr-0-4-eventlircd-und-fernbedienungen-die-grundlagen/#post1009867] =====
+
+http://code.google.com/p/eventlircd[*Eventlircd*] translated key presses of input devices footnote:[or "Event Devices", meaning input devices where the driver created an device files underneath '/dev/input/'] into Lirc key presses. Basically, this is similar to the function of the remote plugin, with the exception that only these keys are assessed, where a keymap footnote:[configuration file, which describes the translation of the key press from the remote control into an key press on your computer] is available.
+
+These input devices are e.g. regular keyboards or also remote controls, where the driver registers them as a keyboard. Other remote controls that are attached to DVB adapters register themselfs as keyboards as well from time to time. Finally, there is an new interface for remote controls which is called rc-core. Jarod Wilson footnote:[new maintainer of the Lirc project] ported already a bunch of the existing Lirc drivers as well as some drivers for remote controls connected to DVB adapters to this new interface. Even when this interface is not a regular keyboard driver, it registers its devices as input devices.
+
+Inputs from pointer devices (such as mice, touchpads, tablets) are also attached to the input interface. In these cases, eventlircd will forward them without further processing.
+
+Eventlircd recognizes input devices via <<udev,udev>>, even when a daemon attaches them after the start of the system. This is a one of the greatest advantages of this solution: eventlircd provides a lirc socket for the VDR when it starts, while the input devices are hooked in in parallel. 
+
+Eventlircd recognizes the devices in its field of responsibility by attributes that can assigned to the devices during its initalization. This is done by <<udev-rules,udev rules>>.
+For some devices, this is already working in the standard configuration (devices managed by rc-core, devices that are used by yaVDR developers, or also community contributed configurations that were given to the yaVDR team).
+From the application point of view, the output of eventlircd looks as if it would come from one single input device. 
+
+Since some devices can definetely recognized (e.g. USB devices), the proper configuration can be attached via <<udev-rules,udev rules>>. The configurations fo all these devices can be stored on your system at the same time because udev activates the configuration only for attached devices.
+
+A translation table can (depending on device and/or driver) be passed to eventlircd to customized the key layout (so called <<evmaps,evmaps>>).
+
+You can instruct Lircd footnote:[the LIRC Daemon] via the switch footnote:[a start option] --uinput footnote:[User Level Input Subsystem - an interface that passes userspace inputs to the kernel] to direct its key presses to an device underneath '/dev/input/'. 
+Thus, lircd can be started in parallel to other input devices. In theory, it is even possible to start multiple lircd instances for different input devices with different configuration at the same time.
+For USB licr receivers, an udev rule in '/lib/udev/rules.d/98-lircd.rules' and the lircd_helper, an instance of the lirc daemon is started, and the drivers and lircd.conf files that specified in the udev rule are used. For these devices, no further configuration via the web interface is required. If there are more lirc receivers that do not work out of the box, the appropriate udev rules need to be maintained manually.
+
+[NOTE]
+.Bug when using --uinput
+=====================================================================
+Sadly, recent lirc version are suffering from a bug when forwarding key presses in combination with *--uinput*. This results in doubled key presses at the event device (Instead, the key presses at the real lircd socket are ok!). Thus, {version} facilitates lircd2uinput, to forward key presses from lirc sockets to eventlircd.
+=====================================================================
+
+
+[TIP]
+.All roads lead to eventlircd
+=====================================================================
+image:EventlircdOrganigrammconfigfilesyaVDR0.5.png["Overview of eventlircd",align="center"]
+
+As shown in the graphics above, depending on the driver and the receiver device or DVB adapter, a keypress can be routed totally different paths until it is processed by eventlircd. This background information is important when eventlircd creates signals that do not match what is specified in the *remote.conf* file of yaVDR.
+=====================================================================
+
+////
+****
+[qanda]
+Ich: Gibt es TV-Karten, die direkt ein event-Gerät unter /dev/input/ anlegen ohne rc-core zu benutzen?::
+steffenbpunkt: Ja gibt es
+das war die vorgehensweise vor rc-core
+das ganze ist ja noch sehr neu
+das heisst nur neuere DVB Treiber benutzen rc-core
+****
+////
+
+<<<<
+
+.The advantages of eventlircd are:
+* early availability of teh lirc socket (resulting in a quicker start of the VDR)
+* pre-configuration of several input devices supported
+* Compatible with keyboards, rc-core and lirc devices
+* The manual configuration by the user is not required anymore if remote control and receiver are already known to the yaVDR developers and support was added.
+
+.As with all great concepts, they come along with "disadvantages": 
+* To take advantage of a eventlircd, a standard layout is required, that "normalizes" the keys from the different devices. In consequence, the "learning" function of the VDR is not used anymore.  If your device is not supported yet, this may mean that you have more effort to manually adjust the keys until they match the layout that the yaVDR developers specificed for lirc in der '/var/lib/vdr/remote.conf' file. 
+* Furthermore, lirc requires that the naming of all keys in the lircd.conf file follow the naming convention for input devices. It makes sense to follow the naming of our standard layout. 
+
+The developers referenced the http://www.linuxtv.org/wiki/index.php/Remote_Controllers[documentation on linux-media] (table at the end of page) for the standard layout of yaVDR. The mapping from VDR key and key name is documented here: https://bugs.yavdr.com/projects/1/wiki/IR_Integration_04#Eventmapping[new IR integration for yaVDR 0.4]
+
+[[remote.conf]]
+==== remote.conf ====
+
+[[namespace]]
+[CAUTION]
+.Caution when changing the remote contol in the remote.conf!
+=====================================================================
+yaVDR is optimized for a standardized remote.conf file for VDR and the appropriate Lircmap.xml for XBMC. This ensures that the remote control work properly in VDR and XBMC. This requires, that the names of all buttons in the lirc configuration files, the key tables from ir-core and from devices that are directly attached to eventlird have to comply with the <<namespace-faq,*naming convention* in the input.h header file of the kernel>> and fit to the remote.conf file.
+Otherwise, eventlircd cannot process the buttons properly.
+The customization of this mapping is decribes in this chapter.
+=====================================================================
+
+The remote.conf is located in /var/lib/vdr/remote.conf and belongs to the <<template,templated>> files. You shouldn't modify this file with exception of the configuration for keyboards or maybe special keys on your remote control. It specifies the names of the key presses that are delivered by the buttons of the remote controls. At the same time, the naming is harmonized with the XBMC configuration. Thus, XBMC can be controlled as well without additional customizations on its keymaps. 
+
+The mapping of VDR functions and button names for {version} is shown below:
+
+.Key names complying with naming convention in {version}
+[cols="2s,2s,4e",options="header"]
+|=========================================
+|*remote.conf*     |*Key name by eventlircd*|*Description*
+|LIRC.Up 	|KEY_UP 	|Upwards
+|LIRC.Down 	|KEY_DOWN 	|Downwards
+|LIRC.Menu 	|KEY_MENU 	|Menu
+|LIRC.Ok 	|KEY_OK 	|OK/Enter
+|LIRC.Back 	|KEY_ESC 	|Back
+|LIRC.Left 	|KEY_LEFT 	|To the left
+|LIRC.Right 	|KEY_RIGHT 	|To the right
+|LIRC.Red 	|KEY_RED 	|Red
+|LIRC.Green 	|KEY_GREEN 	|Green
+|LIRC.Yellow 	|KEY_YELLOW 	|Yellow
+|LIRC.Blue 	|KEY_BLUE 	|Blue
+|LIRC.0 	|KEY_0 	|Digit 0
+|LIRC.1 	|KEY_1 	|Digit 1
+|LIRC.2 	|KEY_2 	|Digit 2
+|LIRC.3 	|KEY_3 	|Digit 3
+|LIRC.4 	|KEY_4 	|Digit 4
+|LIRC.5 	|KEY_5 	|Digit 5
+|LIRC.6 	|KEY_6 	|Digit 6
+|LIRC.7 	|KEY_7 	|Digit 7
+|LIRC.8 	|KEY_8 	|Digit 8
+|LIRC.9 	|KEY_9 	|Digit 9
+|LIRC.Info 	|KEY_INFO 	|Info for the current object
+|LIRC.Play 	|KEY_PLAY 	|Play
+|LIRC.Pause |KEY_PAUSE 	|Pause
+|LIRC.Stop 	|KEY_STOP 	|Stop
+|LIRC.Record 	|KEY_RECORD 	|Record
+|LIRC.FastFwd 	|KEY_FASTFORWARD 	|Fast forward
+|LIRC.FastRew 	|KEY_REWIND 	|Rewind
+|LIRC.Next 	|KEY_NEXT 	|Jump forward
+|LIRC.Prev 	|KEY_BACK 	|Jump back
+|LIRC.Power 	|KEY_POWER2 	|Shutdown
+|LIRC.Channel+ 	|KEY_CHANNELUP 	|Channel up
+|LIRC.Channel- 	|KEY_CHANNELDOWN 	|Channel down
+|LIRC.PrevChannel 	|KEY_PREVIOUS 	|back to the previously watched channel
+|LIRC.Volume+ 	|KEY_VOLUMEUP 	|Volume up
+|LIRC.Volume- 	|KEY_VOLUMEDOWN 	|Volume down
+|LIRC.Mute 	|KEY_MUTE 	|Mute
+|LIRC.Subtitles 	|KEY_SUBTITLE 	|View Subtitles
+|LIRC.Schedule 	|KEY_EPG 	|EPG
+|LIRC.Channels 	|KEY_CHANNEL 	|Channel list
+|LIRC.Commands 	|KEY_FAVORITES 	|Favorite keys
+|LIRC.Audio 	|KEY_MODE 	|Select audio mode
+|LIRC.Timers 	|KEY_TIME 	|Timers
+|LIRC.Recordings 	|KEY_PVR 	|Recordings
+|LIRC.Setup 	|KEY_SETUP 	|Setup menu
+|LIRC.User0 	|KEY_TEXT 	|activates teletext (if teletext plugin is installed)
+|LIRC.User1 	|KEY_PROG1 	|User key, e.g. for key macros
+|LIRC.User2 	|KEY_PROG2 	|User key, e.g. for key macros
+|LIRC.User3 	|KEY_PROG3 	|User key, e.g. for key macros
+|LIRC.User4 	|KEY_PROG4 	|User key, e.g. for key macros
+|LIRC.User5 	|KEY_AUDIO 	|User key, e.g. for key macros
+|LIRC.User6 	|KEY_VIDEO 	|User key, e.g. for key macros
+|LIRC.User7 	|KEY_IMAGES |User key, e.g. for key macros
+|LIRC.User8 	|KEY_FN 	|User key, e.g. for key macros
+|LIRC.User9 	|KEY_SCREEN |User key, e.g. for key macros
+|=========================================
+
+[[evmaps]]
+===== evmaps =====
+
+[CAUTION]
+.When are evmaps useful?
+=====================================================================
+evmaps should only be created for devices where no other option to tweak key names exists. For lirc and rc-core devices, it is preferred to create an appropriate configuration file (either <<lirc,lircd.conf>> or <<ir-keytable_keymap,keymap>>) for the proper mapping of the buttons.
+=====================================================================
+
+All key presses that are passed to eventlircd can be modified by translation tables, the so called https://bugs.yavdr.com/projects/yavdr-remote/repository/revisions/master/show/evmaps[evmaps] footnote:[Eventmaps], before they are directed to the VDR. They are located underneath '/etc/eventlircd.d/'. They are either named by device name, driver (e.g. 'ircore.evmap' for devices that work with the *rc-core* driver) or by product- and vendor ID from their <<udev-rules,udev rule>>.
+
+.Example for the syntax in an evmap:
+----
+KEY_PROG1	= KEY_MENU #I am a comment
+----
+In this example, The key event *KEY_PROG1* is renamed. VDR will receive the Lirc event *KEY_MENU*
+
+===== Gathering informationen about the receiver =====
+
+[[cat-proc]]
+.A first overview whether or not the receiver is recognized is provided by the listin of all input devices of the system:
+----
+cat /proc/bus/input/devices
+----
+
+This lists all input devices that have a device node registered underneath '/dev/input/'. SB lirc receivers that are automatically configured, or for the lirc devices that were configured via the web frontend don't have a dedicated entry. They can be recognized by the line *N: Name="lircd"*.
+
+Below is an example with multiple input devices:
+
+----
+user@yaVDR:~$ cat /proc/bus/input/devices
+----
+
+.Power button at the case
+----
+I: Bus=0019 Vendor=0000 Product=0001 Version=0000
+N: Name="Power Button"
+P: Phys=PNP0C0C/button/input0
+S: Sysfs=/devices/LNXSYSTM:00/device:00/PNP0C0C:00/input/input0
+U: Uniq=
+H: Handlers=kbd event0
+B: PROP=0
+B: EV=3
+B: KEY=10000000000000 0
+
+I: Bus=0019 Vendor=0000 Product=0001 Version=0000
+N: Name="Power Button"
+P: Phys=LNXPWRBN/button/input0
+S: Sysfs=/devices/LNXSYSTM:00/LNXPWRBN:00/input/input1
+U: Uniq=
+H: Handlers=kbd event1
+B: PROP=0
+B: EV=3
+B: KEY=10000000000000 0
+----
+
+.Attached keyboards
+----
+I: Bus=0011 Vendor=0001 Product=0001 Version=ab41
+N: Name="AT Translated Set 2 keyboard"
+P: Phys=isa0060/serio0/input0
+S: Sysfs=/devices/platform/i8042/serio0/input/input2
+U: Uniq=
+H: Handlers=sysrq kbd event2
+B: PROP=0
+B: EV=120013
+B: KEY=402000000 3803078f800d001 feffffdfffefffff fffffffffffffffe
+B: MSC=10
+B: LED=7
+----
+
+.directly attached remote contol (here:  Hama MCE Remote with keyboard and mouse function)
+----
+I: Bus=0003 Vendor=05a4 Product=9881 Version=0110 <1>
+N: Name="HID 05a4:9881"
+P: Phys=usb-0000:00:02.0-2/input0
+S: Sysfs=/devices/pci0000:00/0000:00:02.0/usb2/2-2/2-2:1.0/input/input3
+U: Uniq=
+H: Handlers=sysrq kbd event3 <2>
+B: PROP=0
+B: EV=120013
+B: KEY=e080ffdf01cfffff fffffffffffffffe
+B: MSC=10
+B: LED=7
+
+I: Bus=0003 Vendor=05a4 Product=9881 Version=0110 <1>
+N: Name="HID 05a4:9881"
+P: Phys=usb-0000:00:02.0-2/input1
+S: Sysfs=/devices/pci0000:00/0000:00:02.0/usb2/2-2/2-2:1.1/input/input4
+U: Uniq=
+H: Handlers=kbd mouse0 event4 <2>
+B: PROP=0
+B: EV=17
+B: KEY=1f0000 2020000 3878d801d001 1e000000000000 0
+B: REL=103
+B: MSC=10
+----
+<1> The key layout for direclty attached devices can be modified via <<evmaps, evmaps>>
+<2> If you would like to monitor the keypresses of the input device, you need to stop eventlicrd and open the tool <<evtest,evtest>> with the paths '/dev/input/event3' or '/dev/input/event4'.
+
+.Eventlircd
+----
+I: Bus=0003 Vendor=05a4 Product=9881 Version=0110
+N: Name="eventlircd"
+P: Phys=/dev/input/event4
+S: Sysfs=/devices/virtual/input/input5
+U: Uniq=
+H: Handlers=mouse1 event5
+B: PROP=0
+B: EV=7
+B: KEY=10000 0 0 0 0
+B: REL=3
+----
+This input device is always present while eventlircd is running. It is a virtual input device that gathers all key presses of the connected and receivers and forwards themo the VDR.
+
+.rc-core receiver
+----
+I: Bus=0018 Vendor=0000 Product=0000 Version=0000
+N: Name="i2c IR (Hauppauge WinTV PVR-350"
+P: Phys=i2c-2/2-0018/ir0
+S: Sysfs=/devices/virtual/rc/rc0/input6 <1>
+U: Uniq=
+H: Handlers=kbd event6
+B: PROP=0
+B: EV=100013
+B: KEY=108fc010 2468d100000000 0 18000 18040002801 8e168000000000 ffe
+B: MSC=10
+----
+<1> Everytime there is a device with a sysfs path that starts with */devices/virtual/rc/rc*, it can be configured with <<ir-keytable, ir-keytables>>.
+
+.Lirc device with --uinput
+----
+I: Bus=0000 Vendor=0000 Product=0000 Version=0000
+N: Name="lircd"
+P: Phys=
+S: Sysfs=/devices/virtual/input/input7
+U: Uniq=
+H: Handlers=sysrq rfkill kbd event7
+B: PROP=0
+B: EV=100003
+B: KEY=ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff fffffffffffffffe
+----
+
+[[ir-keytable]]
+==== ir-keytable ====
+
+ir-keytable provides information about the input device ('/dev/input/eventX'), the protocol in use and the used drivers for the IR input devices that use *rc-core* or the driver module *ir-core*. Furthermore, this program is responsible to load the key layouts that deviate from the standard in the rc-core drivers.
+[[rc-core_keys]]
+[CAUTION]
+.Customization of the key layout of rc-core receivers
+=====================================================================
+The layout of receivers that are recognized as keyboards can only be changed via evmaps. For  rc-core receivers, this does not make sense. Instead, it is recommended to create a <<ir-keytable_keymap,customized keytable>> which will be <<ir-keytable-load,loaded automatically>>  via an rule in the '/etc/rc_maps.cfg' file during startup.
+
+If all keys provide an output with defined names, the http://www.vdr-portal.de/board60-linux/board14-betriebssystem/board96-yavdr/109471-hilfsskript-f%C3%BCr-rc-core-empf%C3%A4nger/[script from here] will help to create and load a customized keytable. Key names and their function can be adjusted to your individual needs while they are save from updates of the yaVDR keytables.
+=====================================================================
+
+[[ir-keytable-pvr350]]
+.Example for a Hauppauge PVR350 adaptaer with  IR receiver:
+----
+user@yavdr:~$ sudo ir-keytable
+Found /sys/class/rc/rc0/ (/dev/input/event3) with:      <1>
+	Driver ir-kbd-i2c, table rc-rc5-tv              <2>
+	Supported protocols: RC-5                       <3>
+	Enabled protocols:                  
+Repeat delay = 500 ms, repeat period = 33 ms       
+----
+<1> The remote control registered as '/dev/input/event3'
+<2> It uses the *ir-kbd-i2c* driver, and ir-core loaded the key table rc-rc5-tv.
+<3> The supported protocol is http://en.wikipedia.org/wiki/RC-5[*RC-5*]
+
+===== reading loaded keymap(s) =====
+
+The following command prints the mapping of scan codes and key names for a given receiver. This is especially useful when a keymap is loaded, while the naming of the buttons does not comply with the <<remote.conf,*naming convention*>>.
+
+----
+sudo ir-keytable -r
+----
+
+===== Determine scan codes =====
+
+With *ir-keytable*, you can determine key codes of the remote control, e.g. to verify whether or not key presses are recognized at all, or to create a keymap that fits to the file '/vdr/lib/vdr/remote.conf' from yaVDR.
+Since eventlircd captures key presses, you have to <<stop-eventlircd,stop this service>> before. Also, it is recommended to <<stop-vdr,stop the VDR>> upfront, to avoid unintented use of it.
+
+[[pvr350-wok]]
+.example output without loaded keytable
+----
+user@yavdr:~$ sudo ir-keytable -t
+Testing events. Please, press CTRL-C to abort.
+1310546299.271540: event MSC: scancode = 3d
+1310546300.071543: event MSC: scancode = 3b
+1310546301.471538: event MSC: scancode = 01
+1310546301.871547: event MSC: scancode = 02
+1310546302.271537: event MSC: scancode = 03
+----
+
+[[ir-keytable_keymap]]
+===== Creating a keymap =====
+
+You can now create  keymap that fits to your own remote control. Therefore, the hexadecimal scancode needs to to be assigned to a function of the key.
+*scancode = 3d* will become *0x003d*, *scancode = 01* becomes *0x0001* etc.
+
+Is is good practice to store the keymap with a self-explaining name underneath '/etc/rc_keymaps/'. There, it is save and will not be overwritten by yaVDR updates. The keytables that are provided by yaVDR are stored underneath '/lib/udev/rc_keymaps/' and can be used as a template for your own customizations.
+
+.Example for a custom keytable, which would be stored in '/etc/rc_keymaps/pvr350' (extract)
+----
+# table rc-rc5-tv, type: RC-5 <1>
+0x003b KEY_SETUP
+0x003d KEY_POWER2
+0x0001 KEY_1
+0x0002 KEY_2
+0x0003 KEY_3
+[...]
+----
+<1> The first line of the keytable file should mention keytable name as well as the supported protocol type (here: RC-5)
+
+[CAUTION]
+.Comments in the keymaps
+=====================================================================
+ir-keytable does not accept pure comment lines. If a head line is used that specifies the keytable name and the IR protocol, please make sure that you use valid values are used for both parameters.
+
+.Thus, the example below would be *wrong*:
+----
+# table rc-rc5-tv, type  <1>
+# I am a pure comment line  <2>
+0x003b KEY_SETUP
+0x003d KEY_POWER2
+0x0001 KEY_1
+0x0002 KEY_2
+0x0003 KEY_3
+[...]
+----
+<1> protocol type not specified
+<2> pure comment lines are not supported
+
+.Instead, this will be *correct*:
+----
+# table rc-rc5-tv, type: RC-5 <1>
+0x003b KEY_SETUP  #I am a comment <2>
+0x003d KEY_POWER2
+0x0001 KEY_1
+0x0002 KEY_2
+0x0003 KEY_3
+----
+<1> Complete specification of the keytable name and the used IR protocol
+<2> Comments behind the key definition are supported
+
+=====================================================================
+
+[[ir-keytable-load]]
+===== Loading a keymap =====
+
+To support the automated loading of keytables, you have to create a rule for the remote control in '/etc/rc_maps.cfg'. Since this is one of the <<template,templated>> files, you have to create a custom template for your own entries to avoid overwriting by yaVDR update.
+
+.'/etc/rc_maps.cfg'
+----
+# driver          table                           file
+<1> ir-kbd-i2c      rc-rc5-tv                       /etc/rc_keymaps/pvr350
+----
+<1> The driver and the name of the keytable was determined via <<ir-keytable-pvr350,*sudo ir-keytable*>> as described above.
+
+For test purposes, you may load or reset the settings for devices attached to ir-core manually.
+
+[NOTE]
+.How is the rc_maps.cfg file evaluated?
+=====================================================================
+An udev rule in /lib/udev/rules.d/40-ir-keytable.rules is used that loads the keymaps according to the rules in the /etc/rc_maps.cfg fil (ir-keytable -a /etc/rc_maps.cfg).
+=====================================================================
+
+.Manual loading of a keymap by ir-keytable
+
+----
+user@yavdr:~$ sudo ir-keytable -c <1> -p rc-5 <2> -w /etc/rc_keymaps/pvr350 <3>
+----
+<1> *-c* removes all previously loaded keymaps from memory
+<2> *-p <Protokoll>* specifies the IR protocol
+<3> *-w <keymap>* specifies that keymap that will be loaded.
+Further information can be found in the <<manpages,manpage>> of *ir-keytable*.
+
+[[pvr350-wk]]
+.example output of *ir-keytable -t* for the <<pvr350-wok,same keys>> with appropriate keytable
+----
+user@yavdr:~$ sudo ir-keytable -t
+Testing events. Please, press CTRL-C to abort.
+1310546400.571539: event MSC: scancode = 3d
+1310546400.571545: event key down: KEY_POWER2 (0x0164)
+1310546400.571547: event sync
+1310546400.820703: event key up: KEY_POWER2 (0x0164)
+1310546400.820705: event sync
+1310546401.471543: event MSC: scancode = 3b
+1310546401.471551: event key down: KEY_SETUP (0x008d)
+1310546401.471553: event sync
+1310546401.720700: event key up: KEY_SETUP (0x008d)
+1310546401.720703: event sync
+1310546406.271547: event MSC: scancode = 01
+1310546406.271556: event key down: KEY_1 (0x0002)
+1310546406.271558: event sync
+1310546406.520700: event key up: KEY_1 (0x0002)
+1310546406.520703: event sync
+1310546407.071539: event MSC: scancode = 02
+1310546407.071543: event key down: KEY_2 (0x0003)
+1310546407.071545: event sync
+1310546407.320705: event key up: KEY_2 (0x0003)
+1310546407.320709: event sync
+1310546407.871539: event MSC: scancode = 03
+1310546407.871544: event key down: KEY_3 (0x0004)
+1310546407.871546: event sync
+1310546408.120700: event key up: KEY_3 (0x0004)
+1310546408.120702: event sync
+----
+
+
+[[evtest]]
+==== evtest ====
+
+*evtest* is a program that allows to gather detailed information about a device that is registered underneath '/dev/input/event<X>'. It can be installed via the package *evtest* if not done already. To see  the output of key presses, <<stop-eventlircd,eventlircd needs to be stopped>> before.
+
+----
+user@yavdr:~$ sudo evtest /dev/input/event3
+Input driver version is 1.0.1
+Input device ID: bus 0x18 vendor 0x0 product 0x0 version 0x0    <1>
+Input device name: "i2c IR (Hauppauge WinTV PVR-350"            <2>
+Supported events:
+  Event type 0 (Sync)
+  Event type 1 (Key)                                            
+    Event code 1 (Esc)                                          <3>
+    Event code 2 (1)
+    Event code 3 (2)
+    Event code 4 (3)
+    Event code 5 (4)
+    Event code 6 (5)
+    Event code 7 (6)
+    Event code 8 (7)
+    Event code 9 (8)
+    Event code 10 (9)
+    Event code 11 (0)
+    Event code 103 (Up)
+    Event code 105 (Left)
+    Event code 106 (Right)
+    Event code 108 (Down)
+    Event code 113 (Mute)
+    Event code 114 (VolumeDown)
+    Event code 115 (VolumeUp)
+    Event code 119 (Pause)
+    Event code 128 (Stop)
+    Event code 139 (Menu)
+    Event code 141 (Setup)
+    Event code 158 (Back)
+    Event code 167 (Record)
+    Event code 168 (Rewind)
+    Event code 207 (Play)
+    Event code 208 (Fast Forward)
+    Event code 352 (Ok)
+    Event code 356 (Power2)
+    Event code 358 (Info)
+    Event code 359 (Time)
+    Event code 363 (Channel)
+    Event code 365 (EPG)
+    Event code 366 (PVR)
+    Event code 370 (Subtitle)
+    Event code 373 (Mode)
+    Event code 388 (Text)
+    Event code 398 (Red)
+    Event code 399 (Green)
+    Event code 400 (Yellow)
+    Event code 401 (Blue)
+    Event code 402 (ChannelUp)
+    Event code 403 (ChannelDown)
+    Event code 407 (Next)
+    Event code 412 (Previous)
+  Event type 4 (Misc)
+    Event code 4 (ScanCode)
+  Event type 20 (Repeat)
+Testing ... (interrupt to exit)
+----
+<1> product- and vendor ID
+<2> Product name, e.g. for a udev rule
+<3> starting here, all available keys of the remote control are listed
+
+[[udev]]
+==== udev ====
+
+http://wiki.ubuntuusers.de/udev[udev] is a service that allows to recognize and register hardware dynamically. Each device is usually equipped with unique identification characteristics by the vendor. Thus, <<udev-rules,udev rules>> can specify which drivers, modules or commands shall be activated when the device is recognized.
+
+[[udev-rules]]
+===== udev rules =====
+
+Rules in the file https://github.com/yavdr/yavdr-remote/blob/master/udev/98-eventlircd.rules['/lib/udev/rules.d/98-eventlircd.rules'] can specify which configurations are loaded by eventlircd for USB remote controls.
+
+.Example for an entry in '/lib/udev/rules.d/98-eventlircd.rules'
+----
+ENV{ID_VENDOR_ID}=="0419", ENV{ID_MODEL_ID}=="0001", \                      <1>
+  ENV{eventlircd_enable}="true",\                                           <2>
+  ENV{eventlircd_evmap}="03_$env{ID_VENDOR_ID}_$env{ID_MODEL_ID}.evmap"     <3>
+----
+<1> The remote control is identified by ID_VENDOR_ID and ID_MODEL_ID (see <<evtest,evtest>>)
+<2> allows eventlircd to evaluate the inputs from this device
+<3> Loads the <<evmaps,evmap>> for the device. In this example, the environment variables will be replaced, which results in the name "03_0419_0001.evmap". Accordingly, the file '/etc/eventlircd.d/03_0419_0001.evmap' will be loaded.
+
+
+[CAUTION]
+.Corner cases
+=====================================================================
+Sometimes, it may not be possible to reliably determine the receiver exactly by vendor ID and model ID. (e.g. X10 receivers).
+Thus, further udev attributes will be evaluate. The special udev rules for these receivers are stored underneath '/lib/udev/rules.d/98-eventlircd-names.conf'.
+=====================================================================
+
+[[udev-tools]]
+===== udev crash course =====
+
+.TODO:
+****
+* Further information on udev, packaged and user-defined rules, determination of udev attributes <<
+****
+
+.TODO
+****
+* udev for USB remote controls
+****
+
+Further information abot the input device can be gathered via udevadm. This is well suited if you like to determine further attributes for <<udev-rules,udev rules>>:
+
+[[udevadm]]
+.udevadm
+----
+user@yavdr:~$ sudo udevadm info --query=all --attribute-walk --name=/dev/input/event4
+
+Udevadm info starts with the device specified by the devpath and then
+walks up the chain of parent devices. It prints for every device
+found, all possible attributes in the udev rules key format.
+A rule to match, can be composed by the attributes of the device
+and the attributes from one single parent device.
+
+  looking at device '/devices/virtual/input/input4/event4':
+    KERNEL=="event4"
+    SUBSYSTEM=="input"
+    DRIVER==""
+
+  looking at parent device '/devices/virtual/input/input4':
+    KERNELS=="input4"
+    SUBSYSTEMS=="input"
+    DRIVERS==""
+    ATTRS{name}=="Sundtek Ltd. Remote Control"
+    ATTRS{phys}==""
+    ATTRS{uniq}==""
+    ATTRS{modalias}=="input:b0003v0000p0000e0001-e0,1,2,4,14,k71,72,73,74,80,9E,A7,AE,CF,161,174,18E,18F,190,191,192,193,ramlsfw"
+----
+
+[[irw]]
+==== irw ====
+
+The command *sudo irw* shows the keys that are recognized by the VDR When eventlircd is <<status-remoted,started>>. The output of the recognized keys has to be <<control-c,cancelled>> via *Ctrl + c*.
+*irw* can also listen to lircd sockets, when the path to the socket is specified.
+
+.irw with a Hama MCE Remote while eventlircd is running
+----
+user@yavdr:~$ sudo irw
+<1> <2>  <3>       <4>
+67 0 KEY_UP   devinput
+6c 0 KEY_DOWN devinput
+----
+<1> key code
+<2> keypress 0=Event
+<3> name of the key
+<4> The keys are where passed to eventlircd by the devinput system
+
+.irw for lircd for the example of an Atric receiver footnote:[http://www.atric.de/IR-Einschalter/index.php] with a Hauppauge A415-HPG-WE remote control
+----
+# determine PID of lircd
+user@yavdr:~$ sudo pidof lircd
+765
+user@yavdr:~$ sudo irw /var/run/lirc/lircd.765
+<1>               <2>  <3>      <4>
+0000000000001794 00 KEY_UP hvr4000-2
+0000000000001794 01 KEY_UP hvr4000-2
+0000000000001795 00 KEY_UP hvr4000-2
+0000000000001795 01 KEY_UP hvr4000-2
+
+# If you are certain that there is only one instance of lircd running, this can be shortend to:
+sudo irw /var/run/lirc/lircd.$(pidof lircd)
+----
+<1> key code
+<2> 00=key pressed, 01=key released
+<3> name of the key
+<4> used remote control from the lircd.conf file for the key mapping
+
+
+==== lircd2uinput ====
+
+lircd2uinput is a brigde that directs the key presses of a lirc socket to a virtual HID device. This device can then be attached to (and used by) eventlircd via an udev rule.
+In {version}, this is used for all lirc receivers and the irserver. Also, futher services that provide key presses to a lirc socket can be connected to eventlircd.
+
+In the default setup, lircd2uinput directs all key presses to eventlircd, that show up on the lirc socket. If you're faced with doubled key presses or your remote control reacts generally too quick, you may like to define a repeat filter. This can be activated in the web frontend on the remote control settings page, and fine tuning can be done in the config file in /etc/yavdr/lircd2uinput.conf. The following parameters are available:
+
+----
+$ lircd2uinput -h
+Usage: lircd2uinput [options]
+
+Options:
+  -h, --help            show this help message and exit
+  -f, --repeat-filter   enable repeat-filter
+  -s LIRCD_SOCKET, --lircd-socket=LIRCD_SOCKET
+                        choose lircd socket to listen on
+  -d, --debug           enable debug mode
+  -x, --xbmc            enable xbmc single keypress mode
+  -l MIN_GAP, --min-gap=MIN_GAP
+                        set minimum gap between repeated keystrokes (default
+                        150000 µs) - needs active repeat-filter
+  -u MAX_GAP, --max-gap=MAX_GAP
+                        set maximum gap between repeated keystrokes (default
+                        300000 µs) - needs active repeat-filter
+  -r WAIT_REPEATS, --min-repeats=WAIT_REPEATS
+                        number of repeats before using accelerated keypresses
+                        (default = 2) - needs active repeat-filter
+  -t TIMEOUT, --timeout=TIMEOUT
+                        release key after x ms no following key is received
+                        (default = 200 ms)
+  -a ACCELERATION, --acceleration=ACCELERATION
+                        acceleration to get from MAX_GAP to MIN_GAP. default
+                        value of 0.25 equals 4 repeated keystrokes to reach
+                        maximum speed - needs active repeat-filter
+----
+
+
+==== IR-Server ====
+Some casings from Origen attach their remote to the IR server. The configuration files for these remote controls are located in the directory '/usr/share/irtrans/remote/'. The key names have to *comply to the naming convention*, or they will not work in {version}. The IR server provides a lirc socket. The received key presses will be forwarded to eventlircd with the help of lircd2uinput.
+
+[[lirc]]
+==== LIRC Empfänger ====
+
+////
+.TODO:
+****
+* lircd.conf, hardware.conf
+* Beispielhardware lirc_ttusbir, lirc_parallel, lircd interne userspace treiber usw.
+
+Chat-Auszug:
+
+[qanda]
+Ich: Und was wären Beispiele für weitere Geräte neben Seriellen Empfängern, die über Lircd laufen?::
+steffenbpunkt: lirc_ttusbir
+lirc_parallel
+lircd interne userspace treiber
+noch ein paar andere [...]
+Ich: Ok, danke - dann werde ich die noch als Beispiele aufnehmen. Zur Konfigurationshilfe (mangels passender Hardware kann ich da leider nicht alles ausprobieren): Wenn der Nutzer noch nicht weiß wie sein Empfänger eingebunden ist, wird er aber höchstens lirc_ttusbir unter den automatisch geladenen Modulen finden und lirc_serial und lirc_parallel muss er von Hand oder über das Webfrontend in der lircd-Konfiguration einstellen.::
+steffenbpunkt: genau, der Name des lirc Gerätes is in eventlircd fest eingebunden, devinput wurde wohl in Anlehnung an die lircd.conf des devinput Modus von lircd gewählt. Das es nur einen Namen gibt ist zumindest für XBMC sinnvoll, da XBMC diesen Namen auswertet.
+****
+////
+
+{version} does also support lirc receivers. If they can be properly identified, they will either be configured via an udev rule footnote:[pre-configured rules are defined in /lib/udev/98-lircd.rules; lircd is started with these rules with the help of lircd_helper (siehe '/lib/udev/lircd_helper')] or via the <<wfe-remote,web frontend>>.
+
+Lirc receivers that are configured via the web frontend usually have to be configured by hand in the /etc/lirc/lircd.conf. The defintions for the remote key buttons need to be added their. This can be done via the web frontend (<<wfe-edit_config,"edit configuration files">>) or per SSH or a local terminal.
+
+
+[[lirc_serial]]
+===== Serial receivers =====
+
+It is hard to automatically configure serial receivers like e.g. the Atric receiver or homebrew receivers because they can be used with random remote controls. Nevertheless, it is easy to set them up for yaVDR with <<lirc,lirc>>.
+
+.Settings in the web frontend
+Check the box "lirc support" in the section <<wfe-remote,remote control>> of the yaVDR web frontend and select the appropriate receiver in the list.
+For the Atric wakeup board, the proper entry is "*Home-brew (16x50 UART compatible serial port)*". Furthermore, you need to specify th serial port where the board is attached. The numbering is usually aligned with the specification in the user manual of your mainboard.
+
+.Customization of the lircd.conf file
+Now, the correct lircd.conf file has to be copied to '/etc/lirc/lircd.conf'. The key names have to <<namespace-faq,comply with the naming convention>> that is defined in th input.h kernel header and should be aligned with the <<remote.conf,remote.conf>>, if you like to use them with VDR and XBMC. This will make sure that the remote control can be used with VDR and XBMC without further configuration.
+
+.This example compares the old lircd.conf with the lircd.conf
+
+.yaVDR 0.3 or the "old" lircd.conf
+----
+[...]
+begin codes
+          Up                   0x1794
+          Down                 0x1795
+          Ok                   0x17A5
+          left                 0x1796
+          right                0x1797
+          info                 0x179B
+[...]
+----
+
+.{version} or the "new" lircd.conf
+----
+[...]
+begin codes
+          KEY_UP                   0x1794
+          KEY_DOWN                 0x1795
+          KEY_OK                   0x17A5
+          KEY_LEFT                 0x1796
+          KEY_RIGHT                0x1797
+          KEY_INFO                 0x179B
+[...]
+----
+
+After a <<restart-eventlircd,restart of eventlircd>>, the remote controls connected to the serial receivers can be used.
+The key presses from lircd can be monitored by irw at '/var/run/lirc/lircd.<PID>'.
+
+[[lirc_igor]]
+===== Igor USB =====
+
+For the Igor USB receivers, you only need to copy an <<namespace, appropriate>> lircd.conf to /etc/lirc/. An udev rule will automatically start and lircd process, and its output will be evaluated by eventlircd. The socket of lircd is usually at '/var/run/lirc/lircd-lirc0' and be monitored by <<irw, irw>>.
+
+[CAUTION]
+.Remote control settings in the web frontend!
+=====================================================================
+Do not activate lirc in the web frontend when using Igor USB receivers. Otherwise, two separate lircd processes will be startet which will block themselfs with the consequence that the remote control is not running!
+=====================================================================
+
+[[lirc_yausbir]]
+===== yaUsbIr =====
+
+The yaUsbIr receiver footnote:[see [http://www.vdr-portal.de/board18-vdr-hardware/board13-fernbedienungen/111753-yausbir-lirc-f%C3%A4higer-usb-ir-empf%C3%A4nger-sender-mit-einschalter/?s=fe5464cec7949ed10dfae76056ae1404df47e899]] combines an IR receiver and an wakeup device that is connected to the USB port. Thus, it is an interesting alternative to Atric receivers that are currently only available for the serial port. Maybe due to a bug in libusb (there are wrong "remove" events in Ubuntu), the yaUsbIR cannot be configuresd via udev rules. Instead, it has to activated manually in the yaVDR web frontend.
+
+[[X10]]
+==== X10-Fernbedienungen ====
+The new kernel version 3.2.x in {version} registers X10 receivers via the rc-core system.
+
+[CAUTION]
+.Changes by linux-media-dkms and the kernel 3.2.x
+=====================================================================
+The drivers that are shipped with the kernel will not recognize the devices as keyboard-like devices anymore. Instead, a new driver module (which is also called *ati_remote*) will register them as <<ir-keytable,rc-core devices>>. Accordingly, the <<rc-core_keys,customization of the key names>> should be done via your own keytables.
+=====================================================================
+
+[NOTE]
+.X10 remote controls with a scroll wheel
+=====================================================================
+Right now, the default kernel module ati_remote, that used in {version}, doesn't support the scroll wheel of some X10 remote controls. A proposal for a possible patch is described at: [http://www.vdr-portal.de/board18-vdr-hardware/board13-fernbedienungen/p1059478-fortgeschrittenes-linux-problem-mit-der-scrollrad-x10/#post1059478]
+=====================================================================
+
+[[bluetooth]]
+==== Bluetooth devices ====
+
+In general, yaVDR supports bluetooth devices that are recognized as input devices. You need to decide whether the device is only used as a keyboard / mouse, or as a remote control for VDR and XBMC.  The second option requires some crafting of udev rules, as described below. 
+
+[[bt-pairing]]
+===== Pairing =====
+
+Each Bluetooth device that shall communicate with yaVDR needs to authenticate itself first. To avoid dependencies to adimistration tools with a user interface, we suggest the tools from the package *bluez-utils*. This package may need to be installed separately.
+
+.Display all Bluetooth adapters - provides the hci<X> device
+-----
+hciconfig
+-----
+
+.Lookup of devices (have to be visible; for the PS3 Remote BD you need to press "Start" + "Enter" simultanously)
+-----
+sudo bluez-test-discovery
+-----
+
+Here, you can pick the desired devide and note down the value for the "Address".
+
+.The authentification for devices with a display may require a PIN entry for the pairing, which can be done via:
+-----
+sudo bluez-simple-agent hci<X> <address>
+-----
+
+.For devices such as the PS3 Remote or other bluetooth remote controls and keyboards without a default pin:
+-----
+sudo bluez-test-device create <address>
+sudo bluez-test-device trusted <address> yes
+-----
+
+.Connect to the device for test purposes:
+----
+sudo bluez-test-input connect <address>
+----
+
+The PS3 Remote BD is directly usable after the initial pairing. Its keys are configured via the '/etc/eventlircd.d/ps3remote.evmap'.
+
+
+
+
+
+
+
+
