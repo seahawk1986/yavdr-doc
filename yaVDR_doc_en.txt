@@ -44,3 +44,7 @@ include::50_remote_en.txt[]
 include::41_nfs_en.txt[]
 
 
+:leveloffset: 0
+include::71_configfiles_en.txt[]
+
+
