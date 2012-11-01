@@ -687,7 +687,7 @@ Options:
 Some casings from Origen attach their remote to the IR server. The configuration files for these remote controls are located in the directory '/usr/share/irtrans/remote/'. The key names have to *comply to the naming convention*, or they will not work in {version}. The IR server provides a lirc socket. The received key presses will be forwarded to eventlircd with the help of lircd2uinput.
 
 [[lirc]]
-==== LIRC Empfänger ====
+==== LIRC Receivers ====
 
 ////
 .TODO:
@@ -773,7 +773,7 @@ Do not activate lirc in the web frontend when using Igor USB receivers. Otherwis
 The yaUsbIr receiver footnote:[see [http://www.vdr-portal.de/board18-vdr-hardware/board13-fernbedienungen/111753-yausbir-lirc-f%C3%A4higer-usb-ir-empf%C3%A4nger-sender-mit-einschalter/?s=fe5464cec7949ed10dfae76056ae1404df47e899]] combines an IR receiver and an wakeup device that is connected to the USB port. Thus, it is an interesting alternative to Atric receivers that are currently only available for the serial port. Maybe due to a bug in libusb (there are wrong "remove" events in Ubuntu), the yaUsbIR cannot be configuresd via udev rules. Instead, it has to activated manually in the yaVDR web frontend.
 
 [[X10]]
-==== X10-Fernbedienungen ====
+==== X10 Remote Controls ====
 The new kernel version 3.2.x in {version} registers X10 receivers via the rc-core system.
 
 [CAUTION]
