@@ -1,0 +1,4 @@
+[[dynamite]]
+==== Dynamite Plugin ====
+This plugin supports to attach or dettach DVB adapters dynamically in VDR without the neccessity to restart VDR. This may speed up the start of VDR significantly, because e.g. there's no need anymore to wait for "slow" USB DVB adapters. As soon as these devices are initialized, they will be attached to the VDR with the help of some udev rules. Once this is done, they are ready to be used.
+A future version of the plugin may introduce an optional, automated shutdown of these adapters. This may save power, and the adapters are supposed to have longer life as well.
