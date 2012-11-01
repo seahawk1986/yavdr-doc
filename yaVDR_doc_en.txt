@@ -59,3 +59,9 @@ include::30_plugins_en.txt[]
 include::80_restfulapi-plugin_en.txt[]
 
 include::81_dynamite-plugin_en.txt[]
+
+
+
+:leveloffset: -1
+
+include::90_xbmc_en.txt[]
