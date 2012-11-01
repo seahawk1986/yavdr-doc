@@ -65,3 +65,7 @@ include::98_debugging_en.txt[]
 :leveloffset: -1
 
 include::90_xbmc_en.txt[]
+
+include 101_linux_en.txt[]
+
+:leveloffset: 0
