@@ -28,7 +28,7 @@ include::20_first_steps_en.txt[]
 
 <<<<
 
-include ::21_wfe_en.txt[]
+include::21_wfe_en.txt[]
 
 include::25_config_en.txt[]
 
@@ -40,7 +40,22 @@ include::43_repositories_en.txt[]
 
 include::50_remote_en.txt[]
 
+include::60_templates_en.txt[]
+
+include::70_services_en.txt[]
 :leveloffset: +1
 include::41_nfs_en.txt[]
+include::42_samba_en.txt[]
+
+:leveloffset: 0
+include::71_configfiles_en.txt[]
+include::75_svdrp_en.txt[]
+
+include::30_plugins_en.txt[]
 
 
+
+
+include::80_restfulapi-plugin_en.txt[]
+
+include::81_dynamite-plugin_en.txt[]

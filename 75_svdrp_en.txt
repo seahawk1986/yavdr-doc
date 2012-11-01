@@ -1,0 +1,27 @@
+[[svdrp]]
+==== SVDRP ====
+
+SVDRP footnote:[Simple VDR Protocol] enables to establish a basic TCP connection to port 6419 of the yaVDR system to communicate with and control the VDR.
+Detailed information can be found in the http://vdr-wiki.de/wiki/index.php/SVDRP[article about SVDRP] in the VDR wiki.
+The communication between client and servers via SVDRP is used (amongst others) for the VDR plugins such as remotetimers, epgsync and streamdev-client. If you like to use any of plugins, it is required to grant access on the server as described below:
+
+[[svdrp-config]]
+[NOTE]
+.Remote access
+=====================================================================
+Remote access via SVDRP requires the customization of the '/etc/vdr/svdrphosts.conf' file. Some examples are given below:
+=====================================================================
+
+.Example entries in '/etc/vdr/svdrphosts.conf'
+----
+127.0.0.1       <1>
+192.168.1.115   <2>
+192.168.1.0/24  <3>
+192.168.1.0/16  <4>
+0.0.0.0/0       <5>
+----
+<1> Do not remove this entry! Otherwise, VDR cannot communicate properly with certain plugins!
+<2> Grants access for the computer with the IP address 192.168.1.115
+<3> Grants access for all computers that have an IP address which starts with 192.168.1.
+<4> Grants access for all computers that have an IP address which starts with 192.168. (this is a class C sub net)
+<5> Regardless of the IP address, all computers have access (Caution: this enables unprotected access to the VDR from outside, unless your network is not protected by a router with NAT footnote:[http://en.wikipedia.org/wiki/Network_Address_Translation[Network Address Translation]] or a firewall!)

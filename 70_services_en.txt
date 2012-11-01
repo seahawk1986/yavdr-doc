@@ -1,0 +1,83 @@
+[[services]]
+=== yaVDR services ===
+
+The proper function of yaVDR requires certain programs to run in the background (as services). Others are only required temporary, e.g. to run a program with certain priviliges.
+****
+.TODO:
+Samba,  
+Avahi mounter, 
+web frontend
+****
+
+==== Upstart ====
+
+http://upstart.ubuntu.com/[Upstart] is one of the most important system services in yaVDR. It is responsible to start other programs. This is e.g. the VDR itself, but also services for the remote control, for openbox, and many more.
+
+.The command below prints a list of entries that are maintained by Upstart:
+----
+initctl list
+----
+
+[[Services]]
+.The following commands control services. They may get important if you like to change your system manually:
+--------------------------------------------------------------------------------------------------------------------------------------------------
+sudo start <service>   <1>
+sudo stop <service>    <2>
+sudo restart <service> <3>
+sudo status <service>  <4>
+--------------------------------------------------------------------------------------------------------------------------------------------------
+<1> starts a service
+<2> stops a service
+<3> restarts a service (usually an acronym for stop followed by an immediate start)
+<4> displays the status of a service (whether or not it is active right now)
+
+
+
+===== Examples =====
+
+The following examples explain how to control services in yaVDR. They can be easily tranferred to other services like e.g. *openbox*, *vdr-frontend* or *lircd*.
+
+.VDR
+[[start-vdr]]
+.starts VDR 
+----
+sudo start vdr
+----
+[[stop-vdr]]
+.stops VDR
+----
+sudo stop vdr
+----
+[[restart-vdr]]
+.restarts VDR
+----
+sudo restart vdr
+----
+[[status-vdr]]
+.displays the status of the VDR service
+----
+sudo status vdr
+----
+
+.eventlircd
+[[start-eventlircd]]
+.starts eventlircd
+----
+sudo start eventlircd
+----
+[[stop-eventlircd]]
+.stops eventlircd
+----
+sudo stop eventlircd
+----
+
+[[restart-eventlircd]]
+.restarts eventlircd
+----
+sudo restart eventlircd
+----
+[[status-eventlircd]]
+.displays the status of the eventlircd service
+----
+sudo status eventlircd
+----
