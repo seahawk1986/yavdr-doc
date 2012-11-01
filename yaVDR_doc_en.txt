@@ -53,9 +53,19 @@ include::75_svdrp_en.txt[]
 
 include::30_plugins_en.txt[]
 
-
+include::32_xvdr-plugin_en.txt[]
 
 
 include::80_restfulapi-plugin_en.txt[]
 
 include::81_dynamite-plugin_en.txt[]
+
+include::98_debugging_en.txt[]
+
+:leveloffset: -1
+
+include::90_xbmc_en.txt[]
+
+include 101_linux_en.txt[]
+
+:leveloffset: 0

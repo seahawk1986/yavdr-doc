@@ -1,0 +1,45 @@
+=== XBMC ===
+
+We recommend to read in the http://wiki.xbmc.org/index.php?title=Main_Page[XBMC wiki] to get familiar with the control and complex configuration options of XBMC.
+
+==== Configuration Files ====
+
+XBMC store its global configuration files, addons and skins underneath '/usr/share/xbmc/' and '/usr/lib/xbmc/'. In addition, there are user settings stored in the '.xbmc/' directory in the *$HOME* directory. For yaVDR, XBMC runs in the context of user *vdr*. Thus, these user settings are stored in '/var/lib/vdr/.xbmc/'. The user settings have priority over the global settings.
+
+.Overview about the most important files and directories
+----
+/var/lib/vdr/.xbmc/
+├── addons                    # downloaded addons
+├── temp                      # temporary files, log files
+│   └── xbmc.log
+└── userdata
+    ├── addon_data            # addon settings
+    ├── Database              # databases for...
+    │   ├── Addons15.db       # ...addons
+    │   ├── CDDB              # ...CD meta data
+    │   ├── Epg7.db           # ...EPG
+    │   ├── MyMusic18.db      # ...music
+    │   ├── MyPrograms3.db    # ...XBMC scripts
+    │   ├── MyVideos61.db     # ...videos (films, series)
+    │   ├── TV20.db           # ...PVR addons
+    │   └── ViewModes4.db     # ...view settings for the different modes in XBMC
+    ├── keymaps     
+    │   └── remote.xml        # functions of the XBMC-internal key names
+    ├── playlists             # playlists
+    ├── advancedsettings.xml  # advanced settings (needs to be created manually)
+    └── Lircmap.xml           # mapping from eventlircd to XBMC-internal key names
+----
+
+==== Log ====
+
+XBMC writes its log to '/var/lib/vdr/.xbmc/temp/xbmc.log'. Please <<posting_files,post>> this log file together with a description of your problem in case that XBMC crashs or malefunctions occur.
+
+==== Remote Control, Keyboard and Mouse ====
+
+The keyboard is configured in the file '/usr/share/xbmc/system/keymaps/keyboard.xml'. If you like to customize this, please create a copy of this file to the user settings in '/var/lib/vdr/.xbmc/userdata/keymaps/' and edit it there. Refer to the http://wiki.xbmc.org/index.php?title=Keymap.xml[Keymap.xml in XBMC wiki] for details about the syntax of the file.
+
+The configuration of the remote control behavior in XBMC is done via two templated files: 
+
+[horizontal]
+Lircmap.xml:: The file '/var/lib/vdr/.xbmc/userdata/Lircmap.xml' maps key names sent by eventlircd onto XBMC-internal key names.footnote:[http://wiki.xbmc.org/index.php?title=Userdata/lircmap.xml]
+remote.xml:: In '/var/lib/vdr/.xbmc/userdata/keymaps/remote.xml', the function of the keys will be mapped depending on the particular context in XBMC.

@@ -1,0 +1,121 @@
+=== Linux Basics ===
+
+yaVDR is based on http://www.ubuntu.com/[Ubuntu Linux]. Most of the configuration can be in the *webinterface,web frontend*. More complex settings or fixing of errors may require to change settings manually. Thus, it is recommended that you learn a few basic commands of a Ubuntu linux http://wiki.ubuntuusers.de/Shell[shell].
+
+[[rights]]
+==== Permissions ====
+
+****
+.TODO
+sudo
+users and groups
+chown
+chmod
+****
+
+[[sudo]]
+===== sudo - Super User =====
+
+In Ubuntu, the root account does not have a password by default. The command *sudo* enables all members of the group *admin* to run commands with root privileges. 
+
+[[manpages]]
+==== Manpages ====
+If you like to learn more about a command or a program, it is useful to read the particular http://wiki.ubuntuusers.de/man[manpage] footnote:[the manual]. It summarizes informations about the syntax of the command, functions and capabilites of the program. By default, manpages will be displayed with the program *less*. In less, navigation is done with the arrow keys, PageUp & PageDown, space key etc. footnote:[more information is available in the manpage of less, see the following example ;)]
+
+Press *q* to quit the display of the manpage.
+
+.Manpage of less
+----
+user@yavdr:$ man less
+----
+
+[[packets]]
+==== Package Management ====
+Ubuntu Linux facilitates the http://wiki.ubuntuusers.de/Paketverwaltung[package management] http://de.wikipedia.org/wiki/Advanced_Packaging_Tool[APT]. This supports the adminstration, installation and update of software package, which are hosted in package repositories. There are several frontend for APT available. The instructions below are limited to the command line interface <<apt-get, apt-get>>. Another frontend, which can also be used from a shell, is http://wiki.ubuntuusers.de/aptitude[aptitude].
+
+[[apt-get]]
+===== apt-get =====
+http://wiki.ubuntuusers.de/apt-get[apt-get] is the recommended package management for yaVDR. Prior to the installation of new packages, make sure that the package lists are updated and all available updates are installed. Otherwise, conflicts between different package versions or non-resolveable dependencies might occur.
+
+[[update-packages]]
+.update package lists
+----
+sudo apt-get update
+----
+
+[[upgrade-packages]]
+.Update all packages to the latest version
+----
+sudo apt-get dist-upgrade
+----
+
+[[install-packages]]
+.Install packages
+----
+sudo apt-get install packagename                  <1>
+sudo apt-get install package1 package2 package3	  <2>
+sudo apt-get install vim			  <3>
+----
+<1> Installs a package named "packagename"
+<2> Installation of multiple packages
+<3> Example for the installation of the *vim* editor
+
+[[search-packages]]
+.Search packages
+----
+sudo apt-cache search packagename
+----
+
+[[info-packages]]
+.Prints information for a package
+----
+sudo apt-cache showpkg packagename
+----
+
+[[reinstall-packages]]
+.Re-Install a package
+----
+sudo apt-get install --reinstall packagename
+----
+
+[[remove-packages]]
+.Remove packages
+----
+sudo apt-get remove packagename	  <1>
+sudo apt-get purge packagename	  <2>
+----
+<1> Removes the package, while configuration files remain on your system
+<2> Removes the package and also the configuration files
+
+[[autoremove]]
+.Removes all packages that are not required anymore
+---
+sudo apt-get autoremove
+---
+This removes all packages that are not required anymore. These were installed previously to resolve dependencies from other packages, and they are not required anymore in this moment.
+
+[[clean]]
+.Removes the locally stored packages
+---
+sudo apt-get clean
+---
+APT stores the packages locally when they are fetched from the package repositories. These packages will be removed.
+
+[[packet-sources]]
+===== Package Sources ===== 
+yaVDR is shipped with the standard Ubuntu package sources. In addition, the https://launchpad.net/~yavdr[stable PPAs] of the yaVDR team are configured.
+All available package sources are listed in '/etc/apt/sources.list' and underneath 'etc/apt/sources.list.d/'.
+
+[[add-repo]]
+.Add a new package repository
+Detailed information about this topic http://wiki.ubuntuusers.de/Paketverwaltung[package sources] and http://wiki.ubuntuusers.de/Paketquellen_freischalten/PPA[PPA]  footnote:[Personal Package Archive] is avaibable in the Ubuntu User wiki.
+If you like to add a new package source, you can either add it manually to the above mentioned files (and import the key afterwards), or you can use the *add-apt-repository* command to add Launchpad PPAs:
+
+.Adding a PPA
+----
+user@yavdr:~$ sudo add-apt-repository ppa:<Launchpad user>/<PPA name>
+----
+
+[[control-c]]
+==== Interrupt shell commands ====
+If you like to interupt a shell command, press *CTRL + c*. This is esp. useful for commands like *irw*, *ping or *tail -f*, since these ones run infinetely unless otherwise specified.
