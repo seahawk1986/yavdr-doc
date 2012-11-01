@@ -1,0 +1,29 @@
+[[xvdr]]
+==== xvdr Plugin ====
+The xvdr plugin enables experimental version of XBMC with PVR support to facilitate VDR as a PVR backend. At the moment, the functions span Live TV, EPG, administration of timers as well as access to VDR recordings. Further functions, e.g. using cut marks, the cutting of recordings or the change of VDR settings from within XBMC is not supported yet.
+The xvdr plugin supports multiple users. Thus, several XBMC clients can access and VDR at the same time.
+
+[[xvdr-access]]
+===== Access Control =====
+The access from remote clients needs to be specified in the file '/var/lib/vdr/plugins/xvdr/allowed_hosts.conf'. The syntax of this file is identical to the <<svdrp-config, svdrphosts.conf>> file:
+[NOTE]
+.Access from remote computers
+=====================================================================
+Für den Zugriff von anderen Rechnern aus muss ggf. die Datei '/var/lib/vdr/plugins/xvdr/allowed_hosts.conf' angepasst werden. Einige Beispiele sind im folgenden aufgeführt:
+=====================================================================
+
+.Example entries in '/var/lib/vdr/plugins/xvdr/allowed_hosts.conf'
+----
+127.0.0.1       <1>
+192.168.1.115   <2>
+192.168.1.0/24  <3>
+192.168.1.0/16  <4>
+0.0.0.0/0       <5>
+----
+<1> Do not remove this entry! Otherwise, the local access from XBMC to VDR will not work anymore!
+<2> Grants access for the computer with the IP address 192.168.1.115
+<3> Grants access for all computers that have an IP address which starts with 192.168.1.
+<4> Grants access for all computers that have an IP address which starts with 192.168. (this is a class C sub net)
+<5> Regardless of the IP address, all computers have access (Caution: this enables unprotected access to the VDR from outside, unless your network is not protected by a router with NAT footnote:[http://en.wikipedia.org/wiki/Network_Address_Translation[Network Address Translation]] or a firewall!)
+
+
