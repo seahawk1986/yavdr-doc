@@ -60,7 +60,7 @@ include::80_restfulapi-plugin_en.txt[]
 
 include::81_dynamite-plugin_en.txt[]
 
-
+include::98_debugging_en.txt[]
 
 :leveloffset: -1
 

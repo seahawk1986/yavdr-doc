@@ -1,0 +1,31 @@
+[[debugging]]
+=== Debugging ===
+
+VDR might crash while the root cause is not clear from the syslog. In this case, you can turn on extended debugging to identify the cause of the error via backtraces.
+
+Therefore, the packages *vdr-dbg* and *gdb* need to be <<install-packages,installed>>. Also, the file '/etc/default/vdr' needs to be ammended with an entry for vdr-dbg:
+
+----
+sudo su
+echo "DAEMON=/usr/bin/vdr-dbg" >> /etc/default/vdr 
+restart vdr
+exit
+----
+
+VDR will create a coredump in the directory '/var/log/vdr/' when it crashs again.
+
+Afterwards, gdb is used to create the backtrace. Thus, path the program and the path to the coredump to gdb:
+
+----
+sudo gdb vdr-dbg /var/log/vdr/core.<PID>
+----
+
+This opens gdb and you see the interactive shell of gdb. There are plenty of commands available to analyze the coredump in in detail.footnote:[A short overview about the available commands can be found at: http://www.yolinux.com/TUTORIALS/GDB-Commands.html[GDB commands]]
+
+The command below creates a full backtrace:
+
+----
+bt full
+----
+
+Press "q" to leave gdb.
