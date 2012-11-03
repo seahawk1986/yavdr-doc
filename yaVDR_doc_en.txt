@@ -52,7 +52,7 @@ include::71_configfiles_en.txt[]
 include::75_svdrp_en.txt[]
 
 include::30_plugins_en.txt[]
-
+include::31_streamdev-plugin_en.txt[]
 include::32_xvdr-plugin_en.txt[]
 
 
