@@ -7,9 +7,9 @@ The xvdr plugin supports multiple users. Thus, several XBMC clients can access a
 ===== Access Control =====
 The access from remote clients needs to be specified in the file '/var/lib/vdr/plugins/xvdr/allowed_hosts.conf'. The syntax of this file is identical to the <<svdrp-config, svdrphosts.conf>> file:
 [NOTE]
-.Access from remote computers
+.Remote Access
 =====================================================================
-Für den Zugriff von anderen Rechnern aus muss ggf. die Datei '/var/lib/vdr/plugins/xvdr/allowed_hosts.conf' angepasst werden. Einige Beispiele sind im folgenden aufgeführt:
+Remote access requires the customization of the '/var/lib/vdr/plugins/xvdr/allowed_hosts.conf' file. Some examples are given below:
 =====================================================================
 
 .Example entries in '/var/lib/vdr/plugins/xvdr/allowed_hosts.conf'
@@ -22,8 +22,8 @@ Für den Zugriff von anderen Rechnern aus muss ggf. die Datei '/var/lib/vdr/plug
 ----
 <1> Do not remove this entry! Otherwise, the local access from XBMC to VDR will not work anymore!
 <2> Grants access for the computer with the IP address 192.168.1.115
-<3> Grants access for all computers that have an IP address which starts with 192.168.1.
-<4> Grants access for all computers that have an IP address which starts with 192.168. (this is a class C sub net)
-<5> Regardless of the IP address, all computers have access (Caution: this enables unprotected access to the VDR from outside, unless your network is not protected by a router with NAT footnote:[http://en.wikipedia.org/wiki/Network_Address_Translation[Network Address Translation]] or a firewall!)
+<3> Grants access for all computers that have an IP address which starts with 192.168.1.xxx
+<4> Grants access for all computers that have an IP address which starts with 192.168.xxx.yyy (this is a http://en.wikipedia.org/wiki/Classful_network[class C network])
+<5> Regardless of the IP address, all computers have access (Caution: this enables unprotected access to the VDR from outside, unless your network is protected by a router with NAT footnote:[http://en.wikipedia.org/wiki/Network_Address_Translation[Network Address Translation]] or a firewall!)
 
 

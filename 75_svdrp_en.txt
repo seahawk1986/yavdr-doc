@@ -7,7 +7,7 @@ The communication between client and servers via SVDRP is used (amongst others) 
 
 [[svdrp-config]]
 [NOTE]
-.Remote access
+.Remote Access
 =====================================================================
 Remote access via SVDRP requires the customization of the '/etc/vdr/svdrphosts.conf' file. Some examples are given below:
 =====================================================================
@@ -22,6 +22,6 @@ Remote access via SVDRP requires the customization of the '/etc/vdr/svdrphosts.c
 ----
 <1> Do not remove this entry! Otherwise, VDR cannot communicate properly with certain plugins!
 <2> Grants access for the computer with the IP address 192.168.1.115
-<3> Grants access for all computers that have an IP address which starts with 192.168.1.
-<4> Grants access for all computers that have an IP address which starts with 192.168. (this is a class C sub net)
-<5> Regardless of the IP address, all computers have access (Caution: this enables unprotected access to the VDR from outside, unless your network is not protected by a router with NAT footnote:[http://en.wikipedia.org/wiki/Network_Address_Translation[Network Address Translation]] or a firewall!)
+<3> Grants access for all computers that have an IP address which starts with 192.168.1.xxx
+<4> Grants access for all computers that have an IP address which starts with 192.168.xxx.yyy (this is a http://en.wikipedia.org/wiki/Classful_network[class C network])
+<5> Regardless of the IP address, all computers have access (Caution: this enables unprotected access to the VDR from outside, unless your network is protected by a router with NAT footnote:[http://en.wikipedia.org/wiki/Network_Address_Translation[Network Address Translation]] or a firewall!)

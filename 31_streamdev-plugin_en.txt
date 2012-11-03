@@ -1,0 +1,62 @@
+[[streamdev]]
+==== Streamdev Plugin ====
+The http://vdr-wiki.de/wiki/index.php/Streamdev-plugin[Streamdev Plugin] enables VDR to stream Live-TV to other VDRs (also equipped with the Streamdev Plugin) or other clients via HTTP.
+It has two functionalities to act as a <<sreamdev-server,Streamdev server>> or a <<streamdev-client,Streamdev client>>.
+
+[[streamdev-server]]
+===== Streamdev Server =====
+
+The Streamdev server plugin (package *vdr-plugin-streamdev-server*) is already pre-installed in {version}. It extends the VDR with the capbility to stream Live-TV into the network.
+
+[NOTE]
+.Remote Access
+=====================================================================
+Directy after installation, the plugins limits access to local clients only.
+To grant access (and control of important functions via SVDRP) to other clients, two configuration files need to customized as described below:
+=====================================================================
+
+Access via SVDRP (e.g. when another VDR shall have access via the <<streamdev-client,Streamdev client plugin>>) requires to customize the file '/etc/vdr/svdrphosts.conf' as described in the <<svdrp,SVDRP>> section.
+
+Furthermore, access to the transport streams provided by the Streamdev server require changes of the '/etv/vdr/plugins/streamdevhosts.conf' configuration file. In {version} this file is <<template,templated>>.
+
+.Example entries in '/etc/vdr/plugins/streamdevhosts.conf' (or the target of the symbolic link '/var/lib/vdr/plugins/streamdev-server/streamdevhosts.conf')
+----
+127.0.0.1       <1>
+192.168.1.115   <2>
+192.168.1.0/24  <3>
+192.168.1.0/16  <4>
+0.0.0.0/0       <5>
+----
+<1> Do not remove this entry! Otherwise, VDR cannot communicate properly with certain plugins!
+<2> Grants access for the computer with the IP address 192.168.1.115
+<3> Grants access for all computers that have an IP address which starts with 192.168.1.xxx
+<4> Grants access for all computers that have an IP address which starts with 192.168.xxx.yyy (this is a http://en.wikipedia.org/wiki/Classful_network[class C network]). This is the default access to the Streamdev server.
+<5> Regardless of the IP address, all computers have access (Caution: this enables unprotected access to the VDR from outside, unless your network is protected by a router with NAT footnote:[http://en.wikipedia.org/wiki/Network_Address_Translation[Network Address Translation]] or a firewall!)
+
+The Streamdev server provides a web interface on port 3000. It offers links to all streams. At http://<IP_of_your_VDR>:3000/channels.m3u, you can download a playlist with all stations. A suitable Streamdev client is e.g. the http://videolan.org[VLC Media Player].
+
+[TIP]
+.Streaming of Radio Stations
+=====================================================================
+If you plan to stream radio stations, please select "ES" footnote:[**E**lementary **S**tream, siehe http://en.wikipedia.org/wiki/Elementary_stream] for the transmission protocol.
+This changes the link to the stream to e.g.: http://<IP_of_your_VDR>:3000/ES/C-1-1093-28457
+=====================================================================
+
+[TIP]
+.extremux.sh
+=====================================================================
+The package *mencoder* needs to be <<install-packages,installed>> to be able to use externremux.sh. An example is available in '/var/lib/vdr/plugins/streamdev-server/externremux.sh'.
+=====================================================================
+
+[[streamdev-client]]
+===== Streamdev Client =====
+The Streamdev client plugin (package: *vdr-plugin-streamdev-client*) enables VDR to access a Streamdev server plugin of another VDR. Thus, it can use the DVB adapters of this VDR. This requires to copy the desired channels in the channels.conf file on the server into the channels.conf file on the client. Also, the connection settings on server and client need to be set up. 
+One instance of a Streamdev client cannot receive more that one transponder at a time.
+
+By default, all clients in a Class C network (IP range 192.168.xxx.yyy) can access the Streamdev server. If you like to have a more fine-grained acess control or like to extend the access to other IP addresses/ranges, please set up '/etc/vdr/plugins/streamdev-server/streamdevhosts.conf' as described above.
+
+.TODO
+****
+Describe configuration options of the plugin; externremux.sh
+****
+
