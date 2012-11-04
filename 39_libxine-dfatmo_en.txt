@@ -1,0 +1,61 @@
+[[dfatmo]]
+==== dfatmo Plugin ====
+
+The program dfatmo as well the corresponing VDR plugin can be <<install-packages,installed>> by the packages *dfatmo* and *libxine-dfatmo-plugin*.footnote:[http://www.die-keils.info/thomas/wordpress/?p=135]
+
+////
+Ohriginal :P
+Nun das Frontend entsprechend konfigurieren. Dazu müssen die Templates überladen werden. Bis die orginal-Templates aufgedröselt sind in Teile für Variablen und Teile für den tatsächlichen Start, muss das gesamte Template überladen werden. Dazu die Templates 20_xineliboutput und 25_xine (oder welches man halt braucht) in /usr/share/yavdr/templates/etc/init/vdr-frontend.conf/ kopieren nach /etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/ (Verzeichnis ggfs erstellen):
+
+Besser
+////
+
+[[atmo-config]]
+===== Configuration =====
+
+The start arguments for xine resp. vdr-sxfe have to be adjusted in the configuration file '/etc/init/vdr-frontend.conf' to set up dfatmo. This file is  <<template,templated>>. Thus, you should not edit it directly. Instead, copy the particular template section ('20_xineliboutput' for *vdr-sxfe* and '25_xine' for *xine*) from '/usr/share/yavdr/templates/etc/init/vdr-frontend.conf/' to '/etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/' and define the variable *XINELIBOUTPUTOPTS* resp. *XINEOPTS*. Finally, compile the new configuration file from the template.
+
+The following instruction provides a step by step guideline:
+
+----
+sudo mkdir -p /etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/ <1>
+sudo cp /usr/share/yavdr/templates/etc/init/vdr-frontend.conf/2* /etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/ <2>
+----
+<1> Creates the directory for the customized template section
+<2> Copies the requried template files
+
+Ammend the variables *XINE(LIBOUTPUT)OPTS* in these files:
+----
+XINELIBOUTPUTOPTS="--post tvtime:method=use_vo_driver --reconnect --audio=alsa --syslog --silent --tcp"
+XINELIBOUTPUTOPTS="$XINELIBOUTPUTOPTS --post=dfatmo:driver=serial,driver_param=/dev/ttyUSB0,top=1,bottom=1,left=1,right=1,brightness=150,analyze_size=0,overscan=0,enabled=1"                                        
+----
+
+resp.
+
+----
+XINEOPTS="-G $GEOMETRY -A alsa --config /etc/xine/config --keymap=file:/etc/xine/keymap --post vdr --post vdr_video --post vdr_audio --verbose=2 --no-gui --no-logo --no-splash --deinterlace -pq"
+XINEOPTS="$XINEOPTS --post=dfatmo:driver=serial,driver_param=/dev/ttyUSB0,top=1,bottom=1,left=1,right=1,brightness=150,analyze_size=0,overscan=0,enabled=1"
+----
+
+Compile the new configuration file from the <<about-templates,template>>:
+
+----
+process-template /etc/init/vdr-frontend.conf
+----
+
+Finally,  <<Dienste,restart>> Openbox:
+
+----
+sudo stop openbox
+sudo start openbox
+----
+
+===== Switching on/off with the Remote =====
+The KEY_BRIGHTNESS_CYCLE key has been reserved to toggle Atmolight on/off via the remote control. Vdr-sxfe needs to listen on keypresses between eventlircd and VDR in order to react on this key.
+The variable *XINELIBOUTPUTOPTS* has to be ammended with hotkey support and the eventlircd socket:
+
+----
+--hotkeys --lirc=/var/run/lirc/lircd
+----
+
+In '/etc/init/vdr.conf', the start argument *--lircd=$LIRC* has to be removed.

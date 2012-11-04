@@ -54,7 +54,7 @@ include::75_svdrp_en.txt[]
 include::30_plugins_en.txt[]
 include::31_streamdev-plugin_en.txt[]
 include::32_xvdr-plugin_en.txt[]
-
+include::39_libxine-dfatmo_en.txt[]
 
 include::80_restfulapi-plugin_en.txt[]
 
