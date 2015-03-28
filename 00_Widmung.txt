@@ -1,4 +1,3 @@
-[dedication]
 == Widmung ==
 
 Für das yaVDR-Team, das mir den VDR näher gebracht hat und alle fleißigen Entwickler und Nutzer, die mir weitergeholfen haben.

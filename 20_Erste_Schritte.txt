@@ -1,66 +1,88 @@
 [[first-steps]]
 === Erste Schritte ===
 
-Nach der Installation startet yaVDR mit drei vorkonfigurierten Internet-TV Kanälen. Ist eine Internetanbindung vorhanden sieht man also zunächst den WebTV-Stream von 3sat.
+Nach der Installation startet yaVDR mit drei vorkonfigurierten Internet-TV Kanälen. Ist eine Internetanbindung vorhanden sieht man also zunächst den IPTV-Stream des ZDF.
 
 [TIP]
 .Erste Schritte nach der Installation
 =====================================================================
 .Drei Punkte müssen abgearbeitet werden um yaVDR nach einer Neuinstallation sinnvoll nutzen zu können:
 - <<system-upgrade,aktuelle Updates einspielen>>
-- Senderliste erstellen, z.B. mittels <<wfe-channels,Channelpedia>> im Webfrontend
++
+- Senderliste erstellen, z.B. mittels <<wfe-channels,Channelpedia>> 
+im Webfrontend
++
 - <<Remote-HOWTO,Fernbedienung einrichten>> falls sie nicht direkt nach der Installation wie gewünscht funktioniert
 =====================================================================
 
 [[system-upgrade]]
-==== Aktuelle Updates einspielen ====
+==== Aktualisierung des System ====
 
-[CAUTION]
-.yaVDR immer möglichst aktuell halten
+[TIP]
+.Warum regelmäßige Aktualisierung sinnvoll sind
 =====================================================================
-yaVDR ist eine "stark entwickelte" Distribution, für die häufig Updates erscheinen. Viele "alte" Fehler und Probleme lassen sich vermeiden wenn man regelmäßig sein System auf den neuesten Stand bringt.
+Neben den Sicherheitsupdates, die für Ubuntu ausgeliefert werden
+(z.B. für Samba, Firefox, SSH usw.),
+versuchen wir yaVDR ständig zu verbessern und veröffentlichen daher
+häufiger Updates für VDR- und Kodi-Pakete, Plugins, Addons, Skripte
+und Templates.
 
-Gerade *bevor* man darüber nachdenkt eine Support-Anfrage im http://www.vdr-portal.de[Forum] zu stellen, sollte man überprüfen, ob der Fehler auch nach dem Einspielen der aktuellen Updates und einem anschließenden Neustart noch auftritt.
+Gerade *bevor* man darüber nachdenkt eine Support-Anfrage im
+http://www.vdr-portal.de[Forum] zu stellen, sollte man überprüfen,
+ob der Fehler auch nach dem Einspielen der aktuellen Updates und einem
+anschließenden Neustart noch auftritt.
+Dieses Vorgehen reduziert auch den Support-Aufwand für das yaVDR-Team.
 =====================================================================
 
-.Update des Systems
+.Einspielen von Updates für das System
 ----
 sudo apt-get update && sudo apt-get dist-upgrade
 ----
 
+*****
+Die Verwendung von *apt-get dist-upgrade* statt *apt-get upgrade* ist
+empfehlenswert, da so bei der Aktualisierung eines Paketes neu
+hinzugekommene Abhängigkeiten automatisch installiert werden können.
+****
+
 [[vdr-guide]]
 ==== Bedienung des VDR ====
 
-Um die grundlegende Bedienung und die Konfigurationsmöglichkeiten des VDR über das OSD footnote:[On Screen Display] kennenzulernen empfiehlt es sich das Benutzerhandbuch zu lesen: http://vdr-wiki.de/wiki/index.php/Benutzerhandbuch
+Um die grundlegende Bedienung und die Konfigurationsmöglichkeiten des
+VDR über das OSD footnote:[On Screen Display] kennenzulernen empfiehlt
+es sich das Benutzerhandbuch zu lesen:
+http://vdr-wiki.de/wiki/index.php/Benutzerhandbuch
 
 [[keyboard-table]]
 ===== Tastaturbelegung =====
 
-Auch wenn eine Fernbedienung die Bedienung deutlich bequemer macht, ist es nach der Installation oft hilfreich wenn man yaVDR auch mit der Tastatur bedienen kann.
+Auch wenn eine Fernbedienung die Bedienung deutlich bequemer macht,
+ist es nach der Installation oft hilfreich wenn man yaVDR auch mit
+der Tastatur bedienen kann.
 
 .Tastaturbelegung in yaVDR
 [cols="h,2*",options="header",width="90%"]
 |=========================================
-|*Taste*     |*Funktion*   |*Anmerkung*
-|*m*         |*Menü*       |
-|*Backspace*  |*Exit*       |Schließt das aktive Menü bzw. kehrt zum Übergeordneten Menü zurück
-|*Enter*      |*Ok*         |Außerhalb des OSD-Menüs: kleine Info-Anzeige Jetzt & Nächste Sendung
-|*Pfeil Auf*  |*Nach oben*  |Außerhalb des OSD-Menüs: *Kanal hoch*
-|*Pfeil Ab*   |*Nach unten* |Außerhalb des OSD-Menüs: *Kanal runter*
-|*Pfeil links*|*Nach links* |Außerhalb des OSD-Menüs Wechsel der Kanalgruppe
-|*Pfeil rechts*|*Nach rechts*|Außerhalb des OSD-Menüs Wechsel der Kanalgruppe
-|*i*          |*Info*       |Öffnet die Informationen zu einem Listenelement (z.B. Aufnahme, EPG-Eintrag, Timer)
-|*p*          |*Power*      |VDR herunterfahren, das <<wfe-lifeguard,Lifeguard-addon>> oder anstehende Timer können den Vorgang abbrechen bzw. verzögern.
-|*F1*         |*Rot*        |Die Belegung der Taste *"Rot"* wird jeweils im OSD eingeblendet.
-|*F2*         |*Grün*       |Die Belegung der Taste *"Grün"* wird jeweils im OSD eingeblendet.
-|*F3*         |*Gelb*       |Die Belegung der Taste *"Gelb"* wird jeweils im OSD eingeblendet.
-|*F4*         |*Blau*       |Die Belegung der Taste *"Blau"* wird jeweils im OSD eingeblendet.
-|*F5*         |*Zurückspulen*|
-|*F6*         |*Vorspulen*  |
-|*F10*        |*Mute*       |Schaltet den Ton aus oder ein
-|*F11*        |*Leiser*     |
-|*F12*        |*Lauter*     |
-|*Zifferntasten*|*Ziffern 0-9*|
+|*Taste*          |*Funktion*     |*Anmerkung*
+|*Pos1/Home/Tab*  |*Menü*         |
+|*Backspace*      |*Exit*         |Schließt das aktive Menü bzw. kehrt zum Übergeordneten Menü zurück
+|*Enter*          |*Ok*           |Außerhalb des OSD-Menüs: kleine Info-Anzeige Jetzt & Nächste Sendung
+|*Pfeil Auf*      |*Nach oben*    |Außerhalb des OSD-Menüs: *Kanal hoch*
+|*Pfeil Ab*       |*Nach unten*   |Außerhalb des OSD-Menüs: *Kanal runter*
+|*Pfeil links*    |*Nach links*   |Außerhalb des OSD-Menüs Wechsel der Kanalgruppe
+|*Pfeil rechts*   |*Nach rechts*  |Außerhalb des OSD-Menüs Wechsel der Kanalgruppe
+|*Ende*           |*Info*         |Öffnet die Informationen zu einem Listenelement (z.B. Aufnahme, EPG-Eintrag, Timer)
+|*Pause*          |*Power*        |VDR herunterfahren, das <<wfe-lifeguard,Lifeguard-addon>> oder anstehende Timer können den Vorgang abbrechen bzw. verzögern.
+|*F1*             |*Rot*          |Die Belegung der Taste *"Rot"* wird jeweils im OSD eingeblendet.
+|*F2*             |*Grün*         |Die Belegung der Taste *"Grün"* wird jeweils im OSD eingeblendet.
+|*F3*             |*Gelb*         |Die Belegung der Taste *"Gelb"* wird jeweils im OSD eingeblendet.
+|*F4*             |*Blau*         |Die Belegung der Taste *"Blau"* wird jeweils im OSD eingeblendet.
+|*F5*             |*Zurückspulen* |
+|*F6*             |*Vorspulen*    |
+|*F10*            |*Mute*         |Schaltet den Ton aus oder ein
+|*F11*            |*Leiser*       |
+|*F12*            |*Lauter*       |
+|*Zifferntasten*  |*Ziffern 0-9*  |
 |==========================================================
 
 [[Remote-HOWTO]]
@@ -69,12 +91,15 @@ Auch wenn eine Fernbedienung die Bedienung deutlich bequemer macht, ist es nach 
 Kein VDR wäre komplett ohne die Möglichkeit ihn bequem per Fernbedienung zu steuern.
 {version} unterstützt ein breites Spektrum von Eingabegeräten, sowohl Infrarot- als auch Funk-Fernbedienungen. Falls die eigene Fernbedienung OOTB zufriedenstellend funktioniert kann man den folgenden Abschnitt überspringen. Wer keine Fernbedienungs-Empfänger Kombination hat, die OOTB funktioniert oder einfach verstehen will wie die Einbindung der Fernbedienungen in yaVDR funktioniert sollte einen Blick auf das Kapitel zur <<eventlirc,Fernbedienung und Eventlircd>> und zur <<remote.conf,remote.conf>> in dieser Dokumentation werfen.
 
-Falls nicht alle Tasten wie erwartet funktionieren oder gar keine Tastendrücke beim VDR ankommen, konnte die Fernbedienung nicht automatisch durch yaVDR konfiguriert werden. Wie man dann weiter verfährt ist im Folgenden beschrieben:
+Falls nicht alle Tasten wie erwartet funktionieren oder gar keine Tastendrücke beim VDR ankommen, konnte die Fernbedienung nicht automatisch durch yaVDR konfiguriert werden.
+Der folgende Abschnitt soll dabei helfen herauszufinden, wie die
+Fernbedienung eingebunden werden kann und welche Hilfsprogramme und
+Konfigurationsdateien dabei von Nutzen sind:
 
 [TIP]
 .Anfragen im VDR-Portal
 =====================================================================
-Für eine Support-Anfrage im http://www.vdr-portal.de/board60-linux/board14-betriebssystem/board96-yavdr/[Forum] ist es sinnvoll gleich ein paar Informationen über seinen Empfänger zu sammeln und die Ausgaben der hier in den einzelnen Schritten gezeigten Befehle gleich mit zu posten. 
+Für eine Support-Anfrage im http://www.vdr-portal.de/board60-linux/board14-betriebssystem/board96-yavdr/[Forum] ist es sinnvoll gleich ein paar Informationen über seinen Empfänger zu sammeln und die Ausgaben der hier in den einzelnen Schritten gezeigten Befehle gleich mit zu posten.
 ====================================================================
 
 Im Folgenden ein kurzer Leitfaden, der dabei hilft notwendige Informationen über den verwendeten Empfänger zu sammeln. Dies erleichtert die Suche im Internet und hilft dabei Support-Anfragen im http://vdr-portal.de oder beim Hinzufügen der eigenen Konfiguration zur yaVDR-Konfigurationssammlung im https://bugs.yavdr.com/projects/yavdr/issues[Bug- & Feature-Tracker von yaVDR] mit sinnvollen Informationen zu versehen.
@@ -82,9 +107,9 @@ Im Folgenden ein kurzer Leitfaden, der dabei hilft notwendige Informationen übe
 Je nach Empfänger empfehlen sich unterschiedliche Herangehensweisen bei der Konfiguration. Um den Aufwand zu verringern folgt man am besten den nachfolgenden Links zum eigenen Empfänger.
 
 .Wie ist der Empfänger angeschlossen?
-* Via <<USB-Remote,USB>>
-* Via <<TV-Card-Remote, TV-Karte>>
-* Via <<Serial-Remote, Serielle Schnittstelle>>
+* Über <<USB-Remote,USB>>
+* An der <<TV-Card-Remote, TV-Karte>>
+* Über eine <<Serial-Remote, Serielle Schnittstelle>>
 
 .Besonderheiten für bestimmte Fernbedienungen bzw. Empfänger
 * <<X10,X10-Empfänger>>
@@ -100,10 +125,14 @@ Je nach Empfänger empfehlen sich unterschiedliche Herangehensweisen bei der Kon
 
 [NOTE]
 =====================================================================
-Im folgenden sind alle Befehle mit den relevanten Ausgaben am Beispiel einer "Hama MCE Remote Control"beschrieben, die OOTB von yaVDR unterstützt wird, sich aber gut als Beispiel eignet.
+Im folgenden sind alle Befehle mit den relevanten Ausgaben am Beispiel
+einer "Hama MCE Remote Control"beschrieben, die OOTB von yaVDR
+unterstützt wird und sich gut dafür eignet und die Vorgehensweise bei
+einem HID-Gerät zu zeigen.
 =====================================================================
 
-Um zu sehen, welche USB-Geräte Linux momentan erkannt hat, kann man den Befehl lsusb benutzen. Er gibt Hinweise auf Hersteller und Typ der angeschlossenen Geräte.
+Um zu sehen, welche USB-Geräte Linux momentan erkannt hat, kann man den Befehl
+lsusb benutzen. Er gibt Hinweise auf Hersteller und Typ der angeschlossenen Geräte.
 
 [[lsusb]]
 .lsusb

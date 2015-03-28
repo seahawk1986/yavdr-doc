@@ -6,8 +6,8 @@ Dokumentation für yaVDR
 :Revision: v0.5
 :encoding: UTF-8
 :lang: de
-:version: yaVDR 0.5
-:ubuntu: precise
+:version: yaVDR 0.6
+:ubuntu: trusty
 :doctype: book
 :thumbsize: 16
 
@@ -94,3 +94,4 @@ include::105_Anthra_Skin.txt[]
 
 include::999_Anhang.txt[]
 
+include::100_Development.txt[]
