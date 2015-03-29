@@ -1,0 +1,49 @@
+[[devel]]
+== Development ==
+
+
+=== eigenes PPA nutzen ===
+
+=== VDR ===
+
+==== Plugins ====
+Für yaVDR 0.6 haben wir in Abstimmung mit etobi (Tobias Grimm) die
+Skripte für den Bau und die Installation der VDR-Plugins überarbeitet.
+Wir nutzen damit das gleiche Konzept, das in den kommenden Versionen
+auch unter Debian zum Einsatz kommen wird.
+
+Im Folgenden wird der Aufbau eines Quellpakets für ein VDR-Plugin
+beschrieben.
+
+==== Besonderheiten für den debian-Ordner ====
+
+===== debian/rules ======
+
+Eine generische 'debian/rules' sieht so aus:
+
+[source,Makefile]
+--------
+include::debian_rules[]
+--------
+
+Ein Vorteil gegenüber dem bisherigen System ist, dass die Paketnamen
+nicht mehr von Hand in die Datei eingetragen werden müssen, sondern
+aus Variablen bezogen werden.
+
+==== Konfigurationsdateien für Plugins installieren ====
+in 'debian/vdrargs''' bzw. 'debian/paketname.vdrargs' kann festgelegt
+werden, ob die Konfiguration für ein Plugin direkt nach der
+Installation aktiv  werden soll:
+
+----
+# nach conf.avail installieren und mit der default-Priorität 50 nach
+# conf.d verlinken
+debian/dbus2vdr.conf
+
+# nach conf.avail installieren und mit einer speziellen Priorität 90 nach
+# conf.d verlinken
+debian/dbus2vdr.conf 90
+
+# nach conf.avail installieren und gar nicht nach conf.d verlinken
+debian/dbus2vdr.conf DISABLED
+----
