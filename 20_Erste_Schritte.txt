@@ -1,7 +1,10 @@
 [[first-steps]]
 === Erste Schritte ===
 
-Nach der Installation startet yaVDR mit drei vorkonfigurierten Internet-TV Kanälen. Ist eine Internetanbindung vorhanden sieht man also zunächst den IPTV-Stream des ZDF.
+Nach der Installation startet yaVDR mit drei vorkonfigurierten
+Internet-TV Kanälen.
+Ist eine Internetanbindung vorhanden sieht man also zunächst
+den IPTV-Stream des ZDF.
 
 [TIP]
 .Erste Schritte nach der Installation
@@ -9,10 +12,10 @@ Nach der Installation startet yaVDR mit drei vorkonfigurierten Internet-TV Kanä
 .Drei Punkte müssen abgearbeitet werden um yaVDR nach einer Neuinstallation sinnvoll nutzen zu können:
 - <<system-upgrade,aktuelle Updates einspielen>>
 +
-- Senderliste erstellen, z.B. mittels <<wfe-channels,Channelpedia>> 
+- Senderliste erstellen, z.B. mittels <<wfe-channels,Channelpedia>>
 im Webfrontend
-+
-- <<Remote-HOWTO,Fernbedienung einrichten>> falls sie nicht direkt nach der Installation wie gewünscht funktioniert
+- <<Remote-HOWTO,Fernbedienung einrichten>> falls diese nicht direkt
+  nach der Installation wie gewünscht funktioniert
 =====================================================================
 
 [[system-upgrade]]
@@ -89,9 +92,19 @@ der Tastatur bedienen kann.
 ===== Konfiguration der Fernbedienung =====
 
 Kein VDR wäre komplett ohne die Möglichkeit ihn bequem per Fernbedienung zu steuern.
-{version} unterstützt ein breites Spektrum von Eingabegeräten, sowohl Infrarot- als auch Funk-Fernbedienungen. Falls die eigene Fernbedienung OOTB zufriedenstellend funktioniert kann man den folgenden Abschnitt überspringen. Wer keine Fernbedienungs-Empfänger Kombination hat, die OOTB funktioniert oder einfach verstehen will wie die Einbindung der Fernbedienungen in yaVDR funktioniert sollte einen Blick auf das Kapitel zur <<eventlirc,Fernbedienung und Eventlircd>> und zur <<remote.conf,remote.conf>> in dieser Dokumentation werfen.
+{version} unterstützt ein breites Spektrum von Eingabegeräten,
+darunter befinden sich  sowohl Infrarot- als auch Funk-Fernbedienungen.
+Falls die eigene Fernbedienung OOTB zufriedenstellend funktioniert kann
+man den folgenden Abschnitt überspringen.
+Wer keine Fernbedienungs-Empfänger Kombination hat,
+die OOTB funktioniert oder einfach verstehen will wie die Einbindung
+der Fernbedienungen in yaVDR funktioniert sollte einen Blick auf
+das Kapitel zur <<eventlirc,Fernbedienung und Eventlircd>> und zur
+<<remote.conf,remote.conf>> in dieser Dokumentation werfen.
 
-Falls nicht alle Tasten wie erwartet funktionieren oder gar keine Tastendrücke beim VDR ankommen, konnte die Fernbedienung nicht automatisch durch yaVDR konfiguriert werden.
+Falls nicht alle Tasten wie erwartet funktionieren oder gar keine
+Tastendrücke beim VDR ankommen, konnte die Fernbedienung nicht automatisch
+durch yaVDR konfiguriert werden.
 Der folgende Abschnitt soll dabei helfen herauszufinden, wie die
 Fernbedienung eingebunden werden kann und welche Hilfsprogramme und
 Konfigurationsdateien dabei von Nutzen sind:
@@ -99,12 +112,24 @@ Konfigurationsdateien dabei von Nutzen sind:
 [TIP]
 .Anfragen im VDR-Portal
 =====================================================================
-Für eine Support-Anfrage im http://www.vdr-portal.de/board60-linux/board14-betriebssystem/board96-yavdr/[Forum] ist es sinnvoll gleich ein paar Informationen über seinen Empfänger zu sammeln und die Ausgaben der hier in den einzelnen Schritten gezeigten Befehle gleich mit zu posten.
+Für eine Support-Anfrage im
+http://www.vdr-portal.de/board60-linux/board14-betriebssystem/board96-yavdr/[Forum]
+ist es sinnvoll gleich ein paar Informationen über seinen Empfänger
+zu sammeln und die Ausgaben der hier in den einzelnen Schritten
+gezeigten Befehle gleich mit zu posten.
 ====================================================================
 
-Im Folgenden ein kurzer Leitfaden, der dabei hilft notwendige Informationen über den verwendeten Empfänger zu sammeln. Dies erleichtert die Suche im Internet und hilft dabei Support-Anfragen im http://vdr-portal.de oder beim Hinzufügen der eigenen Konfiguration zur yaVDR-Konfigurationssammlung im https://bugs.yavdr.com/projects/yavdr/issues[Bug- & Feature-Tracker von yaVDR] mit sinnvollen Informationen zu versehen.
+Im Folgenden ein kurzer Leitfaden, der dabei hilft notwendige
+Informationen über den verwendeten Empfänger zu sammeln.
+Dies erleichtert die Suche im Internet und hilft dabei,
+Support-Anfragen im http://vdr-portal.de oder beim Hinzufügen
+der eigenen Konfiguration zur yaVDR-Konfigurationssammlung im
+https://bugs.yavdr.com/projects/yavdr/issues[Bug- & Feature-Tracker von yaVDR]
+mit sinnvollen Informationen zu versehen.
 
-Je nach Empfänger empfehlen sich unterschiedliche Herangehensweisen bei der Konfiguration. Um den Aufwand zu verringern folgt man am besten den nachfolgenden Links zum eigenen Empfänger.
+Je nach Empfänger empfehlen sich unterschiedliche Herangehensweisen
+bei der Konfiguration. Um den Aufwand zu verringern folgt man am besten
+den nachfolgenden Links zum eigenen Empfänger.
 
 .Wie ist der Empfänger angeschlossen?
 * Über <<USB-Remote,USB>>
@@ -140,16 +165,17 @@ lsusb benutzen. Er gibt Hinweise auf Hersteller und Typ der angeschlossenen Ger�
 user@yavdr:~$ lsusb
 		       <1>    <2>   <3>
 Bus 002 Device 003: ID 05a4:9881 Ortek Technology, Inc.  <4>
-Bus 002 Device 002: ID 80ee:0021  
+Bus 002 Device 002: ID 80ee:0021
 Bus 002 Device 001: ID 1d6b:0001 Linux Foundation 1.1 root hub
 Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 ----
 <1> Hersteller-ID
-<2> Produkt-ID	
+<2> Produkt-ID
 <3> Bezeichnung
 <4> Hama MCE Remote
 
-Ruft man *dmesg* direkt nach dem Einstecken eines USB-Gerätes auf, sieht man, ob Linux für das Gerät Treiber geladen und Geräte angelegt hat.
+Ruft man *dmesg* direkt nach dem Einstecken eines USB-Gerätes auf,
+sieht man, ob Linux für das Gerät Treiber geladen und Geräte angelegt hat.
 [[dmesg]]
 .dmesg
 ----
@@ -163,13 +189,19 @@ user@yavdr:~$ dmesg
 ----
 <1> Wie man sehen kann werden zwei Eingabegeräte (Fernbedienung + Mausfunktion) erkannt.
 
-Für weitere Informationen dazu wie die Fernbedienung eingebunden wird schaut man sich die vom System erkannten Eingabegeräte an: <<cat-proc,cat /proc/bus/input/devices>> und folgt abhängig von der Ausgabe den dort verlinkten Abschitten der Dokumentation
+Für weitere Informationen dazu wie die Fernbedienung eingebunden wird,
+schaut man sich die vom System erkannten Eingabegeräte an:
+<<cat-proc,cat /proc/bus/input/devices>> und folgt abhängig von der
+Ausgabe den dort verlinkten Abschitten der Dokumentation.
 
 [[TV-Card-Remote]]
 ===== Fernbedienungen von internen TV-Karten =====
 
-Empfänger, die in TV-Karten eingebaut sind, werden normalerweise über rc-core eingebunden und mittels <<ir-keytable, ir-keytable>> konfiguriert. Für einige Geräte gelten Ausnahmen von dieser Regel.
-Als Erstes sollte man also überprüfen, ob ein entsprechendes rc-core Gerät erkannt wurde:
+Empfänger, die in TV-Karten eingebaut sind, werden normalerweise über
+rc-core eingebunden und mittels <<ir-keytable, ir-keytable>>
+konfiguriert. Für einige Geräte gelten Ausnahmen von dieser Regel.
+Als Erstes sollte man also überprüfen, ob ein entsprechendes rc-core
+Gerät erkannt wurde:
 
 .Erkanntes rc-core Gerät
 ----
@@ -177,16 +209,19 @@ user@yavdr:~$ sudo ir-keytable
 Found /sys/class/rc/rc0/ (/dev/input/event3) with:
 	Driver ir-kbd-i2c, table rc-rc5-tv
 	Supported protocols: RC-5
-	Enabled protocols:                  
-Repeat delay = 500 ms, repeat period = 33 ms       
+	Enabled protocols:
+Repeat delay = 500 ms, repeat period = 33 ms
 ----
 
-Die weitere Konfiguration ist im Abschnitt der Anleitung zu <<ir-keytable, ir-keytable>> beschrieben.
+Die weitere Konfiguration ist im Abschnitt der Anleitung zu
+<<ir-keytable, ir-keytable>> beschrieben.
 
 .Falls kein derartiges Gerät erkannt wurde, taucht diese Ausgabe auf:
 ----
 user@yavdr:~$ sudo ir-keytable
 Couldn't find any node at /sys/class/rc/rc*.
 ----
-Um herauszufinden, ob und wie die Fernbedienung eingebunden wird schaut man sich die vom System erkannten Eingabegeräte an: <<cat-proc,cat /proc/bus/input/devices>>
+Um herauszufinden, ob und wie die Fernbedienung eingebunden wird,
+schaut man sich die vom System erkannten Eingabegeräte an:
+<<cat-proc,cat /proc/bus/input/devices>>
 

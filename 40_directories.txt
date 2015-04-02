@@ -18,10 +18,19 @@ sind, die Aufnahmen des VDR liegen unter '/srv/vdr/video.00' und werden als
 |Bilder     |'/srv/picture'      |'/srv/picture'    |*picture*
 |Musik      |'/srv/audio'        |'/srv/audio'      |*audio*
 |Videos     |'/srv/video'        |'/srv/video'      |*video*
-|Aufnahmen  |'/srv/vdr/video.00' footnote:[Bei mehren video.xx-Verzeichnissen
-entsprechend zusätzlich /srv/vdr/video.01, /srv/vdr/video.02 usw.]
-                                 |'/srv/share/vdr'  |*recordings*
+|Aufnahmen  |'/srv/vdr/video'    |'/srv/share/vdr'  |*recordings*
 |==========================================================
+
+[CAUTION]
+.Unterstützung mehrerer Aufnahmeverzeichnisse
+=====================================================================
+Beim VDR > 2.1.3 ist die Unterstützung für das automatische  Verteilen
+von Aufnahmen auf mehrere Verzeichnisse entfallen.
+Daher unterstützt {version} auch den NFS-Export dieser
+Verzeichnisstruktur über mhddfs nicht mehr. Wer noch die alte
+Aufteilung nutzt, sollte daher rechtzeitig eine Umstellung der
+Verzeichnisstruktur planen.
+=====================================================================
 
 [[avahi-linker]]
 ==== Avahi-Linker ====
@@ -36,39 +45,47 @@ Sekunden wieder ausgehängt, so dass das Gegenüber, das die Freigabe
 bereitstellt herunterfahren kann. In der Datei
 '/etc/autofs/auto.master.d' kann man über die Option *--timeout=*
 festlegen, nach wie vielen Sekunden Inaktivität eine vom avahi-linker
-eingebundene Freigabe wieder ausgehängt werden soll.
-Für Rechner mit {version} geschieht das automatisch für alle
-<<standard-dir,lokalen Standardverzeichnisse>>.
+eingebundene Freigabe wieder ausgehängt werden soll. Für Rechner mit
+{version} geschieht das automatisch für alle <<standard-dir,lokalen
+Standardverzeichnisse>>.
 
-Möchte man also sowohl lokale als auch über das Netzwerk eingebundene Dateien
-für VDR-Plugins oder XBMC nutzen, empfiehlt es sich als
+Möchte man also sowohl lokale als auch über das Netzwerk eingebundene
+Dateien für VDR-Plugins oder XBMC nutzen, empfiehlt es sich als
 Standard-Verzeichnis '/media/<Kategorie>/' zu wählen.
 
-Beispiel für die Dateistruktur unter '/media/' auf einem {version} System,
-das Verzeichnisse von einem weiteren Rechner mit {version} im Netzwerk
-mit dem Namen "VDR" automatisch eingebunden hat.
-Wie man sieht sind die lokal abgelegten Medien jeweils über einen Ordner
+Beispiel für die Dateistruktur unter '/media/' auf einem {version}
+System, das Verzeichnisse von einem weiteren Rechner mit {version} im
+Netzwerk mit dem Namen "VDR" automatisch eingebunden hat. Wie man
+sieht sind die lokal abgelegten Medien jeweils über einen Ordner
 "local" verlinkt:
 
 .Ausgabe von tree
 ----
-/media
-├── Bilder
-│   ├── local -> /srv/picture
-│   └── VDR
-├── cdrom
-├── Musik
-│   ├── local -> /srv/audio
-│   └── VDR
-├── Record
-├── Sonstige
-└── Video
-    ├── local -> /srv/video
-    └── VDR
-
-/srv/vdr/video.00/
-└── VDR
+ /media/
+ ├── Bilder
+ │   ├── local -> /srv/picture
+ │   └── Pictures on VDR.local -> /net/VDR/srv/picture
+ ├── Musik
+ │   ├── Christmas
+ │   ├── local -> /srv/audio
+ │   └── Music on VDR.local -> /net/VDR/srv/audio
+ ├── vdr
+ │   ├── files
+ │   ├── files2
+ │   └── Recordings on VDR.local for vdr4arch -> /net/VDR/srv/share/vdr
+ └── Video
+     ├── Filme
+     │   └── local -> /srv/video/Filme
+     ├── Serien
+     │   ├── local -> /srv/video/Serien
+     │   └── Serien on VDR.local
+     └── Videos on VDR.local -> /net/VDR/srv/video
 ----
+
+.TODO
+****
+avahi-linker: Konfiguration beschreiben
+****
 
 [[nfs_mount]]
 ==== NFS Freigaben mounten ====
@@ -76,7 +93,8 @@ Wie man sieht sind die lokal abgelegten Medien jeweils über einen Ordner
 Unter yaVDR gibt es mehrere Möglichkeiten NFS-Freigaben zu mounten.
 Wie man Freigaben auf einem Server announciert, die per
 <<avahi-linker,Avahi-Linkerer>> eingebunden werden kann man in
-http://www.yavdr.org/tutorials/mounting-nfs-shares-via-vdr-addon-avahi-mounter/[diesem Artikel auf yavdr.org] nachlesen.
+http://www.yavdr.org/tutorials/mounting-nfs-shares-via-vdr-addon-avahi-mounter/[diesem
+Artikel auf yavdr.org] nachlesen.
 NFS-Freigaben, die VDR-Aufnahmen enthalten, aber nicht über avahi
-angekündigt werden, lassen sich über das Webfrontend über
-den Punkt <<wfe-network,Netzwerk>> einbinden.
+angekündigt werden, lassen sich über das Webfrontend über den Punkt
+<<wfe-network,Netzwerk>> einbinden.

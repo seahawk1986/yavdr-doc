@@ -1,11 +1,21 @@
 [[dfatmo]]
 ==== dfatmo Plugin ====
 
-Das Programm dfatmo und das dazugehörige Plugin für den VDR können über die Pakete *dfatmo* und *libxine-dfatmo-plugin* <<install-packages,installiert>> werden.footnote:[http://www.die-keils.info/thomas/wordpress/?p=135]
+Das Programm dfatmo und das dazugehörige Plugin für den VDR können
+über die Pakete *dfatmo* und *libxine-dfatmo-plugin*
+<<install-packages,installiert>>
+werden.footnote:[http://www.die-keils.info/thomas/wordpress/?p=135]
 
 ////
 Ohriginal :P
-Nun das Frontend entsprechend konfigurieren. Dazu müssen die Templates überladen werden. Bis die orginal-Templates aufgedröselt sind in Teile für Variablen und Teile für den tatsächlichen Start, muss das gesamte Template überladen werden. Dazu die Templates 20_xineliboutput und 25_xine (oder welches man halt braucht) in /usr/share/yavdr/templates/etc/init/vdr-frontend.conf/ kopieren nach /etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/ (Verzeichnis ggfs erstellen):
+Nun das Frontend entsprechend konfigurieren. Dazu müssen die Templates
+überladen werden. Bis die orginal-Templates aufgedröselt sind in Teile
+für Variablen und Teile für den tatsächlichen Start, muss das gesamte
+Template überladen werden. Dazu die Templates 20_xineliboutput und
+25_xine (oder welches man halt braucht) in
+/usr/share/yavdr/templates/etc/init/vdr-frontend.conf/ kopieren nach
+/etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/ (Verzeichnis
+ggfs erstellen):
 
 Besser
 ////
@@ -13,7 +23,17 @@ Besser
 [[atmo-config]]
 ===== Konfiguration =====
 
-Um das Plugin nutzen zu können, müssen die Start-Argumente von xine bzw. vdr-sxfe in der Konfigurationsdatei '/etc/init/vdr-frontend.conf' angepasst werden. Diese Datei ist <<template,getemplated>> und sollte daher nicht direkt bearbeitet werden. Stattdessen muss der für das jeweilige Frontend passende Template-Teil ('20_xineliboutput' für *vdr-sxfe* und '25_xine' für *xine*) aus '/usr/share/yavdr/templates/etc/init/vdr-frontend.conf/' nach '/etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/' kopiert und die Variable *XINELIBOUTPUTOPTS* bzw. *XINEOPTS* darin entsprechend angepasst werden. Zum Schluss wird die Konfigurationsdatei neu aus den Templates erzeugt.
+Um das Plugin nutzen zu können, müssen die Start-Argumente von xine
+bzw. vdr-sxfe in der Konfigurationsdatei '/etc/init/vdr-frontend.conf'
+angepasst werden. Diese Datei ist <<template,getemplated>> und sollte
+daher nicht direkt bearbeitet werden. Stattdessen muss der für das
+jeweilige Frontend passende Template-Teil ('20_xineliboutput' für
+*vdr-sxfe* und '25_xine' für *xine*) aus
+'/usr/share/yavdr/templates/etc/init/vdr-frontend.conf/' nach
+'/etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/' kopiert und
+die Variable *XINELIBOUTPUTOPTS* bzw. *XINEOPTS* darin entsprechend
+angepasst werden. Zum Schluss wird die Konfigurationsdatei neu aus den
+Templates erzeugt.
 
 Im Folgenden ist das ganze Schritt für Schritt beschrieben:
 
@@ -51,11 +71,16 @@ sudo start openbox
 ----
 
 ===== Ein/Ausschalten mit der Fernbedienung =====
-Um das Atmolight per Fernbedienung schalten zu können, wurde die Taste KEY_BRIGHTNESS_CYCLE reserviert. Damit vdr-sxfe auf die Taste reagieren kann, muss es zwischen Eventlircd und VDR auf Tastendrücke lauschen.
-Die Variable *XINELIBOUTPUTOPTS* muss dann noch um die Hotkey-Unterstützung und den Socket von Eventlircd erweitert werden:
+Um das Atmolight per Fernbedienung schalten zu können, wurde die Taste
+KEY_BRIGHTNESS_CYCLE reserviert. Damit vdr-sxfe auf die Taste
+reagieren kann, muss es zwischen Eventlircd und VDR auf Tastendrücke
+lauschen.
+Die Variable *XINELIBOUTPUTOPTS* muss dann noch um die
+Hotkey-Unterstützung und den Socket von Eventlircd erweitert werden:
 
 ----
 --hotkeys --lirc=/var/run/lirc/lircd
 ----
 
-In der '/etc/init/vdr.conf' muss das Start-Argument *--lircd=$LIRC* entfernt werden.
+In der '/etc/init/vdr.conf' muss das Start-Argument *--lircd=$LIRC*
+entfernt werden.

@@ -3,15 +3,32 @@
 
 image:logo-yavdr.png["yaVDR-Logo"]
 
-Diese Dokumentation soll die Bedienung und Interna eines yaVDR-Systems erklären und dem Nutzer dabei helfen, sich mit den Besonderheiten, die yaVDR von einem normalen Ubuntu unterscheiden, vertraut zu machen. Es ist bewusst keine Einführung in die Grundlagen der Bedienung von (Ubuntu) Linux. Daher wird dem Neueinsteiger empfohlen sich mit Hilfe von entsprechender Literatur oder Online-Quellen wie dem sehr umfangreichen http://wiki.ubuntuusers.de/Startseite[Ubuntu Users Wiki] einzulesen. Auch für den VDR und für XBMC kann an dieser Stelle nicht jedes Detail erklärt werden - gute Anlaufstellen für weiterführende Informationen sind das http://vdr-wiki.de[VDR-Wiki] und das http://wiki.xbmc.org/index.php?title=Main_Page[XBMC-Wiki]
+Diese Dokumentation soll die Bedienung und Interna eines yaVDR-Systems
+erklären und dem Nutzer dabei helfen, sich mit den Besonderheiten, die
+yaVDR von einem normalen Ubuntu unterscheiden, vertraut zu machen. Es
+ist bewusst keine Einführung in die Grundlagen der Bedienung von
+(Ubuntu) Linux. Daher wird dem Neueinsteiger empfohlen sich mit Hilfe
+von entsprechender Literatur oder Online-Quellen wie dem sehr
+umfangreichen http://wiki.ubuntuusers.de/Startseite[Ubuntu Users Wiki]
+einzulesen. Auch für den VDR und für XBMC kann an dieser Stelle nicht
+jedes Detail erklärt werden - gute Anlaufstellen für weiterführende
+Informationen sind das http://vdr-wiki.de[VDR-Wiki] und das
+http://kodi.wiki/view/Main_Page[KODI-Wiki]
 
-Wann immer die Beschreibung von Befehlen, Funktionen oder Abläufen den Rahmen dieser Dokumentation sprengen würde, wird daher auf entsprechende Artikel verlinkt. Auch doppelte Ausführungen zum selben Themas werden wo immer es geht vermieden und stattdessen auf die entsprechende Stelle in der Dokumentation verlinkt.
+Wann immer die Beschreibung von Befehlen, Funktionen oder Abläufen den
+Rahmen dieser Dokumentation sprengen würde, wird daher auf
+entsprechende Artikel verlinkt. Auch doppelte Ausführungen zum selben
+Themas werden wo immer es geht vermieden und stattdessen auf die
+entsprechende Stelle in der Dokumentation verlinkt.
 
-Diese Dokumentation gibt es auch als link:yaVDR_doc.pdf[PDF-] und als link:yaVDR_doc.html["All-in-one"] Version
+Diese Dokumentation gibt es auch als link:yaVDR_doc.pdf[PDF-] und als
+link:yaVDR_doc.html["All-in-one"] Version
 
 === Lizenz ===
 
-Diese Dokumentation steht unter der http://www.gnu.org/licenses/fdl-1.3.txt[GNU FDL] footnote:[Free DOC LICENCE, siehe http://www.gnu.org/copyleft/fdl.html] 
+Diese Dokumentation steht unter der
+http://www.gnu.org/licenses/fdl-1.3.txt[GNU FDL] footnote:[Free DOC
+LICENCE, siehe http://www.gnu.org/copyleft/fdl.html]
 
 
 === Konventionen ===
@@ -20,12 +37,13 @@ Befehle, die man in der Shell oder in xterm ausführen kann, sehen so aus:
 
 .Ein Beispiel-Befehl
 ----
-<1>user@yavdr:~$ <2> sudo make me a sandwich 
+<1>user@yavdr:~$ <2> sudo make me a sandwich
 ----
 <1> Der Shell-Prompt zeigt, dass man als Benutzer *user* am Rechner *yavdr* angemeldet ist und sich im $HOME Verzeichnis footnote:[Das $HOME-Verzeichnis ist das individuelle Benutzerverzeichnis auf Linux-Systemen. Es befindet sich normalerweise unter '/home/Benutzername/' und wird durch das Tilde-Zeichen *~* abgekürzt.] befindet.
 <2> dahinter steht der Befehl, der Ausgeführt werden soll footnote:[das Beispiel orientiert sich an http://xkcd.com/149/ und soll das Konzept des Superusers (siehe http://wiki.ubuntuusers.de/sudo) verdeutlichen.]
 
-Anmerkungen zu bestimmten Punkten werden als mit Nummern versehene kleine schwarze Kreise kenntlich gemacht.
+Anmerkungen zu bestimmten Punkten werden als mit Nummern versehene
+kleine schwarze Kreise kenntlich gemacht.
 
 Konfigurationsdateien werden mit Source-Code-Highlighting dargestellt:
 
@@ -73,11 +91,11 @@ Wichtiges wird durch dieses Symbol gekennzeichnet
 .Warnung!
 =====================================================================
 Warnungen werden durch dieses Symbol gekennzeichnet
-===================================================================== 
+=====================================================================
 
 .Anmerkung
 ****
 Anmerkungen erscheinen auf gelbem Hintergrund.
-**** 
+****
 
 

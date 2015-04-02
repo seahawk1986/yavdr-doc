@@ -4,9 +4,15 @@ http://vdr-wiki.de/wiki/index.php/YaVDR/Troubleshooting
 [[posting_files]]
 === Posten von Dateien ===
 
-Lange Dateien und Logs sollten nicht einfach in einen Forumspost oder einen Bugreport kopiert werden. Eleganter ist es sie als Anhang ober bei einem Pastebin-Dienst zu hinterlegen.
+Lange Dateien und Logs sollten nicht einfach in einen Forumspost oder
+einen Bugreport kopiert werden.
+Eleganter ist es sie als Anhang ober bei einem Pastebin-Dienst zu
+hinterlegen.
 
-Ein praktisches Tool um Text an einen Pastebin-Dienst zu senden ist *pastebinit*, das aus dem gleichnamigen Paket <<install-packages,installiert>> werden kann. Die Benutzung ist denkbar einfach:
+Ein praktisches Tool um Text an einen Pastebin-Dienst zu senden ist
+*pastebinit*, das aus dem gleichnamigen Paket
+<<install-packages,installiert>> werden kann.
+Die Benutzung ist denkbar einfach:
 
 .Weitergeben der Ausgabe eines Befehls an pastebinit mittels Pipe "|"
 ----
@@ -18,12 +24,14 @@ dmesg | pastebinit
 sudo pastebinit /var/log/syslog
 ----
 
-pastebinit gibt eine URL zurück, die auf den Paste verweist, und leicht in Forenposts und Bugreports verwendet werden kann.
+pastebinit gibt eine URL zurück, die auf den Paste verweist und somit
+leicht in Forenposts und Bugreports verwendet werden kann.
 
 [CAUTION]
-.Probleme beim Pasten von Templates
+.Bekannte Probleme beim Pasten von Templates
 =====================================================================
-Die Clearsilver-Syntax der yaVDR-Templates wird of fälschlicherweise als PHP-Code erkannt und von vielen Pastebin-Diensten nicht akzeptiert.
+Die Clearsilver-Syntax der yaVDR-Templates wird of fälschlicherweise
+als PHP-Code erkannt und von vielen Pastebin-Diensten nicht akzeptiert.
 =====================================================================
 
 

@@ -1,11 +1,20 @@
 [[xine-post-atmo]]
 ==== xine-post-atmo Plugin ====
 
-Das Plugin kann über das Paket *libxine-atmo-plugin* <<install-packages,installiert>> werden.footnote:[http://www.die-keils.info/thomas/wordpress/?p=135]
+Das Plugin kann über das Paket *libxine-atmo-plugin*
+<<install-packages,installiert>>
+werden.footnote:[http://www.die-keils.info/thomas/wordpress/?p=135]
 
 ////
 Ohriginal :P
-Nun das Frontend entsprechend konfigurieren. Dazu müssen die Templates überladen werden. Bis die orginal-Templates aufgedröselt sind in Teile für Variablen und Teile für den tatsächlichen Start, muss das gesamte Template überladen werden. Dazu die Templates 20_xineliboutput und 25_xine (oder welches man halt braucht) in /usr/share/yavdr/templates/etc/init/vdr-frontend.conf/ kopieren nach /etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/ (Verzeichnis ggfs erstellen):
+Nun das Frontend entsprechend konfigurieren. Dazu müssen die Templates
+überladen werden. Bis die orginal-Templates aufgedröselt sind in Teile
+für Variablen und Teile für den tatsächlichen Start, muss das gesamte
+Template überladen werden. Dazu die Templates 20_xineliboutput und
+25_xine (oder welches man halt braucht) in
+/usr/share/yavdr/templates/etc/init/vdr-frontend.conf/ kopieren nach
+/etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/ (Verzeichnis
+ggfs erstellen):
 
 Besser
 ////
@@ -13,7 +22,17 @@ Besser
 [[atmo-config]]
 .Konfiguration
 
-Um das Plugin nutzen zu können, müssen die Start-Argumente von xine bzw. vdr-sxfe in der Konfigurationsdatei '/etc/init/vdr-frontend.conf' angepasst werden. Diese Datei ist <<template,getemplated>> und sollte daher nicht direkt bearbeitet werden. Stattdessen muss der für das jeweilige Frontend passende Template-Teil ('20_xineliboutput' für *vdr-sxfe* und '25_xine' für *xine*) aus '/usr/share/yavdr/templates/etc/init/vdr-frontend.conf/' nach '/etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/' kopiert und die Variable *XINELIBOUTPUTOPTS* bzw. *XINEOPTS* darin entsprechend angepasst werden. Zum Schluss wird die Konfigurationsdatei neu aus den Templates erzeugt.
+Um das Plugin nutzen zu können, müssen die Start-Argumente von xine
+bzw. vdr-sxfe in der Konfigurationsdatei '/etc/init/vdr-frontend.conf'
+angepasst werden. Diese Datei ist <<template,getemplated>> und sollte
+daher nicht direkt bearbeitet werden. Stattdessen muss der für das
+jeweilige Frontend passende Template-Teil ('20_xineliboutput' für
+*vdr-sxfe* und '25_xine' für *xine*) aus
+'/usr/share/yavdr/templates/etc/init/vdr-frontend.conf/' nach
+'/etc/yavdr/templates_custom/etc/init/vdr-frontend.conf/' kopiert und
+die Variable *XINELIBOUTPUTOPTS* bzw. *XINEOPTS* darin entsprechend
+angepasst werden. Zum Schluss wird die Konfigurationsdatei neu aus den
+Templates erzeugt.
 
 Im Folgenden ist das ganze Schritt für Schritt beschrieben:
 
