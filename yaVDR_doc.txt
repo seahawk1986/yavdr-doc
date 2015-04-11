@@ -1,9 +1,9 @@
-Dokumentation für yaVDR
-=======================
-:Author:   seahawk1986
+Dokumentation für {version}
+===========================
+:Author:   Alexander Grothe (seahawk1986)
 :Email:    seahawk1986@hotmail.com
-:Date:     Mai 2012
-:Revision: v0.5
+:Date:     Mai 2015
+:Revision: v0.6
 :encoding: UTF-8
 :lang: de
 :version: yaVDR 0.6
@@ -27,8 +27,9 @@ include::00_Widmung.txt[]
 
 include::00_Vorwort.txt[]
 
-[[yavdr]]
-== yaVDR ==
+[[installation_chapter]]
+{version} Installation und erste Schritte
+-----------------------------------------
 
 include::01_Einleitung.txt[]
 
@@ -87,6 +88,8 @@ include::101_Linux.txt[]
 include::99_FAQ.txt[]
 
 include::100_Troubleshooting.txt[]
+
+include::140_udev.txt[]
 
 include::Tipps_und_Tricks.txt[]
 

@@ -1,14 +1,13 @@
-=== Einleitung ===
+Einleitung
+~~~~~~~~~~
 
-yaVDR footnote:[yaVDR steht für yet another VDR] ist eine auf Ubuntu
-basierende Linux-Distribution, die speziell für die Nutzung des
-http://www.tvdr.de[Video Disk Recorder] von Klaus Schmidinger
-angepasst wurde.
-Sie ist bestens geeignet um digitales und analoges footnote:[setzt
-Hauppauge PVR-TV-Karten voraus, siehe
+yaVDR (**y**et **a**nother *VDR*) basiert auf Ubuntu Linux und ist für
+die Nutzung des http://www.tvdr.de[Video Disk Recorder] von Klaus
+Schmidinger angepasst.  Sie ist gut geeignet um digitales und
+analoges footnote:[setzt Hauppauge PVR-TV-Karten voraus, siehe
 http://www.vdr-wiki.de/wiki/index.php/Pvrinput-plugin[PVRinput-Plugin]]
 Fernsehen über alle gängigen Empfangswege footnote:[DVB-S(2), DVB-C,
-DVB-T] zu empfangen, aufzuzeichnen, zu bearbeiten und wiederzugeben.
+DVB-T, IPTV] zu empfangen, aufzuzeichnen, zu bearbeiten und wiederzugeben.
 
 Mit http://www.kodi.tv[KODI] ist außerdem ein mächtiges MediaCenter
 integriert, das es ermöglicht einen PC mit yaVDR als praktisch

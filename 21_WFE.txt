@@ -140,7 +140,9 @@ von Eventlircd-Eingabegeräten an den VDR weitergegeben.
 [CAUTION]
 .Igor-USB
 =====================================================================
-Für Igor-USB Empfänger darf Lirc nicht über das Webfrontend aktiviert werden. Zur weiteren Konfiguration siehe <<lirc_igor,Igor-USB Empfänger>>
+Für Igor-USB Empfänger darf Lirc nicht über das Webfrontend aktiviert
+werden. Zur weiteren Konfiguration siehe <<lirc_igor,Igor-USB
+Empfänger>>
 =====================================================================
 
 [[wfe-audio]]
@@ -204,8 +206,10 @@ der Graphtft-Anzeige kommt, hilft meist diese Methode:
 * Monitore neu erkennen lassen ("Rescan Displays")
 * Neustart, damit die Reihenfolge der Anzeigen sicher stimmt
 * Dualscreen einrichten
-* Graphtft mit anhaken und dabei Auflösung und Wiederholrate des GraphTFT-Bildschirms von Hand festlegen
-* Falls die Reihenfolge noch nicht stimmt primären und sekundären Monitor festlegen
+* Graphtft mit anhaken und dabei Auflösung und Wiederholrate des
+  GraphTFT-Bildschirms von Hand festlegen
+* Falls die Reihenfolge noch nicht stimmt primären und sekundären
+  Monitor festlegen
 =====================================================================
 
 [[wfe-system]]
@@ -269,15 +273,18 @@ Unterpunkte ausführen
 ****
 ===== Befehle =====
 
-* image:wfe/logos/switch-display.png[height=32] Vorläufig auf zweiten Bildschirm schalten
+* image:wfe/logos/switch-display.png[height=32] Vorläufig auf zweiten
+  Bildschirm schalten
 * image:wfe/logos/reboot.png[height=32] Rechner neu starten
 * image:wfe/logos/xbmc-process-stop.png[height=32] XBMC Notstopp
-* image:wfe/logos/xbmc-edit-delete.png[height=32] XBMC Konfiguration zurücksetzen
+* image:wfe/logos/xbmc-edit-delete.png[height=32] XBMC Konfiguration
+  zurücksetzen
 * image:wfe/logos/view-refresh.png[height=32] VDR neu starten
 
 ===== Diagnosewerkzeuge =====
 
-* image:wfe/logos/utilities-system-monitor.png[height=32] System Informationen
+* image:wfe/logos/utilities-system-monitor.png[height=32] System
+  Informationen
 * image:wfe/logos/document-open.png[height=32] System log files
 * image:wfe/logos/xbmc-document-open.png[height=32] XBMC crash log
 * image:wfe/logos/lirc-config.png[height=32] LIRC Konfiguration

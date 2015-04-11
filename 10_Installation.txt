@@ -1,14 +1,17 @@
 [[installation]]
-=== Installation von yaVDR ===
+Installation von yaVDR 
+~~~~~~~~~~~~~~~~~~~~~~
 
 [[download]]
-==== Download ====
+Download 
+^^^^^^^^
 
 Die aktuelle stabile Version von {version} steht im
 Download-Bereich der http://www.yavdr.org/download[offiziellen Website] bereit.
 
 [[installation]]
-==== Installation ====
+Installation
+^^^^^^^^^^^^
 
 Je nach verwendetem Prozessor, Arbeitsspeicher und Festplatten nimmt
 eine yaVDR-Installation zwischen 20 bis 70 Minuten in Anspruch.
@@ -112,15 +115,18 @@ Als Dateisystem eignet sich z.B. ext4.
 
 image:./installation/12_festplatten_partitionieren.png[]
 
-Und man bestätigt, dass man die Vorgeschlagene Partitionierung durchführen möchte:
+Und man bestätigt, dass man die Vorgeschlagene Partitionierung
+durchführen möchte:
 
 image:./installation/13_partitionierung_uebernehmen.png[]
 
-Nun wird die Partitionierung übernommen und damit begonnen das System einzurichten:
+Nun wird die Partitionierung übernommen und damit begonnen das System
+einzurichten:
 
 image:./installation/14_installation_des_grundsystems.png[]
 
-Als vorläufig letzten Schritt muss man noch angeben, ob ein HTTP-Proxy verwendet wird.
+Als vorläufig letzten Schritt muss man noch angeben, ob ein HTTP-Proxy
+verwendet wird.
 Ist das (wie in den meisten Heimnetzwerken üblich) nicht der Fall,
 kann man das Feld einfach leer lassen:
 
@@ -142,22 +148,4 @@ Nach Abschluss der Installation soltle man das Installationsmedium
 entfernen und den Rechner neu starten.
 
 image:./installation/18_done.png[]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

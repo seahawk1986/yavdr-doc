@@ -187,7 +187,8 @@ user@yavdr:~$ dmesg
 [ 7178.574745] input: HID 05a4:9881 as /devices/pci0000:00/0000:00:06.0/usb2/2-2/2-2:1.1/input/input6
 [ 7178.574885] generic-usb 0003:05A4:9881.0003: input,hidraw2: USB HID v1.10 Mouse [HID 05a4:9881] on usb-0000:00:06.0-2/input1 <1>
 ----
-<1> Wie man sehen kann werden zwei Eingabegeräte (Fernbedienung + Mausfunktion) erkannt.
+<1> Wie man sehen kann werden zwei Eingabegeräte (Fernbedienung +
+    Mausfunktion) erkannt.
 
 Für weitere Informationen dazu wie die Fernbedienung eingebunden wird,
 schaut man sich die vom System erkannten Eingabegeräte an:
