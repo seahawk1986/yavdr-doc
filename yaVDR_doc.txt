@@ -77,7 +77,7 @@ include::98_Debugging.txt[]
 
 :leveloffset: -1
 
-include::90_XBMC.txt[]
+include::90_KODI.txt[]
 
 include::101_Linux.txt[]
 

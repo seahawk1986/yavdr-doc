@@ -1,23 +1,26 @@
 [[udev]]
 udev
 ~~~~
-http://de.wikipedia.org/wiki/Udev[udev] ist ein Dienstprogramm, mit dessen
-Hilfe die Gerätedateien für den Linux Kernel verwaltet werden.  Es ermöglicht
-es auf das Hinzufügen bzw. Entfernen von Geräten zu reagieren, und darauf
-hin Befehle auszuführen oder den Geräten Attribute zuzuweisen, die von
-Programmen ausgewertet werden können, um zu entscheiden, wie ein Gerät
-behandelt werden soll.
+
+http://de.wikipedia.org/wiki/Udev[udev] ist ein Dienstprogramm, mit
+dessen Hilfe die Gerätedateien für den Linux Kernel verwaltet werden.
+Es ermöglicht es auf das Hinzufügen bzw. Entfernen von Geräten zu
+reagieren, und darauf hin Befehle auszuführen oder den Geräten
+Attribute zuzuweisen, die von Programmen ausgewertet werden können, um
+zu entscheiden, wie ein Gerät behandelt werden soll.
 
 udev-Regeln
 ^^^^^^^^^^^ 
 
-Wie <<udev,udev>> auf ein Gerät reagieren soll, lässt ich über so genante
-udev-Regeln festlegen. Regeln, die aus installierten Paketen der Distribtion
-stammen, befinden sich im Verzeichnis '/lib/udev/rules.d/'. Für eigene
-Anpassungen empfiehlt es sich neue Regeln im Verzeichnis '/etc/udev/rules.d/'
-anzulegen, da diese durch Paketupdates nicht überschrieben werden. Die
-Dateiendung ist .rules, also würde man z.B. so eine Regel anlegen, um auf
-neu initialisierte DVB-Karten zu reagieren und dafür zu sorgen, dass nur ein VDR mit der Instanz-ID +0+ diese Karten einbindet:
+Wie <<udev,udev>> auf ein Gerät reagieren soll, lässt ich über so
+genante udev-Regeln festlegen. Regeln, die aus installierten Paketen
+der Distribtion stammen, befinden sich im Verzeichnis
+'/lib/udev/rules.d/'. Für eigene Anpassungen empfiehlt es sich neue
+Regeln im Verzeichnis '/etc/udev/rules.d/' anzulegen, da diese durch
+Paketupdates nicht überschrieben werden. Die Dateiendung ist .rules,
+also würde man z.B. so eine Regel anlegen, um auf neu initialisierte
+DVB-Karten zu reagieren und dafür zu sorgen, dass nur ein VDR mit der
+Instanz-ID +0+ diese Karten einbindet:
 
 .'/etc/udev/rules.d/40-instanceid-0-dvb.rules'
 --------------------------------------------------------------------
@@ -29,12 +32,12 @@ ACTION=="add", SUBSYSTEM=="dvb", ENV{DVB_DEVICE_TYPE}=="frontend" \
 udev-Regeln erstellen
 +++++++++++++++++++++
 
-Eine empfehlenswerte Anleitung zum Erstellen von udev-Regeln findet man auf
-http://www.reactivated.net/writing_udev_rules.html
+Eine empfehlenswerte Anleitung zum Erstellen von udev-Regeln findet
+man auf http://www.reactivated.net/writing_udev_rules.html
 
-Zum Erstellen einer udev-Regel benötigt man zunächst Informationen über das
-oder die Geräte, auf die man reagieren möchte. Mit Hilfe von +udevadm+ kann man
-sich Informationen zu einem Gerät anzeigen lassen:
+Zum Erstellen einer udev-Regel benötigt man zunächst Informationen
+über das oder die Geräte, auf die man reagieren möchte. Mit Hilfe von
++udevadm+ kann man sich Informationen zu einem Gerät anzeigen lassen:
 
 [source,bash]
 ----------------
@@ -56,4 +59,6 @@ E: USEC_INITIALIZED=760632
 
 ----------------
 
-jedes der Attribute kann nun genutzt werden, um in einer udev-Regel zu bestimmen, anhand welcher Merkmale die Regel auf bestimmte Geräte angewendet werden soll.
+jedes der Attribute kann nun genutzt werden, um in einer udev-Regel zu
+bestimmen, anhand welcher Merkmale die Regel auf bestimmte Geräte
+angewendet werden soll.

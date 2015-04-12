@@ -1,7 +1,10 @@
 [[services]]
 === Dienste von yaVDR ===
 
-Damit yaVDR funktionieren kann, müssen einige Programme als Dienste im Hintergrund laufen, andere werden nur vorrübergehend benötigt, z.B. um Programme mit bestimmten Rechten aufzurufen.
+Damit yaVDR funktionieren kann, müssen einige Programme als Dienste im
+Hintergrund laufen, andere werden nur vorrübergehend benötigt, z.B. um
+Programme mit bestimmten Rechten aufzurufen.
+
 ****
 .TODO:
 Samba,  
@@ -11,7 +14,10 @@ Webfrontend
 
 ==== Upstart ====
 
-http://upstart.ubuntu.com/[Upstart] wird von yaVDR für alle wichtigen Systemdienste und zum Start von Programmen verwendet. Dazu gehören vor allem der VDR selbst, aber auch der Dienst für die Fernbedienung, der Openbox und viele andere.
+http://upstart.ubuntu.com/[Upstart] wird von yaVDR für alle wichtigen
+Systemdienste und zum Start von Programmen verwendet. Dazu gehören vor
+allem der VDR selbst, aber auch der Dienst für die Fernbedienung, der
+Openbox und viele andere.
 
 .Eine Übersicht der von Upstart verwalteten Einträge kann man sich mit folgendem Kommando anzeigen lassen:
 ----
@@ -35,7 +41,9 @@ sudo status <Dienst>  <4>
 
 ===== Beispiele =====
 
-Im folgenden sind einige Beispiele für die Steuerung von Diensten aufgeführt. Sie lassen sich problemlos auf andere Dienste wie z.B. *openbox*, *vdr-frontend* oder *lircd* übertragen.
+Im folgenden sind einige Beispiele für die Steuerung von Diensten
+aufgeführt. Sie lassen sich problemlos auf andere Dienste wie z.B.
+*openbox*, *vdr-frontend* oder *lircd* übertragen.
 
 .VDR
 [[start-vdr]]

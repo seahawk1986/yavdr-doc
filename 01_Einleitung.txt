@@ -3,19 +3,20 @@ Einleitung
 
 yaVDR (**y**et **a**nother *VDR*) basiert auf Ubuntu Linux und ist für
 die Nutzung des http://www.tvdr.de[Video Disk Recorder] von Klaus
-Schmidinger angepasst.  Sie ist gut geeignet um digitales und
-analoges footnote:[setzt Hauppauge PVR-TV-Karten voraus, siehe
+Schmidinger angepasst.  Sie ist gut geeignet um digitales und analoges
+footnote:[setzt Hauppauge PVR-TV-Karten voraus, siehe
 http://www.vdr-wiki.de/wiki/index.php/Pvrinput-plugin[PVRinput-Plugin]]
 Fernsehen über alle gängigen Empfangswege footnote:[DVB-S(2), DVB-C,
-DVB-T, IPTV] zu empfangen, aufzuzeichnen, zu bearbeiten und wiederzugeben.
+DVB-T, IPTV] zu empfangen, aufzuzeichnen, zu bearbeiten und
+wiederzugeben.
 
 Mit http://www.kodi.tv[KODI] ist außerdem ein mächtiges MediaCenter
 integriert, das es ermöglicht einen PC mit yaVDR als praktisch
 vollwertigen HTPC footnote:[Home Theater PC] zu nutzen.
 
 Um eine möglichst hohe Lebensdauer inkl. sicherheitsrelevanter Updates
-zu erreichen, baut yaVDR nach Möglichkeit auf LTS\footnote{Long Term
-Support} Versionen von Ubuntu auf.
+zu erreichen, baut yaVDR nach Möglichkeit auf LTS footnote:[Long Term
+Support] Versionen von Ubuntu auf.
 
 Bei der Installation wird unterstützte Hardware bei der Installation
 automatisch erkannt und die notwendigen Pakete installiert und

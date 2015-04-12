@@ -1,5 +1,6 @@
 [[streamdev]]
 ==== Streamdev-Plugin ====
+
 Das http://vdr-wiki.de/wiki/index.php/Streamdev-plugin[Streamdev
 Plugin] erlaubt es dem VDR Live-TV an andere VDRs (über das
 Streamdev-Client Plugin) oder beliebige Clients via HTTP zu streamen.
@@ -13,11 +14,12 @@ Das Streamdev-Server Plugin (Paketname *vdr-plugin-streamdev-server*)
 ist bei {version} vorinstalliert. Es erweitert den VDR um die
 Fähigkeit Live-TV übers Netzwerk zu streamen.
 
-[NOTE]
-.Zugriff von anderen Rechnern aus
+[NOTE] .Zugriff von anderen Rechnern aus
 =====================================================================
-In der Voreinstellung nach der Installation erlaubt das Plugin nur Zugriffe vom gleichen Rechner.
-Um anderen Clients den Zugriff (und die Steuerung wichtiger Funktionen per SVDRP) zu erlauben müssen wie im folgenden beschrieben zwei Konfigurationsdateien angepasst werden
+In der Voreinstellung nach der Installation erlaubt das Plugin nur
+Zugriffe vom gleichen Rechner.  Um anderen Clients den Zugriff (und
+die Steuerung wichtiger Funktionen per SVDRP) zu erlauben müssen wie
+im folgenden beschrieben zwei Konfigurationsdateien angepasst werden
 =====================================================================
 
 Für den Zugriff über SVDRP (z.B. wenn ein anderer VDR mit
@@ -38,11 +40,19 @@ ist unter {version} <<template,getemplated>>.
 192.168.0.0/16  <4>
 0.0.0.0/0       <5>
 ----
-<1> Dieser Eintrag darf nicht entfernt werden, da sonst der VDR mit bestimmten Plugins nicht mehr richtig funktioniert!
+<1> Dieser Eintrag darf nicht entfernt werden, da sonst der VDR mit
+    bestimmten Plugins nicht mehr richtig funktioniert!
 <2> Erlaubt dem Rechner mit der IP 192.168.1.115 den Zugriff
 <3> Erlaubt allen Rechnern, mit der IP 192.168.1.xxx den Zugriff
-<4> Erlaubt allen Rechnern in einem http://de.wikipedia.org/wiki/Netzklasse#.C3.9Cbersicht_der_Netzklassen[Class C Netzwerk] (also mit IP 192.168.xxx.xxx, Standardeinstellung in {version}) den Zugriff auf den Streamdev-Server.
-<5> Erlaubt allen Rechnern unabhängig von ihrer IP den Zugriff (Achtung: Nicht empfohlen, da damit ein ungeschützter Zugriff auf die Kanäle des VDR von außerhalb des eigenen Netzwerks möglich ist, falls der VDR nicht durch einen Router mit NAT oder eine Firewall gesichert ist!)
+<4> Erlaubt allen Rechnern in einem
+    http://de.wikipedia.org/wiki/Netzklasse#.C3.9Cbersicht_der_Netzklassen[Class
+    C Netzwerk] (also mit IP 192.168.xxx.xxx, Standardeinstellung in
+    {version}) den Zugriff auf den Streamdev-Server.
+<5> Erlaubt allen Rechnern unabhängig von ihrer IP den Zugriff
+    (Achtung: Nicht empfohlen, da damit ein ungeschützter Zugriff auf
+    die Kanäle des VDR von außerhalb des eigenen Netzwerks möglich
+    ist, falls der VDR nicht durch einen Router mit NAT oder eine
+    Firewall gesichert ist!)
 
 Der Streamdev-Server stellt auf Port 3000 eine Webinterface mit Links
 zu den von ihm angeboteten Streams bereit. Unter
@@ -71,6 +81,7 @@ finden.
 
 [[streamdev-client]]
 ===== Streamdev-Client =====
+
 Das Streamdev-Client Plugin (Paketname: *vdr-plugin-streamdev-client*)
 erlaubt einem VDR auf das Streamdev-Server Plugin eines anderen VDR
 zuzugreifen und somit dessen DVB-Karten zu nutzen. Damit das klappt,
