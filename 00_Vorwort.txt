@@ -1,6 +1,6 @@
 [preface]
-== Vorwort ==
-
+Vorwort
+-------
 image:logo-yavdr.png["yaVDR-Logo"]
 
 Diese Dokumentation soll die Bedienung und Interna eines yaVDR-Systems
@@ -24,20 +24,22 @@ entsprechende Stelle in der Dokumentation verlinkt.
 Diese Dokumentation gibt es auch als link:yaVDR_doc.pdf[PDF-] und als
 link:yaVDR_doc.html["All-in-one"] Version
 
-=== Lizenz ===
+Lizenz
+~~~~~~
 
 Diese Dokumentation steht unter der
 http://www.gnu.org/licenses/fdl-1.3.txt[GNU FDL] footnote:[Free DOC
 LICENCE, siehe http://www.gnu.org/copyleft/fdl.html]
 
 
-=== Konventionen ===
+Konventionen
+~~~~~~~~~~~~
 
 Befehle, die man in der Shell oder in xterm ausführen kann, sehen so aus:
 
 .Ein Beispiel-Befehl
 ----
-<1>user@yavdr:~$ <2> sudo make me a sandwich
+<1> user@yavdr:~$ <2> sudo make me a sandwich
 ----
 <1> Der Shell-Prompt zeigt, dass man als Benutzer *user* am Rechner *yavdr* angemeldet ist und sich im $HOME Verzeichnis footnote:[Das $HOME-Verzeichnis ist das individuelle Benutzerverzeichnis auf Linux-Systemen. Es befindet sich normalerweise unter '/home/Benutzername/' und wird durch das Tilde-Zeichen *~* abgekürzt.] befindet.
 <2> dahinter steht der Befehl, der Ausgeführt werden soll footnote:[das Beispiel orientiert sich an http://xkcd.com/149/ und soll das Konzept des Superusers (siehe http://wiki.ubuntuusers.de/sudo) verdeutlichen.]
@@ -45,23 +47,36 @@ Befehle, die man in der Shell oder in xterm ausführen kann, sehen so aus:
 Anmerkungen zu bestimmten Punkten werden als mit Nummern versehene
 kleine schwarze Kreise kenntlich gemacht.
 
-Konfigurationsdateien werden mit Source-Code-Highlighting dargestellt:
+//Konfigurationsdateien werden mit Source-Code-Highlighting dargestellt:
+//
+//.Beispiel für die Konfigurationsdatei '/etc/fstab' footnote:[Über diese Datei kann man Linux anweisen Speichergeräte fest in das Root-Dateisystem einzuhängen]
+//----
+//# /etc/fstab: static file system information.
+//#
+//# Use 'blkid -o value -s UUID' to print the universally unique identifier
+//# for a device; this may be used with UUID= as a more robust way to name
+//# devices that works even if disks are added and removed. See fstab(5).
+//#
+//# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+//proc            /proc           proc    nodev,noexec,nosuid 0       0
+//# / was on /dev/sdb1 during installation
+//UUID=83a8163c-195b-4e85-a9ed-18478339dc3f /               ext4    errors=remount-ro 0       1
+//# swap was on /dev/sdb5 during installation
+//UUID=32fc4d86-ab86-4ed8-bf24-68aa98ec6d0c none            swap    sw              0       0
+//----
+Dateien werden nach Möglichkeit mit Syntax-Highlighting dargestellt:
 
-.Beispiel für die Konfigurationsdatei '/etc/fstab' footnote:[Über diese Datei kann man Linux anweisen Speichergeräte fest in das Root-Dateisystem einzuhängen]
-----
-# /etc/fstab: static file system information.
-#
-# Use 'blkid -o value -s UUID' to print the universally unique identifier
-# for a device; this may be used with UUID= as a more robust way to name
-# devices that works even if disks are added and removed. See fstab(5).
-#
-# <file system> <mount point>   <type>  <options>       <dump>  <pass>
-proc            /proc           proc    nodev,noexec,nosuid 0       0
-# / was on /dev/sdb1 during installation
-UUID=83a8163c-195b-4e85-a9ed-18478339dc3f /               ext4    errors=remount-ro 0       1
-# swap was on /dev/sdb5 during installation
-UUID=32fc4d86-ab86-4ed8-bf24-68aa98ec6d0c none            swap    sw              0       0
-----
+[source,python]
+-------------------------------
+#!/usr/bin/python3
+
+def hello_world()
+    print("Hallo Welt!")  # <1>
+
+if __name__ == '__main__':
+    hello_world()
+-------------------------------
+<1> drucke "Hallo Welt!"
 
 [TIP]
 .Tipps
@@ -95,7 +110,7 @@ Warnungen werden durch dieses Symbol gekennzeichnet
 
 .Anmerkung
 ****
-Anmerkungen erscheinen auf gelbem Hintergrund.
+Anmerkungen erscheinen auf diesem Hintergrund.
 ****
 
 

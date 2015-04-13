@@ -2,7 +2,7 @@
 
 yaVDR basiert auf http://www.ubuntu.com/[Ubuntu Linux].
 Einen Großteil der Konfiguration kann man über das
-*webinterface,Webinterface* vornehmen.
+*<<wfe,Webinterface>>* vornehmen.
 Für komplexere Konfigurationen oder zur Fehlerbehebung ist es
 aber oft notwendig von Hand Änderungen vorzunehmen.
 Daher ist es ratsam sich mit der grundlegenden Bedienung
@@ -132,10 +132,11 @@ momentan aber nicht gebraucht werden.
 ---
 sudo apt-get clean
 ---
-Entfernt alle lokal zwischengespeicherten Pakete, die aus den Paketquellen bezogen wurden.
+Entfernt alle lokal zwischengespeicherten Pakete,
+die aus den Paketquellen bezogen wurden.
 
 [[packet-sources]]
-===== Paketquellen ===== 
+===== Paketquellen =====
 yaVDR nutzt im Auslieferungszustand die Ubuntu-Quellen sowie die
 https://launchpad.net/~yavdr[stable-PPAs] des yaVDR-Teams.
 Die aktuell eingetragenen Paketquellen finden sich unter

@@ -4,10 +4,14 @@
 
 === eigenes PPA nutzen ===
 
+****
+TODO
+****
+
 === VDR ===
 
 ==== Plugins ====
-Für yaVDR 0.6 haben wir in Abstimmung mit etobi (Tobias Grimm) die
+Für yaVDR 0.6 haben wir in Abstimmung mit e-tobi (Tobias Grimm) die
 Skripte für den Bau und die Installation der VDR-Plugins überarbeitet.
 Wir nutzen damit das gleiche Konzept, das in den kommenden Versionen
 auch unter Debian zum Einsatz kommen wird.

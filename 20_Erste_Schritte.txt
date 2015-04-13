@@ -2,9 +2,8 @@
 === Erste Schritte ===
 
 Nach der Installation startet yaVDR mit drei vorkonfigurierten
-Internet-TV Kanälen.
-Ist eine Internetanbindung vorhanden sieht man also zunächst
-den IPTV-Stream des ZDF.
+Internet-TV Kanälen. Ist eine Internetanbindung vorhanden sieht man
+also zunächst den IPTV-Stream des ZDF.
 
 [TIP]
 .Erste Schritte nach der Installation
@@ -24,17 +23,16 @@ im Webfrontend
 [TIP]
 .Warum regelmäßige Aktualisierung sinnvoll sind
 =====================================================================
-Neben den Sicherheitsupdates, die für Ubuntu ausgeliefert werden
-(z.B. für Samba, Firefox, SSH usw.),
-versuchen wir yaVDR ständig zu verbessern und veröffentlichen daher
-häufiger Updates für VDR- und Kodi-Pakete, Plugins, Addons, Skripte
-und Templates.
+Neben den Sicherheitsupdates, die für Ubuntu ausgeliefert werden (z.B.
+für Samba, Firefox, SSH usw.), versuchen wir yaVDR ständig zu
+verbessern und veröffentlichen daher häufiger Updates für VDR- und
+Kodi-Pakete, Plugins, Addons, Skripte und Templates.
 
 Gerade *bevor* man darüber nachdenkt eine Support-Anfrage im
-http://www.vdr-portal.de[Forum] zu stellen, sollte man überprüfen,
-ob der Fehler auch nach dem Einspielen der aktuellen Updates und einem
-anschließenden Neustart noch auftritt.
-Dieses Vorgehen reduziert auch den Support-Aufwand für das yaVDR-Team.
+http://www.vdr-portal.de[Forum] zu stellen, sollte man überprüfen, ob
+der Fehler auch nach dem Einspielen der aktuellen Updates und einem
+anschließenden Neustart noch auftritt.  Dieses Vorgehen reduziert auch
+den Support-Aufwand für das yaVDR-Team.
 =====================================================================
 
 .Einspielen von Updates für das System
@@ -60,8 +58,8 @@ http://vdr-wiki.de/wiki/index.php/Benutzerhandbuch
 ===== Tastaturbelegung =====
 
 Auch wenn eine Fernbedienung die Bedienung deutlich bequemer macht,
-ist es nach der Installation oft hilfreich wenn man yaVDR auch mit
-der Tastatur bedienen kann.
+ist es nach der Installation oft hilfreich wenn man yaVDR auch mit der
+Tastatur bedienen kann.
 
 .Tastaturbelegung in yaVDR
 [cols="h,2*",options="header",width="90%"]
@@ -91,45 +89,45 @@ der Tastatur bedienen kann.
 [[Remote-HOWTO]]
 ===== Konfiguration der Fernbedienung =====
 
-Kein VDR wäre komplett ohne die Möglichkeit ihn bequem per Fernbedienung zu steuern.
-{version} unterstützt ein breites Spektrum von Eingabegeräten,
-darunter befinden sich  sowohl Infrarot- als auch Funk-Fernbedienungen.
-Falls die eigene Fernbedienung OOTB zufriedenstellend funktioniert kann
-man den folgenden Abschnitt überspringen.
-Wer keine Fernbedienungs-Empfänger Kombination hat,
-die OOTB funktioniert oder einfach verstehen will wie die Einbindung
-der Fernbedienungen in yaVDR funktioniert sollte einen Blick auf
-das Kapitel zur <<eventlirc,Fernbedienung und Eventlircd>> und zur
+Kein VDR wäre komplett ohne die Möglichkeit ihn bequem per
+Fernbedienung zu steuern.  {version} unterstützt ein breites Spektrum
+von Eingabegeräten, darunter befinden sich  sowohl Infrarot- als auch
+Funk-Fernbedienungen.  Falls die eigene Fernbedienung OOTB
+zufriedenstellend funktioniert kann man den folgenden Abschnitt
+überspringen.  Wer keine Fernbedienungs-Empfänger Kombination hat, die
+OOTB funktioniert oder einfach verstehen will wie die Einbindung der
+Fernbedienungen in yaVDR funktioniert sollte einen Blick auf das
+Kapitel zur <<eventlirc,Fernbedienung und Eventlircd>> und zur
 <<remote.conf,remote.conf>> in dieser Dokumentation werfen.
 
 Falls nicht alle Tasten wie erwartet funktionieren oder gar keine
-Tastendrücke beim VDR ankommen, konnte die Fernbedienung nicht automatisch
-durch yaVDR konfiguriert werden.
-Der folgende Abschnitt soll dabei helfen herauszufinden, wie die
-Fernbedienung eingebunden werden kann und welche Hilfsprogramme und
-Konfigurationsdateien dabei von Nutzen sind:
+Tastendrücke beim VDR ankommen, konnte die Fernbedienung nicht
+automatisch durch yaVDR konfiguriert werden.  Der folgende Abschnitt
+soll dabei helfen herauszufinden, wie die Fernbedienung eingebunden
+werden kann und welche Hilfsprogramme und Konfigurationsdateien dabei
+von Nutzen sind:
 
 [TIP]
 .Anfragen im VDR-Portal
 =====================================================================
 Für eine Support-Anfrage im
 http://www.vdr-portal.de/board60-linux/board14-betriebssystem/board96-yavdr/[Forum]
-ist es sinnvoll gleich ein paar Informationen über seinen Empfänger
-zu sammeln und die Ausgaben der hier in den einzelnen Schritten
-gezeigten Befehle gleich mit zu posten.
+ist es sinnvoll gleich ein paar Informationen über seinen Empfänger zu
+sammeln und die Ausgaben der hier in den einzelnen Schritten gezeigten
+Befehle gleich mit zu posten.
 ====================================================================
 
 Im Folgenden ein kurzer Leitfaden, der dabei hilft notwendige
-Informationen über den verwendeten Empfänger zu sammeln.
-Dies erleichtert die Suche im Internet und hilft dabei,
-Support-Anfragen im http://vdr-portal.de oder beim Hinzufügen
-der eigenen Konfiguration zur yaVDR-Konfigurationssammlung im
-https://bugs.yavdr.com/projects/yavdr/issues[Bug- & Feature-Tracker von yaVDR]
-mit sinnvollen Informationen zu versehen.
+Informationen über den verwendeten Empfänger zu sammeln.  Dies
+erleichtert die Suche im Internet und hilft dabei, Support-Anfragen im
+http://vdr-portal.de oder beim Hinzufügen der eigenen Konfiguration
+zur yaVDR-Konfigurationssammlung im
+https://bugs.yavdr.com/projects/yavdr/issues[Bug- & Feature-Tracker
+von yaVDR] mit sinnvollen Informationen zu versehen.
 
 Je nach Empfänger empfehlen sich unterschiedliche Herangehensweisen
-bei der Konfiguration. Um den Aufwand zu verringern folgt man am besten
-den nachfolgenden Links zum eigenen Empfänger.
+bei der Konfiguration. Um den Aufwand zu verringern folgt man am
+besten den nachfolgenden Links zum eigenen Empfänger.
 
 .Wie ist der Empfänger angeschlossen?
 * Über <<USB-Remote,USB>>
@@ -156,8 +154,9 @@ unterstützt wird und sich gut dafür eignet und die Vorgehensweise bei
 einem HID-Gerät zu zeigen.
 =====================================================================
 
-Um zu sehen, welche USB-Geräte Linux momentan erkannt hat, kann man den Befehl
-lsusb benutzen. Er gibt Hinweise auf Hersteller und Typ der angeschlossenen Geräte.
+Um zu sehen, welche USB-Geräte Linux momentan erkannt hat, kann man
+den Befehl lsusb benutzen. Er gibt Hinweise auf Hersteller und Typ der
+angeschlossenen Geräte.
 
 [[lsusb]]
 .lsusb
@@ -175,7 +174,9 @@ Bus 001 Device 001: ID 1d6b:0002 Linux Foundation 2.0 root hub
 <4> Hama MCE Remote
 
 Ruft man *dmesg* direkt nach dem Einstecken eines USB-Gerätes auf,
-sieht man, ob Linux für das Gerät Treiber geladen und Geräte angelegt hat.
+sieht man, ob Linux für das Gerät Treiber geladen und Geräte angelegt
+hat.
+
 [[dmesg]]
 .dmesg
 ----
@@ -187,7 +188,8 @@ user@yavdr:~$ dmesg
 [ 7178.574745] input: HID 05a4:9881 as /devices/pci0000:00/0000:00:06.0/usb2/2-2/2-2:1.1/input/input6
 [ 7178.574885] generic-usb 0003:05A4:9881.0003: input,hidraw2: USB HID v1.10 Mouse [HID 05a4:9881] on usb-0000:00:06.0-2/input1 <1>
 ----
-<1> Wie man sehen kann werden zwei Eingabegeräte (Fernbedienung + Mausfunktion) erkannt.
+<1> Wie man sehen kann werden zwei Eingabegeräte (Fernbedienung +
+    Mausfunktion) erkannt.
 
 Für weitere Informationen dazu wie die Fernbedienung eingebunden wird,
 schaut man sich die vom System erkannten Eingabegeräte an:
@@ -221,6 +223,7 @@ Die weitere Konfiguration ist im Abschnitt der Anleitung zu
 user@yavdr:~$ sudo ir-keytable
 Couldn't find any node at /sys/class/rc/rc*.
 ----
+
 Um herauszufinden, ob und wie die Fernbedienung eingebunden wird,
 schaut man sich die vom System erkannten Eingabegeräte an:
 <<cat-proc,cat /proc/bus/input/devices>>

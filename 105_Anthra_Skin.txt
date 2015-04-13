@@ -49,8 +49,12 @@ anpassen.
 Nun wird das Paket gebaut:
 
 ----
-dpkg-buildpackage -tc -us # Falls man einen gültigen LaunchPad-Account hat und dort einen Schlüssel zur Signierung des Paketes hinterlegt hat, kann man das Paket natürlich auch signieren (das Argument *-uc* entfällt dann).
+dpkg-buildpackage -tc -us <1>
 ----
+<1> Falls man einen GPG-Schlüssel besitzt und diesen auf Launchpad zur
+    Signierung des Paketes hinterlegt hat, kann man das Paket
+    natürlich auch signieren (das Argument *-uc* entfällt dann).
+
 
 Das erstellte Paket liegt nun im übergeordneten Ordner. Es kann
 mittels *dpkg -i* installiert werden:

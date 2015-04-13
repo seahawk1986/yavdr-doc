@@ -360,7 +360,7 @@ B: KEY=ffffffffffffffff ffffffffffffffff ffffffffffffffff ffffffffffffffff fffff
 [[ir-keytable]]
 ==== ir-keytable ====
 
-ir-keytable gibt Auskunft über das angelegte Inputdevice('/dev/input/eventX'), das verwendete Protokoll und den verwendeten Treiber für IR-Eingabegeräte, die *rc-core* bzw. das Treibermodul *ir-core* verwenden. Außerdem ist das Programm dafür zuständig Tastenbelegungen zu laden, die nicht dem vorgegebenen Stand in den rc-core Treibern entsprechen.
+ir-keytable gibt Auskunft über das angelegte Inputdevice ('/dev/input/eventX'), das verwendete Protokoll und den verwendeten Treiber für IR-Eingabegeräte, die *rc-core* bzw. das Treibermodul *ir-core* verwenden. Außerdem ist das Programm dafür zuständig Tastenbelegungen zu laden, die nicht dem vorgegebenen Stand in den rc-core Treibern entsprechen.
 [[rc-core_keys]]
 [CAUTION]
 .Anpassung der Tastenbelegung für rc-core Empfänger
