@@ -12,15 +12,25 @@ zu entscheiden, wie ein Gerät behandelt werden soll.
 udev-Regeln
 ^^^^^^^^^^^ 
 
-Wie <<udev,udev>> auf ein Gerät reagieren soll, lässt ich über so
-genante udev-Regeln festlegen. Regeln, die aus installierten Paketen
-der Distribtion stammen, befinden sich im Verzeichnis
-'/lib/udev/rules.d/'. Für eigene Anpassungen empfiehlt es sich neue
-Regeln im Verzeichnis '/etc/udev/rules.d/' anzulegen, da diese durch
-Paketupdates nicht überschrieben werden. Die Dateiendung ist .rules,
-also würde man z.B. so eine Regel anlegen, um auf neu initialisierte
-DVB-Karten zu reagieren und dafür zu sorgen, dass nur ein VDR mit der
-Instanz-ID +0+ diese Karten einbindet:
+Über so genante udev-Regeln lässt sich festlegen, wie das System auf
+die (De-)initialisierung von Geräten reagieren soll. Eine Regel
+umfasst zum einen Vergleichskriterien wie z.B. die Aktion (add,
+change, remove), den Gerätetyp, die Hersteller- und Produkt-ID oder
+das Subsystem, dem das Gerät zugeordnet wird und zum anderen Aktionen
+wie das Setzen von Attributen, symbolischen Verknüpfungen und das
+Ausführen von Befehlen.  Eine Regel wird auf alle Geräte angewandt,
+für die die definierten Vergleichskriterien zutreffen.
+
+Regeln, die aus installierten Paketen der Distribtion stammen,
+befinden sich im Verzeichnis '/lib/udev/rules.d/'. Für eigene
+Anpassungen empfiehlt es sich neue Regeln im Verzeichnis
+'/etc/udev/rules.d/' anzulegen, da diese durch Paketupdates nicht
+überschrieben werden. Die Dateiendung ist .rules, also würde man z.B.
+so eine Regel anlegen, um auf neu initialisierte DVB-Karten zu
+reagieren und ihnen die Attribute dynamite_attached=yes und
+dynamite_instanceid=0 zuzuweisen, so dass ein VDR mit dem
+dynamite-Plugin diese Karten nur einbindet, wenn er mit der Instanz-ID
++0+ läuft:
 
 .'/etc/udev/rules.d/40-instanceid-0-dvb.rules'
 --------------------------------------------------------------------
@@ -37,7 +47,7 @@ man auf http://www.reactivated.net/writing_udev_rules.html
 
 Zum Erstellen einer udev-Regel benötigt man zunächst Informationen
 über das oder die Geräte, auf die man reagieren möchte. Mit Hilfe von
-+udevadm+ kann man sich Informationen zu einem Gerät anzeigen lassen:
++udevadm info+ kann man sich Informationen zu einem Gerät anzeigen lassen:
 
 [source,bash]
 ----------------
