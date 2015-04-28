@@ -6,13 +6,13 @@ Internet-TV Kanälen. Ist eine Internetanbindung vorhanden sieht man
 also zunächst den IPTV-Stream des ZDF.
 
 [TIP]
-.Erste Schritte nach der Installation
+.Drei Punkte sollten abgearbeitet werden, um yaVDR nach einer Neuinstallation sinnvoll nutzen zu können:
 =====================================================================
-.Drei Punkte müssen abgearbeitet werden um yaVDR nach einer Neuinstallation sinnvoll nutzen zu können:
 - <<system-upgrade,aktuelle Updates einspielen>>
 +
 - Senderliste erstellen, z.B. mittels <<wfe-channels,Channelpedia>>
-im Webfrontend
+im Webfrontend, falls die Senderliste bei der Installation nicht von
+einem anderen yaVDR im Netzwerk übernommen wurde
 - <<Remote-HOWTO,Fernbedienung einrichten>> falls diese nicht direkt
   nach der Installation wie gewünscht funktioniert
 =====================================================================
@@ -21,7 +21,7 @@ im Webfrontend
 ==== Aktualisierung des System ====
 
 [TIP]
-.Warum regelmäßige Aktualisierung sinnvoll sind
+.Warum regelmäßige Aktualisierungen sinnvoll sind
 =====================================================================
 Neben den Sicherheitsupdates, die für Ubuntu ausgeliefert werden (z.B.
 für Samba, Firefox, SSH usw.), versuchen wir yaVDR ständig zu
@@ -63,7 +63,7 @@ Tastatur bedienen kann.
 
 .Tastaturbelegung in yaVDR
 [cols="h,2*",options="header",width="90%"]
-|=========================================
+|========================================================
 |*Taste*          |*Funktion*     |*Anmerkung*
 |*Pos1/Home/Tab*  |*Menü*         |
 |*Backspace*      |*Exit*         |Schließt das aktive Menü bzw. kehrt zum Übergeordneten Menü zurück
@@ -91,7 +91,7 @@ Tastatur bedienen kann.
 
 Kein VDR wäre komplett ohne die Möglichkeit ihn bequem per
 Fernbedienung zu steuern.  {version} unterstützt ein breites Spektrum
-von Eingabegeräten, darunter befinden sich  sowohl Infrarot- als auch
+von Eingabegeräten, darunter befinden sich sowohl Infrarot- als auch
 Funk-Fernbedienungen.  Falls die eigene Fernbedienung OOTB
 zufriedenstellend funktioniert kann man den folgenden Abschnitt
 überspringen.  Wer keine Fernbedienungs-Empfänger Kombination hat, die
