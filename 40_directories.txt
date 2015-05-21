@@ -93,7 +93,7 @@ avahi-linker: Konfiguration beschreiben
 
 Unter yaVDR gibt es mehrere Möglichkeiten NFS-Freigaben zu mounten.
 Wie man Freigaben auf einem Server announciert, die per
-<<avahi-linker,Avahi-Linkerer>> eingebunden werden kann man in
+<<avahi-linker,Avahi-Linker>> eingebunden werden kann man in
 http://www.yavdr.org/tutorials/mounting-nfs-shares-via-vdr-addon-avahi-mounter/[diesem
 Artikel auf yavdr.org] nachlesen.
 NFS-Freigaben, die VDR-Aufnahmen enthalten, aber nicht über avahi
