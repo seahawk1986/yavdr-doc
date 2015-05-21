@@ -2,13 +2,13 @@ VDR-Konfiguration
 ~~~~~~~~~~~~~~~~~
 
 Für {version} wurde in Abstimmung mit den VDR-Paketen von e-tobi die
-Möglichkeiten zur Konfiguration des VDR überarbeit. Seit dem VDR 2.1.x
-kann der VDR die Konfiguration für die Start-Argumente und die Plugins
-selbst einlesen, so dass man nicht mehr auf ein komplexes Start-Skript
-angewiesen ist.
+Möglichkeiten zur Konfiguration des VDR überarbeit.  Seit der Version
+2.1.x kann der VDR die Konfiguration für die Start-Argumente und die
+Plugins selbst einlesen, so dass man nicht mehr auf ein komplexes
+Start-Skript angewiesen ist.
 
 [CAUTION]
-.Änderungen gegenüber yaVDR 0.5 und früher
+.Änderung gegenüber früheren Versionen
 ====
 Die Konfiguration der Start-Argumente für den VDR und die Plugins
 erfolgt bei {version} nicht länger über die Dateien
@@ -17,19 +17,20 @@ die '/etc/vdr/plugins/order.conf', sondern über die Dateien in
 '/etc/vdr/conf.d/*.conf'
 ====
 
-Dazu liest der VDR alle Dateien aus dem Verzeichnis '/etc/vdr/conf.d/'
+Wird der VDR ohne Startargumente aufgerufen, liest er alle Dateien aus dem Verzeichnis '/etc/vdr/conf.d/'
 mit der Endung *.conf* ein.  Die Syntax ähnelt dem bekannten
 **ini**-Format.
 
-Jeder Abschnitt wird durch eine Zeile eingeleitet, die durch einen
-Begriff in eckigen Klammern angibt, wofür die nachfolgenden Zeilen
-gelten sollen.  Für den VDR also *[vdr]* und für Plugins der
-Pluginname, z.B.  *[softhddevice]* für das Softhddevice-Plugin.  In
-den folgenden Zeilen können dann Start-Argumente für den VDR bzw. das
-jeweilige Plugin übergeben werden. Falls es mehrere Abschnitte mit dem
-gleichen Titel gibt, werden die Argumente dieser Abschnitte
-aneinandergehängt übergeben.  Zeilen, die mit einer Raute *#*
-beginnen, werden vom Parser ignoriert.
+Jeder Abschnitt wird durch einen Begriff in eckigen Klammern
+eingeleitet, der angibt, wofür die Argumente in den nachfolgenden
+Zeilen gelten sollen.  Um Startargumente für den VDR zu definieren
+schreibt man also *[vdr]* und für Plugins den Pluginnamen, z.B.
+*[softhddevice]* für das Softhddevice-Plugin.  In den folgenden Zeilen
+können dann Start-Argumente für den VDR bzw. das jeweilige Plugin
+übergeben werden. Falls es mehrere Abschnitte mit dem gleichen Titel
+gibt, werden die Argumente dieser Abschnitte aneinandergehängt
+übergeben.  Zeilen, die mit einer Raute *#* beginnen, werden vom
+Parser ignoriert.
 
 Um ein Plugin zu starten, genügt es seinen Namen in eckigen Klammern
 in einer Konfigurationsdatei abzulegen, will man den Start verhindern,

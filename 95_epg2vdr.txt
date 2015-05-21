@@ -1,0 +1,59 @@
+=== epg2vdr ===
+
+epg2vdr ermöglicht es das über DVB verbreitete Sender-EPG mit externen
+EPG-Quellen (es wird ein Plugin zur Nutzung der kostenpflichtigen
+Daten von http://www.epgdata.com wird im Quellcode mitgeliefert, Plugins
+für andere Quellen sind auch möglich) zu mischen und über die
+Episodenlisten von http://eplists.constabel.net/ mit Informationen zu
+Staffel- und Folgennummern anzureichern, was z.B. für Suchtimer mit
+epgsearch hilfreiche Zusatzmerkmale liefert. Da es eine zentrale
+Datenbank nutzt, eignet es sich auch gut, wenn mehrere
+VDRs zum Einsatz kommen.
+
+.Um das Plugin nutzen zu können, bedarf es weiterer Komponenten:
+
+- Das Programm epgd (aus dem Paket *vdr-epg-daemon*) kümmert sich um
+  den Abruf der externen EPG-Quellen, Metainformationen für Sendungen
+  und vorhandene Aufnahmen und das Mischen des externen mit dem
+  Sender-EPG.  Außerdem ermöglicht es die Nutzung von des
+  scraper2vdr-Plugins.
+
+- Die anfallenden Daten werden in einer MySQL-Datenbank abgelegt, die
+  auf einem ausreichend dimensionierten Rechner laufen sollte.
+  ARM-Boards mit >= 2GB RAM und guter I/O Anbindung (z.B. Cubietruck
+  mit SSD) eignen sich ebenfalls um den vdr-epg-daemon und die
+  MySQL-Datenbank zu hosten. Idealerweise nutzt man einen bestehenden
+  Server im Netzwerk, der rund um die Uhr läuft, notfalls kann man
+  alle Komponenten aber auch auf dem VDR selbst betreiben.
+
+==== Installation und Konfiguration ====
+
+Auf dem Rechner, der die Datenbank bereitstellen soll, werden die
+Pakete *mysql-server* und *vdr-epg-daemon* installiert.
+
+[NOTE]
+.Hinweis
+====
+
+Falls gewünscht können der vdr-epg-daemon und
+MySQL (bzw. MariaDB)  auch auf getrennten Rechnern installiert werden.
+In diesem Fall muss das MySQL-Plugin
+http://projects.vdr-developer.org/git/vdr-epg-daemon.git/tree/epglv[epglv]
+für den Rechner mit der MySQL-Datenbank gebaut und mit dieser gemäß
+der
+http://projects.vdr-developer.org/git/vdr-epg-daemon.git/plain/epglv/README[README]
+bekannt gemacht werden.
+
+====
+
+Die Konfiguration erfolgt gemäß der
+http://projects.vdr-developer.org/git/vdr-epg-daemon.git/tree/README[README].
+Wichtig ist die Konfigurationsdateien im Verzeichnis '/etc/epgd/' auf die
+Konfiguration anzupassen, insbesondere die Dateien
+*channelmap.conf* und die *epgd.conf*
+
+Auf den Clients wird das Paket *vdr-plugin-epg2vdr* und falls
+gewünscht auch *vdr-plugin-scraper2vdr* installiert. Dann wird der VDR
+gestoppt und die Datei '/var/cache/vdr/epg.data' gelöscht. Nach dem erneuten
+Start des VDR muss jetzt noch Im Plugin-Setup jeweils die Adresse und
+die Zugangsdaten für den MySQL-Server eingetragen werden. 

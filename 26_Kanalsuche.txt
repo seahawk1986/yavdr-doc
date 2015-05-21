@@ -1,0 +1,20 @@
+=== Kanalsuche ===
+Statt fertige Kanallisten aus der <<Channelpedia,channelpedia>> zu
+verwenden, kann man auch eine Kanalsuche mit den vorhandenen
+DVB-Karten anstoßen.
+
+[[w_scan]]
+==== w_scan ====
+w_scan ist ein Hilfsprogramm, das nach Angabe von Empfangsweg und
+Quelle eine Kanalsuche durchführen kann. Der VDR muss vor der
+Ausführung gestoppt werden.
+
+Ausführliche Beispiele zur Nutzung findet man auf der Projektseite:
+http://wirbel.htpc-forum.de/w_scan/index2.html
+
+[[wirbelscan]]
+==== wirbelscan ====
+Das wirbelscan ist ein Plugin für den VDR, das es erlaubt einen
+Sendersuchlauf durchzuführen: http://wirbel.htpc-forum.de/wirbelscan/index2.html
+Der Suchlauf kann sowohl über das OSD als auch über <<SVDRP,svdrp>>
+oder das <<restfulapi-Plugin,restfulapi>> angestoßen werden.

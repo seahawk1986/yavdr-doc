@@ -73,6 +73,8 @@ include::80_restfulapi-plugin.txt[]
 
 include::81_dynamite-plugin.txt[]
 
+include::95_epg2vdr.txt[]
+
 include::98_Debugging.txt[]
 
 :leveloffset: -1
