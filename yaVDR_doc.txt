@@ -67,6 +67,7 @@ include::75_SVDRP.txt[]
 include::30_Plugins.txt[]
 include::31_Streamdev-Plugin.txt[]
 include::32_xvdr-Plugin.txt[]
+include::33_vnsiserver-Plugin.txt[]
 include::39_libxine-dfatmo.txt[]
 
 include::80_restfulapi-plugin.txt[]

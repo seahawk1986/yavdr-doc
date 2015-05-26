@@ -19,10 +19,10 @@ Hier sollte das VDR-Frontend ausgewählt werden, standardmäßig ist vdr-sxfe@vd
 Die folgenden Frontends können gewählt werden:
 * xine@vdr-plugin-xine
 * vdr-sxfe@vdr-plugin-xineliboutput
-* XBMC@vdr-plugin-streamdev (experimental)
+* KODI@vdr-plugin-streamdev (experimental)
 * headless (yaVDR server)
 
-VDR Frontend ist das für die Anzeige des TV verantwortliche Programm. Normal: xine oder xineliboutput, beide haben ihre Stärken und Schwächen. Experimentell: XBMC hier fehlen noch einige zur richtigen Integration notwendige Features. Wer es dennoch ausprobieren will, sollte sich über Unzulänglichkeiten im Klaren sein.
+VDR Frontend ist das für die Anzeige des TV verantwortliche Programm. Normal: xine oder xineliboutput, beide haben ihre Stärken und Schwächen. Experimentell: KODI hier fehlen noch einige zur richtigen Integration notwendige Features. Wer es dennoch ausprobieren will, sollte sich über Unzulänglichkeiten im Klaren sein.
 
 Headless (für den Einsatz als Server)
 
@@ -36,7 +36,7 @@ Unter diesem Menüpunkt kann man Inhalte für die folgenden Dateien auf den VDR 
 * /etc/vdr/diseqc.conf (Einstellung für die Satellitenkonfiguration) 
 * /var/lib/vdr/channels.conf (Kanalliste für den VDR)
 * /etc/lircd.conf (individuell für die jeweilige Fernbedienung) 
-* /var/lib/vdr/.xbmc/userdata/Lircmap.xml (Zuordnung der Fernbedienungstasten zu XBMC-Funktionen)
+* /var/lib/vdr/.kodi/userdata/Lircmap.xml (Zuordnung der Fernbedienungstasten zu KODI-Funktionen)
 
 Die Datei, die hochgeladen werden soll, auswählen und dann einfach den Inhalt der Datei in das rechte, leere Feld einfügen und dann auf 'Datei hochladen' klicken um den Inhalt zu speichern.
 Achtung: Das Feld selbst ist rudimentär editierbar, allerdings können keine Tabs eingegeben werden.
@@ -74,7 +74,7 @@ VDR-Lifeguard Einstellungen:
  SMB
  SSH = eine SSH Verbindung ist offen (z.B. Putty oder WSCP)
  FTP = eine FTP Verbindung ist offen
- XBMC = XBMC läuft??
+ KODI = KODI läuft??
 
 
 VDR-Lifeguard kann vor dem Ausschalten prüfen ob bestimmte Prozesse aktiv sind. Soll ein Prozess nicht unterbrochen werden, wird das Ausschalten verschoben. Fügen Sie hier Prozesse hinzu, die das Ausschalten verhindern sollen. Nicht markiert bedeutet: VDR-Lifeguard ist deaktiviert
@@ -157,9 +157,9 @@ Unter System sind drei Schaltflächen zu finden mit denen man folgende Aktionen 
 
 Startet nur den vdr Service neu, aber keine anderen Services.
 
-* Eingefrorenes XBMC abwürgen
+* Eingefrorenes KODI abwürgen
 
-Im falle das XBMC mal hängen sollte kann man über diese Schaltfläche das XBMC schließen.
+Im falle das KODI mal hängen sollte kann man über diese Schaltfläche das KODI schließen.
 
 * Rechner neu starten (Vorsicht: Keine Sicherheitsabfrage!)
 
@@ -203,7 +203,7 @@ Wenn man also auf dem ersten Kanal ist und auf der Fernbedienung die Pfeiltaste 
 == Diagnose ==
 === System-Information ===
 === System-Logfiles ===
-=== XBMC-Crashes ===
+=== KODI-Crashes ===
 === LIRC-Konfiguration ===
 === VDR-Konfiguration ===
 === X-Server ===

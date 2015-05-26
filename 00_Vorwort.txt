@@ -10,7 +10,7 @@ ist bewusst keine Einführung in die Grundlagen der Bedienung von
 (Ubuntu) Linux. Daher wird dem Neueinsteiger empfohlen sich mit Hilfe
 von entsprechender Literatur oder Online-Quellen wie dem sehr
 umfangreichen http://wiki.ubuntuusers.de/Startseite[Ubuntu Users Wiki]
-einzulesen. Auch für den VDR und für XBMC kann an dieser Stelle nicht
+einzulesen. Auch für den VDR und für KODI kann an dieser Stelle nicht
 jedes Detail erklärt werden - gute Anlaufstellen für weiterführende
 Informationen sind das http://vdr-wiki.de[VDR-Wiki] und das
 http://kodi.wiki/view/Main_Page[KODI-Wiki]

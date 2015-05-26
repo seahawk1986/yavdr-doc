@@ -71,10 +71,10 @@ Quellcode
 5
 6
 deb http://ppa.launchpad.net/yavdr/testing-vdr/ubuntu natty main
-deb http://ppa.launchpad.net/yavdr/testing-xbmc/ubuntu natty main
+deb http://ppa.launchpad.net/yavdr/testing-kodi/ubuntu natty main
 deb http://ppa.launchpad.net/yavdr/testing-yavdr/ubuntu natty main
 deb-src http://ppa.launchpad.net/yavdr/testing-vdr/ubuntu natty main
-deb-src http://ppa.launchpad.net/yavdr/testing-xbmc/ubuntu natty main
+deb-src http://ppa.launchpad.net/yavdr/testing-kodi/ubuntu natty main
 deb-src http://ppa.launchpad.net/yavdr/testing-yavdr/ubuntu natty main
 
 

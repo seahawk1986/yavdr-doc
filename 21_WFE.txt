@@ -132,7 +132,7 @@ muss die '/etc/lirc/lircd.conf' angepasst werden. Dabei ist zu
 beachten, dass die Tastennamen *namespacekonform* sind und sich an der
 Benennung in der '/etc/vdr/remote.conf' orientieren. So ist
 sichergestellt, dass die Fernbedienungstasten sowohl mit dem VDR als
-auch unter XBMC funktionieren.
+auch unter KODI funktionieren.
 Eingaben von Lircd werden unter Nutzung von uinput (Userland Input) an
 Eventlircd weitergereicht und werden so wie alle übrigen Tastendrücke
 von Eventlircd-Eingabegeräten an den VDR weitergegeben.
@@ -148,7 +148,7 @@ Empfänger>>
 [[wfe-audio]]
 ===== Hardware: Audio =====
 image:wfe/logos/audio-card.png[height=32] 
-Diese Seite erlaubt es einzustellen wie der Ton durch den VDR und XBMC
+Diese Seite erlaubt es einzustellen wie der Ton durch den VDR und KODI
 ausgegeben werden soll. Es sollten generell nur die benötigten
 Audiogeräte gewählt werden, um die Systemlast durch Alsa zu
 reduzieren. Für komplexere Konstellationen und mehreren Soundkarten im
@@ -241,7 +241,7 @@ bearbeitet werden:
 * '/etc/vdr/diseqc.conf'
 * '/var/lib/vdr/remote.conf'
 * '/var/lib/vdr/channels.conf'
-* '/var/lib/vdr/.xbmc/userdata/Lircmap.xml'
+* '/var/lib/vdr/.kodi/userdata/Lircmap.xml'
 
 [[wfe-packages]]
 ===== System: Pakete =====
@@ -276,8 +276,8 @@ Unterpunkte ausführen
 * image:wfe/logos/switch-display.png[height=32] Vorläufig auf zweiten
   Bildschirm schalten
 * image:wfe/logos/reboot.png[height=32] Rechner neu starten
-* image:wfe/logos/xbmc-process-stop.png[height=32] XBMC Notstopp
-* image:wfe/logos/xbmc-edit-delete.png[height=32] XBMC Konfiguration
+* image:wfe/logos/xbmc-process-stop.png[height=32] KODI Notstopp
+* image:wfe/logos/xbmc-edit-delete.png[height=32] KODI Konfiguration
   zurücksetzen
 * image:wfe/logos/view-refresh.png[height=32] VDR neu starten
 
@@ -286,7 +286,7 @@ Unterpunkte ausführen
 * image:wfe/logos/utilities-system-monitor.png[height=32] System
   Informationen
 * image:wfe/logos/document-open.png[height=32] System log files
-* image:wfe/logos/xbmc-document-open.png[height=32] XBMC crash log
+* image:wfe/logos/xbmc-document-open.png[height=32] KODI crash log
 * image:wfe/logos/lirc-config.png[height=32] LIRC Konfiguration
 * image:wfe/logos/vdr-config.png[height=32] VDR Konfiguration
 * image:wfe/logos/X11.png[height=32] Xorg Server

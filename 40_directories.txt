@@ -51,7 +51,7 @@ eingebundene Freigabe wieder ausgehängt werden soll. Für Rechner mit
 Standardverzeichnisse>>.
 
 Möchte man also sowohl lokale als auch über das Netzwerk eingebundene
-Dateien für VDR-Plugins oder XBMC nutzen, empfiehlt es sich als
+Dateien für VDR-Plugins oder KODI nutzen, empfiehlt es sich als
 Standard-Verzeichnis '/media/<Kategorie>/' zu wählen.
 
 Beispiel für die Dateistruktur unter '/media/' auf einem {version}

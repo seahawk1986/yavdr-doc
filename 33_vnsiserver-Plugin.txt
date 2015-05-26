@@ -1,31 +1,31 @@
-[[xvdr]]
-==== xvdr-Plugin ====
+[[vnsiserver]]
+==== vnsiserver-Plugin ====
 
-Das xvdr-Plugin erlaubt die Anbindung des VDR an KODI über das
-XVDR-PVR Addon aus dem Paket **xbmc-addon-xvdr**.  Der Funktionsumfang
+Das vnsiserver-Plugin erlaubt die Anbindung des VDR an KODI über das
+vnsiserver-PVR Addon aus dem Paket **kodi-pvr-vdr-vnsi**.  Der Funktionsumfang
 umfasst aktuell Live-TV, EPG-Darstellung, das Verwalten von Timern
 sowie Zugriff auf die Aufnahmen des VDR. Einige Funktionen wie die
 Möglichkeit Schnittmarken zu benutzen und Aufnahmen zu schneiden sowie
 Einstellungen des VDR aus KODI heraus zu verändern sind aktuell nicht
-vorhanden.  Das xvdr-Plugin ist multiuserfähig, d.h. es können mehrere
+vorhanden.  Das vnsiserver-Plugin ist multiuserfähig, d.h. es können mehrere
 KODI-Clients gleichzeitig auf einen VDR zugreifen und dessen Tuner und
 Aufnahmen nutzen.
 
-[[xvdr-access]]
+[[vnsiserver-access]]
 ===== Zugriffsrechte =====
 
 Die Zugriffsberechtigungen für Clients werden in der
-'/var/lib/vdr/plugins/xvdr/allowed_hosts.conf' eingestellt. Die
+'/var/lib/vdr/plugins/vnsiserver/allowed_hosts.conf' eingestellt. Die
 Syntax dieser Konfigurationsdatei entspricht der der <<svdrp-config,
 svdrphosts.conf>>:
 
 [NOTE]
 .Zugriff von anderen Rechnern
 =====================================================================
-Für den Zugriff von anderen Rechnern aus muss ggf. die Datei '/var/lib/vdr/plugins/xvdr/allowed_hosts.conf' angepasst werden. Einige Beispiele sind im folgenden aufgeführt:
+Für den Zugriff von anderen Rechnern aus muss ggf. die Datei '/var/lib/vdr/plugins/vnsiserver/allowed_hosts.conf' angepasst werden. Einige Beispiele sind im folgenden aufgeführt:
 =====================================================================
 
-.Beispieleinträge für '/var/lib/vdr/plugins/xvdr/allowed_hosts.conf'
+.Beispieleinträge für '/var/lib/vdr/plugins/vnsiserver/allowed_hosts.conf'
 ----
 127.0.0.1       <1>
 192.168.1.115   <2>

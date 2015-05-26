@@ -193,9 +193,9 @@ Manuell stoppen und auch wieder starten kann man diesen Dienst über:
 * Webfrontend:  ''/etc/lirc/lircd.conf'' hochladen (siehe http://lirc.sourceforge.net/remotes/) oder selbst anlegen. (siehe *LIRC*)
 * den Dienst starten:  ''sudo start remoted''
 * anschließend sollte irw unbedingt die Tasten der Fernbedienung erkennen.<br>Wenn nicht, dann ist die /etc/lircd.conf falsch!
-* Sobald die /etc/lircd.conf stimmt, müssen die Tasten jeweils einer Aktion/Funktion im VDR und in XBMC zugewiesen werden:
+* Sobald die /etc/lircd.conf stimmt, müssen die Tasten jeweils einer Aktion/Funktion im VDR und in KODI zugewiesen werden:
 ** /var/lib/vdr/remote.conf  (für VDR)
-** /var/lib/vdr/.xbmc/userdata/Lircmap.xml (für XBMC)
+** /var/lib/vdr/.kodi/userdata/Lircmap.xml (für KODI)
 
 
 '''benötigte Konfigurationsdateien:'''
@@ -203,7 +203,7 @@ Manuell stoppen und auch wieder starten kann man diesen Dienst über:
 * /etc/serial.conf                        (UART muss abgeschaltet sein bei Com-Ports!)
 * /etc/lirc/lircd.conf                    (das Signal der Fernbedienung wird einem Befehl zugeordnet)
 * /var/lib/vdr/remote.conf                (Diese Datei legt fest was der VDR mit den empfangenen Befehlen macht)
-* /var/lib/vdr/.xbmc/userdata/Lircmap.xml (XBMC-Datei analog zur remote.conf des VDR)
+* /var/lib/vdr/.kodi/userdata/Lircmap.xml (KODI-Datei analog zur remote.conf des VDR)
 (was prüfen im Log? welche Prozesse müssen laufen?)
 
 
@@ -260,7 +260,7 @@ xineliboutput::
 OSD-Menue ->System->Einstellungen->Plugins->xineliboutput->Video->Schneider letterbox 4:3 zu 16:9
 http://www.vdrportal.de/board/thread.php?postid=947373[Beitrag im VDR Portal]
 
-=== DVDs abspielen (unter XBMC) ===
+=== DVDs abspielen (unter KODI) ===
 Aufgrund der hinlänglich bekannten rechtlichen Situation wird yaVDR (genau wie Ubuntu) nicht mit der benötigten libdvdcss2 Bibliothek ausgeliefert.  Somit ist das Abspielen von geschützter DVDs nicht möglich bevor die fehlende Bibliothek nachinstalliert wurde. Bequem funktioniert das Ganze über folgenden Befehl:
 ------------------------------------------------
 sudo /usr/share/doc/libdvdread4/install-css.sh

@@ -14,7 +14,8 @@ Das Streamdev-Server Plugin (Paketname *vdr-plugin-streamdev-server*)
 ist bei {version} vorinstalliert. Es erweitert den VDR um die
 Fähigkeit Live-TV übers Netzwerk zu streamen.
 
-[NOTE] .Zugriff von anderen Rechnern aus
+[NOTE]
+.Zugriff von anderen Rechnern aus
 =====================================================================
 In der Voreinstellung nach der Installation erlaubt das Plugin nur
 Zugriffe vom gleichen Rechner.  Um anderen Clients den Zugriff (und

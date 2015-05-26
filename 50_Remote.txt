@@ -79,20 +79,20 @@ Eventlircd kann geräte- oder treiberabhängig eine Übersetzungstabelle
 mitgegeben werden, um die Tastenbelegung anzupassen (sogenannte
 <<evmaps,evmaps>>).
 
-Lircd footnote:[Der LIRC-Daemon] kann man über den Switch
-footnote:[Das Startargument] --uinput footnote:[User Level Input Subsystem - eine Schnittstelle, um Eingaben aus dem Userland an den Kernel zu übermitteln]
-anweisen seine Tastendrücke an ein Gerät unter '/dev/input/'  zu übergeben.
-Damit kann dann lircd parallel zu anderen Eingabegeräten gestartet werden
-und es ist so theoretisch auch möglich mehrere Instanzen von lircd
-für verschiedene Geräte mit unterschiedlicher Konfiguration
-gleichzeitig zu starten.
-Für USB-Lirc Empfänger wird über eine udev-Regel in
-'/lib/udev/rules.d/98-lircd.rules' und dem lircd_helper
-eine Instanz des Lirc-Daemon gestartet und die in der udev-Regel
-angegebenen Treiber und lircd.conf benutzt.
-Für diese Empfänger ist keine Konfiguration über das Webfrontend erforderlich.
-Weitere noch nicht OOTB unterstützte Lirc-Empfänger können entsprechend
-über ergänzende udev-Regeln nachgepflegt werden.
+Lircd footnote:[Der LIRC-Daemon] kann man über das Startargument
+--uinput footnote:[User Level Input Subsystem - eine Schnittstelle, um
+Eingaben aus dem Userland an den Kernel zu übermitteln] anweisen seine
+Tastendrücke an ein Gerät unter '/dev/input/'  zu übergeben.  Damit
+kann dann lircd parallel zu anderen Eingabegeräten gestartet werden
+und es ist so theoretisch auch möglich mehrere Instanzen von lircd für
+verschiedene Geräte mit unterschiedlicher Konfiguration gleichzeitig
+zu starten.  Für USB-Lirc Empfänger wird über eine udev-Regel in
+'/lib/udev/rules.d/98-lircd.rules' und dem lircd_helper eine Instanz
+des Lirc-Daemon gestartet und die in der udev-Regel angegebenen
+Treiber und lircd.conf benutzt.  Für diese Empfänger ist keine
+Konfiguration über das Webfrontend erforderlich.  Weitere noch nicht
+OOTB unterstützte Lirc-Empfänger können entsprechend über ergänzende
+udev-Regeln nachgepflegt werden.
 
 [NOTE]
 .Bug bei Verwendung von --uinput
@@ -145,11 +145,11 @@ Bei der yaVDR-Standardbelegung haben sich die Entwickler an der http://www.linux
 [CAUTION]
 .Vorsicht bei Änderungen für die Fernbedienung an der remote.conf!
 =====================================================================
-yaVDR ist auf eine standardisierte remote.conf für den VDR und eine dazu passende Lircmap.xml für XBMC ausgelegt, damit die Fernbedienung sowohl im VDR als auch unter XBMC richtig funktioniert. Das hat zur Folge, dass die Tastennamen in den Lirc-Konfigurationsdateien, den Keytables von ir-core und den von Eventlircd direkt angesprochenen Geräten <<namespace-faq, *Namespace-konform* zur input.h des Kernels>> sein *müssen* (sonst kann sie eventlircd nicht weiterreichen) und möglichst passend zur remote.conf eingestellt werden sollten.
+yaVDR ist auf eine standardisierte remote.conf für den VDR und eine dazu passende Lircmap.xml für KODI ausgelegt, damit die Fernbedienung sowohl im VDR als auch unter KODI richtig funktioniert. Das hat zur Folge, dass die Tastennamen in den Lirc-Konfigurationsdateien, den Keytables von ir-core und den von Eventlircd direkt angesprochenen Geräten <<namespace-faq, *Namespace-konform* zur input.h des Kernels>> sein *müssen* (sonst kann sie eventlircd nicht weiterreichen) und möglichst passend zur remote.conf eingestellt werden sollten.
 Die Anpassung des Mappings ist in diesem Kapitel beschrieben.
 =====================================================================
 
-Die remote.conf liegt unter /var/lib/vdr/remote.conf und ist eine <<template, getemplatete>> Datei. Sie sollte möglichst nicht verändert werden (Ausnahme ist die Konfiguration der Tastenbelegung für Tastaturen und ggf. Sondertasten der Fernbedienung), und gibt vor wie die von den Fernbedienungen gelieferten Tastennamen lauten sollten. Die Benennung ist gleichzeitig auf die XBMC-Konfiguration abgestimmt, so dass auch XBMC ohne weitere Anpassung seiner Keymaps bedienbar sein sollte.
+Die remote.conf liegt unter /var/lib/vdr/remote.conf und ist eine <<template, getemplatete>> Datei. Sie sollte möglichst nicht verändert werden (Ausnahme ist die Konfiguration der Tastenbelegung für Tastaturen und ggf. Sondertasten der Fernbedienung), und gibt vor wie die von den Fernbedienungen gelieferten Tastennamen lauten sollten. Die Benennung ist gleichzeitig auf die KODI-Konfiguration abgestimmt, so dass auch KODI ohne weitere Anpassung seiner Keymaps bedienbar sein sollte.
 
 Die Zuordnung von Funktion im VDR und Tastennamen sieht bei {version} so aus:
 
@@ -715,7 +715,7 @@ Options:
   -s LIRCD_SOCKET, --lircd-socket=LIRCD_SOCKET
                         choose lircd socket to listen on
   -d, --debug           enable debug mode
-  -x, --xbmc            enable xbmc single keypress mode
+  -x, --kodi            enable kodi single keypress mode
   -l MIN_GAP, --min-gap=MIN_GAP
                         set minimum gap between repeated keystrokes (default
                         150000 µs) - needs active repeat-filter
@@ -756,7 +756,7 @@ lirc_parallel
 lircd interne userspace treiber
 noch ein paar andere [...]
 Ich: Ok, danke - dann werde ich die noch als Beispiele aufnehmen. Zur Konfigurationshilfe (mangels passender Hardware kann ich da leider nicht alles ausprobieren): Wenn der Nutzer noch nicht weiß wie sein Empfänger eingebunden ist, wird er aber höchstens lirc_ttusbir unter den automatisch geladenen Modulen finden und lirc_serial und lirc_parallel muss er von Hand oder über das Webfrontend in der lircd-Konfiguration einstellen.::
-steffenbpunkt: genau, der Name des lirc Gerätes is in eventlircd fest eingebunden, devinput wurde wohl in Anlehnung an die lircd.conf des devinput Modus von lircd gewählt. Das es nur einen Namen gibt ist zumindest für XBMC sinnvoll, da XBMC diesen Namen auswertet.
+steffenbpunkt: genau, der Name des lirc Gerätes is in eventlircd fest eingebunden, devinput wurde wohl in Anlehnung an die lircd.conf des devinput Modus von lircd gewählt. Das es nur einen Namen gibt ist zumindest für KODI sinnvoll, da KODI diesen Namen auswertet.
 ****
 ////
 
@@ -775,7 +775,7 @@ Im Abschnitt <<wfe-remote,Fernbedienung>> des yaVDR-Webfrontend setzt man das H�
 Für Atric-Einschalter ist dies der Eintrag "*Home-brew (16x50 UART compatible serial port)*". Außerdem muss noch die Serielle Schnittstelle angegeben werden, über die der Empfänger angeschlossen ist. Die Nummerierung orientiert sich normalerweise an den Angaben im Handbuch des Mainboards.
 
 .Anpassen der lircd.conf
-Im nächsten Schritt muss dann noch eine passende lircd.conf nach '/etc/lirc/lircd.conf' kopiert werden. Die dort verwendeten Tastennamen müssen <<namespace-faq, *Namespace-konform* zur input.h des Kernels>> sein und sollten sich (wenn sie zur Steuerung des VDR und XBMC genutzt werden sollen) an der <<remote.conf, remote.conf>> orientieren, da die Fernbedienung dann sowohl mit dem VDR als auch unter XBMC ohne weitere Konfiguration verwendet werden kann.
+Im nächsten Schritt muss dann noch eine passende lircd.conf nach '/etc/lirc/lircd.conf' kopiert werden. Die dort verwendeten Tastennamen müssen <<namespace-faq, *Namespace-konform* zur input.h des Kernels>> sein und sollten sich (wenn sie zur Steuerung des VDR und KODI genutzt werden sollen) an der <<remote.conf, remote.conf>> orientieren, da die Fernbedienung dann sowohl mit dem VDR als auch unter KODI ohne weitere Konfiguration verwendet werden kann.
 
 .Beispiel alte lircd.conf zu neuer lircd.conf
 
@@ -873,7 +873,7 @@ Momentan unterstützt das standardmäßig von {version} genutzte Treibermodul at
 [[bluetooth]]
 ==== Bluetooth-Geräte ====
 
-Prinzipiell ist es unter yaVDR möglich auch Bluetooth-Geräte, die als Eingabegerät erkannt werden zur Steuerung zu nutzen. Dabei sollte man sich überlegen ob man das Gerät nur als Tastatur bzw. Maus oder als Fernbedienung für VDR und XBMC nutzen will - letzteres erfoldert etwas Bastelarbeit mit udev-Regeln, wie weiter unten beschrieben.
+Prinzipiell ist es unter yaVDR möglich auch Bluetooth-Geräte, die als Eingabegerät erkannt werden zur Steuerung zu nutzen. Dabei sollte man sich überlegen ob man das Gerät nur als Tastatur bzw. Maus oder als Fernbedienung für VDR und KODI nutzen will - letzteres erfoldert etwas Bastelarbeit mit udev-Regeln, wie weiter unten beschrieben.
 
 [[bt-pairing]]
 ===== Pairing =====

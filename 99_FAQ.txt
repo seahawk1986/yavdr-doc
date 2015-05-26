@@ -21,7 +21,7 @@ yaVDR angepasst werden.
   Anbhängig vom installierten Kernel und eventuell installierten
   Treiberopaketen wie linux-media-dkms können die unterstützten Tasten
   variieren. Für {version} haben wir daher eine Vorkonfiguration für
-  die rempote.conf des VDR und die Lircmap.xml von XBMC getroffen, die
+  die rempote.conf des VDR und die Lircmap.xml von KODI getroffen, die
   unter möglichst allen Eventualitäten funktionieren sollte.  Für die
   Konfiguration der Fernbedienung ist es daher wichtig, dass die
   Tastennamen, die die Fernbedienung liefert mit denen in der Spalte
@@ -101,7 +101,7 @@ Bekannt sind folgende Probleme:::
 - Wenn die Festplatte schonmal in einem Raid-Setup verwendet worden ist und der Installer das im MBR der HDD erkennt, bricht die Installation ab. Das kann man so lösen, wie hier beschrieben: http://www.vdr-portal.de/board/thread.php?postid=877653#post877653
 
 Warum kann ich bei der Installation nicht den Benutzernamen "vdr" wählen?::
-yaVDR verwendet intern den Benutzer "vdr" als unpersonalisierten Benutzer, der für die automatische Anmeldung verwendet wird und kein Passwort hat. Unter dem Benutzer "vdr" laufen alle automatisch gestarteten Vorgänge wie zum Beispiel der eigentliche VDR oder auch XBMC.
+yaVDR verwendet intern den Benutzer "vdr" als unpersonalisierten Benutzer, der für die automatische Anmeldung verwendet wird und kein Passwort hat. Unter dem Benutzer "vdr" laufen alle automatisch gestarteten Vorgänge wie zum Beispiel der eigentliche VDR oder auch KODI.
 Ab yaVDR 0.3 ist der Nutzernamen "vdr" im Installationsdialog blockiert, der Installationsassistent lässt "vdr" nicht zu. 
 
 === Erste Schritte nach dem ersten Booten  ===
