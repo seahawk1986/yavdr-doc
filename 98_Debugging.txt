@@ -1,16 +1,15 @@
 [[debugging]]
 === Debugging ===
 
-Wenn der VDR abstürzt ohne dass die Ursache aus dem syslog hervorgeht, kann man ein weitergehendes Debugging aktivieren um die Fehlerursache mittels Backtrace einzugrenzen.
+Wenn der VDR abstürzt ohne dass die Ursache aus dem syslog hervorgeht,
+kann man ein weitergehendes Debugging aktivieren um die Fehlerursache
+mittels Backtrace einzugrenzen.
 
-Es müssen dazu die Pakete *vdr-dbg* und *gdb* <<install-packages,installiert>> werden und die '/etc/default/vdr' um einen Eintrag für vdr-dbg erweitert werden:
-
-----
-sudo su
-echo "DAEMON=/usr/bin/vdr-dbg" >> /etc/default/vdr 
-restart vdr
-exit
-----
+Dazu muss lediglich das Paket *vdr-dbg*
+<<install-packages,installiert>> und der VDR neu gestartet werden. Für
+nahezu alle Plugins sind Pakete mit Debug-Symbolen verfügbar, die bei
+Bedarf nachinstalliert werden können. Sie haben das Benennungsschema
+**vdr-plugin-<Pluginname>-dbg**.
 
 Beim nächsten Crash des VDR sollte in '/var/log/vdr/' ein Coredump
 erstellt und ein Backtrace daraus generiert werden.
