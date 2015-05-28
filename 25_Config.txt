@@ -28,10 +28,13 @@ schreibt man also *[vdr]* und für Plugins den Pluginnamen, z.B.
 *[softhddevice]* für das Softhddevice-Plugin.  In den folgenden Zeilen
 können dann Start-Argumente für den VDR bzw. das jeweilige Plugin
 übergeben werden. Falls es mehrere Abschnitte mit dem gleichen Titel
-gibt, werden die Abschnitte aneinandergehängt
-übergeben, wodurch ein Plugin mehrfach geladen werden kann.
-Zeilen, die mit einer Raute *#* beginnen, werden vom
-Parser ignoriert.
+gibt, werden diese nicht zusammengefasst, sondern jeweils einzeln an 
+den VDR übergeben, wodurch z.B. ein Plugin mehrfach geladen werden kann.
+Nicht alle Plugins (z.B. xineliboutput) vertragen es, wenn mehrere
+Instanzen geladen werden. 
+
+Zeilen, die mit einer Raute *#* beginnen,
+werden vom Parser ignoriert.
 
 Um ein Plugin zu starten, genügt es seinen Namen in eckigen Klammern
 in einer Konfigurationsdatei abzulegen, will man den Start verhindern,
