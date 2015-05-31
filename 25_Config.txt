@@ -21,20 +21,22 @@ Wird der VDR ohne Startargumente aufgerufen, liest er alle Dateien aus dem Verze
 mit der Endung *.conf* ein.  Die Syntax ähnelt dem bekannten
 **ini**-Format.
 
+Zeilen, die mit einer Raute *#* beginnen,
+werden vom Parser ignoriert.
+
 Jeder Abschnitt wird durch einen Begriff in eckigen Klammern
 eingeleitet, der angibt, wofür die Argumente in den nachfolgenden
 Zeilen gelten sollen.  Um Startargumente für den VDR zu definieren
 schreibt man also *[vdr]* und für Plugins den Pluginnamen, z.B.
 *[softhddevice]* für das Softhddevice-Plugin.  In den folgenden Zeilen
 können dann Start-Argumente für den VDR bzw. das jeweilige Plugin
-übergeben werden. Falls es mehrere Abschnitte mit dem gleichen Titel
-gibt, werden diese nicht zusammengefasst, sondern jeweils einzeln an 
-den VDR übergeben, wodurch z.B. ein Plugin mehrfach geladen werden kann.
-Nicht alle Plugins (z.B. xineliboutput) vertragen es, wenn mehrere
-Instanzen geladen werden. 
-
-Zeilen, die mit einer Raute *#* beginnen,
-werden vom Parser ignoriert.
+übergeben werden. Falls es mehrere Abschnitte gibt, die mit dem
+gleichen Begriff eingeleitet werden, werden nur die Abschnitte für
+*[vdr]* zusammengefasst, bei Plugins wird die Konfiguration jeweils
+einzeln an den VDR übergeben, wodurch z.B.  ein Plugin mehrfach mit
+unterschiedlichen Startargumenten geladen werden kann.  Nicht alle
+Plugins (z.B. xineliboutput) vertragen es, wenn mehrere Instanzen
+geladen werden. 
 
 Um ein Plugin zu starten, genügt es seinen Namen in eckigen Klammern
 in einer Konfigurationsdatei abzulegen, will man den Start verhindern,
@@ -111,6 +113,11 @@ $ vdrctl status
 .Aktivierung eines Plugins
 --------------------------
 $ sudo vdrctl enable streamdev-client
+--------------------------
+
+.Aktivierung eines Plugins unter Angabe der Priorität
+--------------------------
+$ sudo vdrctl enable dynamite -p 90
 --------------------------
 
 .Aktivierung mehrerer Plugins
