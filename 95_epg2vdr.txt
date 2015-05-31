@@ -2,13 +2,13 @@
 
 epg2vdr ermöglicht es das über DVB verbreitete Sender-EPG mit externen
 EPG-Quellen (es wird ein Plugin zur Nutzung der kostenpflichtigen
-Daten von http://www.epgdata.com wird im Quellcode mitgeliefert, Plugins
-für andere Quellen sind auch möglich) zu mischen und über die
+Daten von http://www.epgdata.com wird im Quellcode mitgeliefert,
+Plugins für andere Quellen sind auch möglich) zu mischen und über die
 Episodenlisten von http://eplists.constabel.net/ mit Informationen zu
 Staffel- und Folgennummern anzureichern, was z.B. für Suchtimer mit
 epgsearch hilfreiche Zusatzmerkmale liefert. Da es eine zentrale
-Datenbank nutzt, eignet es sich auch gut, wenn mehrere
-VDRs zum Einsatz kommen.
+Datenbank nutzt, eignet es sich auch gut, wenn mehrere VDRs zum
+Einsatz kommen.
 
 .Um das Plugin nutzen zu können, bedarf es weiterer Komponenten:
 
@@ -54,10 +54,10 @@ die eigene Konfiguration anzupassen, insbesondere die Dateien
 
 Auf den Clients wird das Paket *vdr-plugin-epg2vdr* und falls
 gewünscht auch *vdr-plugin-scraper2vdr* installiert. Dann wird der VDR
-gestoppt und die Datei '/var/cache/vdr/epg.data' gelöscht. Nach dem erneuten
-Start des VDR muss jetzt noch im Plugin-Setup die Adresse und
-die Zugangsdaten für den MySQL-Server eingetragen und der VDR
-abermals neu gestartet werden.
+gestoppt und die Datei '/var/cache/vdr/epg.data' gelöscht. Nach dem
+erneuten Start des VDR muss jetzt noch im Plugin-Setup die Adresse und
+die Zugangsdaten für den MySQL-Server eingetragen und der VDR abermals
+neu gestartet werden.
 
 ===== Vor- und Nachteile gegenüber xmltv2vdr =====
 
@@ -67,14 +67,14 @@ EPG-Informationen versorgen.  Neben dem Import von EPG-Daten und
 Bildern für die Sendungen ermöglicht es auch das Herunterladen von
 Metadaten aus der TVDB und MovieDB für Sendungen und bestehende
 Aufnahmen, die dann vom scrapber2vdr-Plugin am VDR genutzt werden
-können.  Die Konfiguration erfolgt mit Ausnahme
-des epg2vdr-Plugins (das sich über das OSD konfigurieren lässt) über
-Textdateien und in der Shell.
+können.  Die Konfiguration erfolgt mit Ausnahme des epg2vdr-Plugins
+(das sich über das OSD konfigurieren lässt) über Textdateien und in
+der Shell.
 
 xmltv2vdr nutzt dagegen eine lokale sqlite-Datenbank, die nur einen
 Client zulässt. Somit muss jeder einzelne VDR den kompletten
-Datensatzt selbst pflegen. Die komplette Konfiguration (Zuordnung der Sender,
-Update-Intervalle usw.) erfolgt über das OSD des VDR.
+Datensatzt selbst pflegen. Die komplette Konfiguration (Zuordnung der
+Sender, Update-Intervalle usw.) erfolgt über das OSD des VDR.
 
 Beide Lösungen ermöglichen die Nutzung der Episodenlisten von
 http://eplists.constabel.net/ um das EPG für dort erfasste Serien mit
