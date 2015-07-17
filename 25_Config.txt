@@ -17,9 +17,9 @@ die '/etc/vdr/plugins/order.conf', sondern über die Dateien in
 '/etc/vdr/conf.d/*.conf'
 ====
 
-Wird der VDR ohne Startargumente aufgerufen, liest er alle Dateien aus dem Verzeichnis '/etc/vdr/conf.d/'
-mit der Endung *.conf* ein.  Die Syntax ähnelt dem bekannten
-**ini**-Format.
+Wird der VDR ohne Startargumente aufgerufen, liest er alle Dateien aus
+dem Verzeichnis '/etc/vdr/conf.d/' mit der Endung *.conf* ein.  Die
+Syntax ähnelt dem bekannten **ini**-Format.
 
 Zeilen, die mit einer Raute *#* beginnen,
 werden vom Parser ignoriert.
@@ -38,11 +38,12 @@ unterschiedlichen Startargumenten geladen werden kann.  Nicht alle
 Plugins (z.B. xineliboutput) vertragen es, wenn mehrere Instanzen
 geladen werden. 
 
-Um ein Plugin zu starten, genügt es seinen Namen in eckigen Klammern
-in einer Konfigurationsdatei abzulegen, will man den Start verhindern,
-muss man dafür sorgen, dass der VDR den Eintrag nicht mehr einliest.
-Ein bequemes Werkzeug um Plugins zu (de-)aktivieren oder die
-Start-Argumente zu bearbeiten ist <<vdrctl,vdrctl>>.
+Um ein Plugin vom VDR laden zu lassen, genügt es seinen Namen in
+eckigen Klammern in einer Konfigurationsdatei abzulegen, will man den
+Start verhindern, muss man dafür sorgen, dass der VDR den Eintrag
+nicht mehr einliest.  Ein bequemes Werkzeug um Plugins zu
+(de-)aktivieren oder die Start-Argumente zu bearbeiten ist
+<<vdrctl,vdrctl>>.
 
 Die Datei '/etc/vdr/conf.d/00_vdr.conf' enthält die vom Distributor
 vorgegebenen Start-Argumente für den VDR. Da alle Dateien in '/etc/',
@@ -59,6 +60,19 @@ yaVDR der Fall ist) nach
 '/etc/vdr/conf.d/<priorität>-<plugin_name>.conf' verlinkt werden. Die
 Standard-Priorität ist 50, ein abweichender Wert kann vom Distributor
 vorgegeben werden.
+
+Alle Konfigurationsdateien in '/etc/vdr/conf.d/' werden nach Dateinamen
+sortiert interpretiert und somit die Plugins in der Reihenfolge der
+gesetzten Priorität geladen. Das Plugin mit der
+niedrigsten Priorität wird zuerst geladen und das Plugin mit der
+höchsten Priorität als letztes.
+
+[TIP]
+.Priorität für das dynamite-Plugin
+==================================
+Das dynamite-Plugin sollte immer die höchste Priorität erhalten, so
+dass es als letztes Plugin geladen wird.
+==================================
 
 .Beispiel für eine Konfigurationsdatei für das softhddevice Plugin
 ----

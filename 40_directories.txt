@@ -37,18 +37,18 @@ Verzeichnisstruktur planen.
 ==== Avahi-Linker ====
 
 Der Avahi-Linker ist ein Python-Skript, das nach Avahi-Announcements
-für Freigaben im Netzwerk sucht und diese - falls eine gültige
+für NFS-Freigaben im Netzwerk sucht und diese - falls eine gültige
 Service-Konfiguration existiert - automatisch zusammen mit den lokalen
-Medien unter '/media/<Kategorie>/<Ort der Dateien>' einbindet. Das
-Mounten der NFS-Freigaben erfolgt in diesem Fall über Autofs. In der
-Voreinstellung wird eine Freigabe nach einer Inaktivitätszeit von 60
-Sekunden wieder ausgehängt, so dass das Gegenüber, das die Freigabe
-bereitstellt herunterfahren kann. In der Datei
-'/etc/autofs/auto.master.d' kann man über die Option *--timeout=*
-festlegen, nach wie vielen Sekunden Inaktivität eine vom avahi-linker
-eingebundene Freigabe wieder ausgehängt werden soll. Für Rechner mit
-{version} geschieht das automatisch für alle <<standard-dir,lokalen
-Standardverzeichnisse>>.
+Medien unter '/media/<Kategorie>/<Ort der Dateien>' verlinkt. Das
+Einbinden der NFS-Freigaben erfolgt über Autofs. In der Voreinstellung
+wird eine Freigabe nach einer Inaktivitätsdauer von 60 Sekunden wieder
+ausgehängt, so dass das der Server, der die Freigabe bereitstellt,
+herunterfahren kann, wenn die Clients diese nicht mehr benötigen. In
+der Datei '/etc/autofs/auto.master.d/avahi-linker.autofs' kann man
+über die Option *--timeout=* festlegen, nach wie vielen Sekunden
+Inaktivität eine vom avahi-linker eingebundene Freigabe wieder
+ausgehängt werden soll. Für Rechner mit {version} geschieht das
+automatisch für alle <<standard-dir,lokalen Standardverzeichnisse>>.
 
 Möchte man also sowohl lokale als auch über das Netzwerk eingebundene
 Dateien für VDR-Plugins oder KODI nutzen, empfiehlt es sich als
@@ -87,6 +87,82 @@ sieht sind die lokal abgelegten Medien jeweils über einen Ordner
 ****
 avahi-linker: Konfiguration beschreiben
 ****
+[[avahi-linker-config]]
+===== Konfigurationsdateien für den avahi-linker =====
+
+Die Konfigurationsdatein für den avahi-linker liegen im Ordner
+'/etc/avahilinker/'. 
+
+.default.cfg
+----
+[localdirs]
+# localdirs are linked to the "media" path defined under targetdirs
+# localdirs can be defined for any used subtype
+# examples:
+audio = /srv/audio
+video = /srv/video
+picture = /srv/picture
+
+[media_static_mount]
+# path is relative to autofs directory
+#files = <hostname>/path/to/directory
+
+[vdr_static_mount]
+# path is relative to autofs directory
+# <optional dir>/<Mountname> = <hostname>/path/to/directory
+
+[targetdirs]
+# directory for all created symlinks
+media = /media
+# VDR recording dir
+vdr   = /srv/vdr/video
+
+[options]
+# use dbus2vdr instead of SVDRP
+dbus2vdr = True
+# set svdrp_port
+svdrp_port = 6419
+# add prefix to dynamic avahi nfs mounts (can be omitted)
+nfs_prefix = 
+# add suffix to dynamic avahi nfs mounts (can be omitted)
+nfs_suffix = (nfs)
+# add suffix to static mounts (can be omitted)
+static_suffix = [static]
+# autofs NFS-automount dir
+# /etc/auto.master.d/avahi-linker:
+# /net -hosts -intr,soft --timeout=60 # umount after 60 seconds if a mount is
+# unused
+autofsdir = /net
+# Use translations for subtypes and categories:
+use_i18n = True
+# replace special characters in path (like vdr with --dirnames=,,1)
+fat_safe_names = True
+# allow ip ranges and ip addresses - default: all (0.0.0.0/0 and
+# 0::0/0)
+#ip_whitelist = 0.0.0.0/0
+# blacklist ip ranges or single ip addresses, e.g. 192.168.178.115
+# 192.168.177.0/24
+#ip_blacklist = 
+
+[Logging]
+use_file = False
+logfile = /tmp/avahi-linker.log
+# Loglevel = DEBUG|INFO|WARNING|ERROR|CRITICAL
+loglevel = INFO
+
+----
+
+.avahi-linker deaktivieren
+Um den avahi-linker zu deaktivieren genügt es in
+der '/etc/default/avahi-linker' die Variable *ENABLED* auf "0" zu
+setzen:
+
+.'/etc/default/avahi-linker'
+----
+ENABLED=0
+----
+
+
 
 [[nfs_mount]]
 ==== NFS Freigaben mounten ====
@@ -95,7 +171,8 @@ Unter yaVDR gibt es mehrere Möglichkeiten NFS-Freigaben zu mounten.
 Wie man Freigaben auf einem Server announciert, die per
 <<avahi-linker,Avahi-Linker>> eingebunden werden kann man in
 http://www.yavdr.org/tutorials/mounting-nfs-shares-via-vdr-addon-avahi-mounter/[diesem
-Artikel auf yavdr.org] nachlesen.
-NFS-Freigaben, die VDR-Aufnahmen enthalten, aber nicht über avahi
-angekündigt werden, lassen sich über das Webfrontend über den Punkt
-<<wfe-network,Netzwerk>> einbinden.
+Artikel auf yavdr.org] nachlesen.  NFS-Freigaben, die VDR-Aufnahmen
+enthalten, aber nicht über avahi angekündigt werden, lassen sich über
+das Webfrontend über den Punkt <<wfe-network,Netzwerk>> konfigurieren.
+Diese Freigaben werden unter '/etc/avahi-linker/wfe-static.cfg'
+abgelegt und beim Start des Avahi-Linker berücksichtigt.
