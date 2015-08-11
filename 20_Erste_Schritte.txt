@@ -86,6 +86,8 @@ Tastatur bedienen kann.
 |*Zifferntasten*  |*Ziffern 0-9*  |
 |==========================================================
 
+image:yaVDR-Keyboard.png["Standard-Tastaturbelegung für yaVDR 0.6", align="center"]
+
 [[Remote-HOWTO]]
 ===== Konfiguration der Fernbedienung =====
 
