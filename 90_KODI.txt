@@ -57,7 +57,7 @@ Die Konfiguration der Fernbedienung in KODI erfolgt über zwei getemplatete Date
 [horizontal]
 Lircmap.xml:: Durch die
 '/var/lib/vdr/.kodi/userdata/Lircmap.xml' werden die Tastennamen, die
-durch eventlircd ausgeliefert werden KODI-internen Tastennamen
+durch eventlircd ausgeliefert werden, KODI-internen Tastennamen
 zugewiesen.footnote:[http://wiki.kodi.org/index.php?title=Userdata/lircmap.xml]
 remote.xml:: In der '/var/lib/vdr/.kodi/userdata/keymaps/remote.xml'
 erfolgt dann die Funktionszuweisung der Tasten abhängig vom Kontext in

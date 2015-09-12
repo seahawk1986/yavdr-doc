@@ -21,7 +21,7 @@ beschrieben.
 
 ==== Besonderheiten für den debian-Ordner ====
 
-===== debian/rules ======
+===== debian/rules =====
 
 Eine generische 'debian/rules' sieht so aus:
 

@@ -67,6 +67,13 @@ gesetzten Priorität geladen. Das Plugin mit der
 niedrigsten Priorität wird zuerst geladen und das Plugin mit der
 höchsten Priorität als letztes.
 
+Mit dem folgenden Befehl kann man sich die vom VDR interpretierten
+Startargumente anzeigen lassen:
+
+----
+$ vdr --showargs
+----
+
 [TIP]
 .Priorität für das dynamite-Plugin
 ==================================
