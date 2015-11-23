@@ -152,12 +152,28 @@ loglevel = INFO
 
 ----
 
+.Inaktivitäts-Timeout für eingebundene Freigaben
+
+In der Voreinstellung werden Freigaben, auf die nicht zugegriffen
+wird, nach 60 Sekunden Inaktivität wieder ausgehängt (und beim Zugriff
+wieder eingebunden).  Der Wert für den Inaktivitästtimeout lässt sich
+in der '/etc/auto-master.d/avahi-linker.autofs' konigurieren.  So
+können sich andere {version} im Netzwerk gemäß ihren
+Inaktivitäts-Timeouts automatisch abschalten, wenn sie nicht mehr
+benötigt werden. Wird eine Wiedergabe pausiert, wird der NFS-Mount
+gehalten, so dass kein undefinierter Zustand beim fortsetzen der
+Wiedergabe eintreten kann.  Im Gegensatz zu früheren yaVDR-Versionen
+ist es nicht mehr notwendig in den Einstellungen für das
+lifeguard-Addon den Shutdown bei bestehenden NFS-Verbindungen zu
+deaktivieren, wenn man möchte, dass ungenutzte VDRs sich selbstständig
+abschalten können.
+
 .avahi-linker deaktivieren
 Um den avahi-linker zu deaktivieren genügt es in
 der '/etc/default/avahi-linker' die Variable *ENABLED* auf "0" zu
 setzen:
 
-.'/etc/default/avahi-linker'
+'/etc/default/avahi-linker'
 ----
 ENABLED=0
 ----

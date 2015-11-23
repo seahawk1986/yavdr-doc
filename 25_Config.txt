@@ -64,8 +64,8 @@ vorgegeben werden.
 Alle Konfigurationsdateien in '/etc/vdr/conf.d/' werden nach Dateinamen
 sortiert interpretiert und somit die Plugins in der Reihenfolge der
 gesetzten Priorität geladen. Das Plugin mit der
-niedrigsten Priorität wird zuerst geladen und das Plugin mit der
-höchsten Priorität als letztes.
+niedrigsten numerischen Priorität wird zuerst geladen und das Plugin mit der
+höchsten numerischen Priorität als letztes.
 
 Mit dem folgenden Befehl kann man sich die vom VDR interpretierten
 Startargumente anzeigen lassen:
@@ -165,3 +165,70 @@ $ sudo vdrctl edit imonlcd
 ----
 $ EDITOR=vim sudo vdrctl edit imonlcd
 ----
+
+Der hide-first-recording-level Patch
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Wenn man lokale Aufnahmen, Wechseldatenträger und über den
+avahi-linker eingebundene Aufnahmen anderer VDRs sowie
+Archivverzeichnisse ohne störende Trennung durch extra Unterordner in der
+Aufnahmendarstellung des VDR nutzen möchte, kann man den
+hide-first-recording-level Patch aktivieren - die Hilfe des VDR zu der Funktion
+sieht so aus:
+
+----
+  -H,       --hide-first-recording-level
+                           The first level directories in the video directory
+                           will be ignored in the recordings menu.
+                           All recordings will be placed in the directory 'local'.
+                           You can mount/link other video directories inside the
+                           video directory to display their contents side by side
+                           with your local video directory
+----
+
+Um die Funktion zu aktivieren, geht man folgendermaßen vor:
+
+- VDR stoppen
+----
+sudo stop vdr
+----
+- das Verzeichnis 'local' im VIDEODIR des VDR erstellen, z.B.:
+----
+sudo mkdir -p /srv/vdr/video/local
+sudo chown vdr:vdr /srv/vdr/video/local 
+----
+- eine Konfigurationsdatei (z.B. '/etc/vdr/conf.d/05-vdr-hide-first-recording-level.conf')  erstellen, um den VDR die Start-Option mitzugeben:
+----
+[vdr]
+--hide-first-recording-level
+----
+- alle bestehenden Aufnahmen aus dem VIDEODIR nach VIDEODIR/local verschieben:
+----
+cd /srv/vdr/video
+mv */ local/ # alle Ordner nach local verschieben
+----
+- vdr wieder starten:
+----
+sudo start vdr
+----
+
+[IMPORTANT]
+.Wichtig!
+=====================================================================
+
+Der VDR und seine Plugins müssen beim Verschieben von Aufnahmen den
+vollständigen Pfad übergeben bekommen, d.h. im live-Plugin z.B.
+'local\~Filme\~Heidi'  statt dem gewohnten 'Filme~Heidi'. Die
+folders.conf des VDR sollte man auch um eine Ebene local erweitern,
+z.B.:
+
+----
+local {
+Dokumentationen
+Kabarett
+Filme
+Serien
+}
+----
+
+====================================================================

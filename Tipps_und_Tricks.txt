@@ -3,16 +3,22 @@
 
 [[umask]]
 === Zugriffsrechte für Aufnahmen ===
-Für bestimmte Anwendungsfälle ist es praktisch, wenn auch andere User Schreibrechte für die vom VDR erstellten Aufnahmen haben (z.B. weil man dann Projektdaten für Schnittprogramme direkt im Aufnahmeordner ablegen kann).
-Eine mögliche Lösung ist die fraglichen User der Gruppe *vdr* hinzuzufügen und die umask, mit der Dateien vom VDR erstellt werden anzupassen.
+
+Für bestimmte Anwendungsfälle ist es praktisch, wenn auch andere User
+Schreibrechte für die vom VDR erstellten Aufnahmen haben (z.B. weil
+man dann Projektdaten für Schnittprogramme direkt im Aufnahmeordner
+ablegen kann).  Eine mögliche Lösung ist die fraglichen User der
+Gruppe *vdr* hinzuzufügen und die umask, mit der Dateien vom VDR
+erstellt werden anzupassen.
 
 .Hinzufügen eines Users zur Gruppe *vdr*
 ----
 sudo adduser <username> vdr
 ----
 
-.umask für den VDR anpassen
-Folgende Zeile muss dann noch (am besten über ein <<template,custom Template>>) in die '/etc/default/vdr' eingefügt werden:
+.umask für den VDR anpassen Folgende Zeile muss dann noch (am besten
+über ein <<template,custom Template>>) in die '/etc/default/vdr'
+eingefügt werden:
 
 ----
 umask 002
@@ -22,14 +28,27 @@ umask 002
 === Samba und Windows ===
 
 ==== Ordnernamen im Aufnahmeverzeichnis ====
-Unter Windows sind bestimmte Zeichen in Dateinamen nicht zulässig (z.B. "!",":" usw.) - diese tauchen allerdings gerne mal in Sendungstiteln auf und so werden diese dann beim Zugriff auf die per SAMBA freigegebenen Aufnahmeverzeichnisse des VDR nicht korrekt angezeigt. Um die Verwendung der problematischen Zeichen in den Ordnernamen zu unterbinden kann man die VDR mit der Option *--vfat* starten. Dazu muss (am besten per <<template,custom Template>>) die Zeile für die VDR-Optionen in der '/etc/default/vdr' angepasst werden:
+
+Unter Windows sind bestimmte Zeichen in Dateinamen nicht zulässig
+(z.B. "!",":" usw.) - diese tauchen allerdings gerne mal in
+Sendungstiteln auf und so werden diese dann beim Zugriff auf die per
+SAMBA freigegebenen Aufnahmeverzeichnisse des VDR nicht korrekt
+angezeigt. Um die Verwendung der problematischen Zeichen in den
+Ordnernamen zu unterbinden kann man die VDR mit der Option *--vfat*
+starten. Dazu muss (am besten per <<template,custom Template>>) die
+Zeile für die VDR-Optionen in der '/etc/default/vdr' angepasst werden:
 
 ----
 OPTIONS="-w 0 --vfat"
 ----
 
 ==== Symbolische Links ====
-Verwendet man mehrere Aufnahmeverzeichnisse für den VDR (z.B. zusätzlich /srv/vdr/video.01 usw.) oder bindet Ordner selbt über symbolische Links ein, muss die '/etc/samba/smb.conf' (am besten per <<template,custom Template>>) um drei Optionen erweitert werden, damit man auch über Samba-Freigaben darauf zugreifen kann:
+
+Verwendet man mehrere Aufnahmeverzeichnisse für den VDR (z.B.
+zusätzlich /srv/vdr/video.01 usw.) oder bindet Ordner selbt über
+symbolische Links ein, muss die '/etc/samba/smb.conf' (am besten per
+<<template,custom Template>>) um drei Optionen erweitert werden, damit
+man auch über Samba-Freigaben darauf zugreifen kann:
 
 ----
 # Follow Symlinks
