@@ -15,7 +15,7 @@ Einsatz kommen.
 - Das Programm epgd (aus dem Paket *vdr-epg-daemon*) kümmert sich um
   den Abruf der externen EPG-Quellen, Metainformationen für Sendungen
   und vorhandene Aufnahmen und das Mischen des externen mit dem
-  Sender-EPG.  Außerdem ermöglicht es die Nutzung von des
+  Sender-EPG.  Außerdem ermöglicht es die Nutzung des
   scraper2vdr-Plugins.
 
 - Die anfallenden Daten werden in einer MySQL-Datenbank abgelegt, die

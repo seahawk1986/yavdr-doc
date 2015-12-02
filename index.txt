@@ -16,6 +16,10 @@ http://www.yavdr.org/documentation/0.4/de/
 
 http://www.yavdr.org/documentation/0.5/de/
 
+=== yaVDR 0.6 ===
+
+http://www.yavdr.org/documentation/0.6/de/
+
 === Weitere Quellen ===
 
 http://www.partyfotos.de/vdr/[Deutschsprachiges Tutorial von Bernie7, (wir aktuell von yaVDR 0.3 auf 0.4 umgestellt)]
