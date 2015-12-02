@@ -162,6 +162,15 @@ Hier kann die Auflösung und Nutzung der angeschlossenen Bildschirme
 eingestellt werden. Außerdem können hier die Deinterlacing-Methoden
 für HD- und SD-Material konfiguriert werden.
 
+[NOTE]
+.Beschränkungen
+====
+Über das Webfrontend kann eine (NVidia-)Grafikkarte mit maximal zwei
+angeschlossenen Bildschirmen konfiguriert werden. Falls man eine
+andere Hardwarekonfiguration nutzen möchte, muss die Konfiguration
+ggf. von Hand erfolgen.
+====
+
 [[overscan]]
 .Overscan
 

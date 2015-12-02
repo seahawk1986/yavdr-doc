@@ -1,8 +1,9 @@
 Dokumentation für {version}
 ===========================
-:Author:   Alexander Grothe (seahawk1986)
+:Author:   Alexander_Grothe_(seahawk1986)
+:Author Initials: AG
 :Email:    seahawk1986@hotmail.com
-:Date:     Mai 2015
+:Date:     {localdate}
 :Revision: v0.6
 :encoding: UTF-8
 :lang: de

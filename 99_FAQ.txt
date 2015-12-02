@@ -9,10 +9,73 @@ http://www.vdr-portal.de gestellten Fragen. Sie wird mit der Zeit
 wachsen und hoffentlich zeitlich nah an den Stand der Entwicklung von
 yaVDR angepasst werden.
 
+[[qa-vdrconfig]]
+=== VDR Konfiguration ===
+
+[quanda]
+[[qa-vdrdebug]]
+Der VDR crasht - wie kann ich das debuggen?::
+  Es genügt bei {version} das Paket vdr-dbg zu installieren.
+  Backtraces werden im Falle eines Segfault automatisch aus dem
+  Coredump erstellt und in '/var/log/vdr/' abgelegt.
+  Falls man den Verdacht hat, dass die Start-Argumente für den VDR
+  oder Plugins  zu Problemen führen, sollte man einen Blick in die
+  Datei '/var/log/upstart/vdr.log' werfen.
+[[prevent-shutdown-faq]]
+Wie kann ich das Herunterfahren des Rechners durch den VDR deaktivieren?::
+  Der VDR selbst besitzt zwei Einstellungen, die beeinflussen, wann er einen
+  Shutdownversuch unternimmt (vgl. 
+  http://vdr-wiki.de/wiki/index.php/Benutzerhandbuch#Sonstiges):
+
+  Brückenzeit zwischen Timern (min);;
+     Bestimmt, dass der VDR nicht
+     selbstständig herunterfährt, wenn der nächste Timer weniger als die
+     eingestellte Zeitspanne in der Zukunft liegt.
+  
+  VDR ausschalten bei Inaktivität (min);; 
+     Wenn der Benutzer x Minuten inaktiv war, unternimmt der VDR einen
+     Shutdown-Versuch. Auch Plugins können die Inaktivitätsdauer
+     manipulieren (z.B. xvdr, vnsiserver).
+  
+Setzt man beide Werte auf 0, wird der VDR nur noch Herunterfahren,
+wenn er einen Druck auf die Power-Taste (über Tastatur, Fernbedienung,
+SVDRP, dbus2vdr usw.) erhält.
+Falls man kein OSD zur Verfügung hat, kann man auch bei gestopptem VDR
+in der '/var/lib/vdr/setup.conf' die Werte für die Variablen
+ *MinEventTimeout* bzw. *MinUserInactivity* anpassen.
+
+Wenn der VDR in keinem Fall den Rechner herunterfahren können soll,
+empfiehlt es sich in der '/etc/vdr/conf.d/00-vdr.conf' die Zeile mit
+dem Shutdown-Befehl auszukommentieren bzw. zu löschen:
+
+.'/etc/vdr/conf.d/00-vdr.conf'
+----
+[vdr]
+#--shutdown=/usr/lib/vdr/vdr-shutdown.wrapper
+----
+
+[quanda]
+[[lirc-config-faq]]
+Wie kann ich die Einstellung für Lirc ändern?::
+  yaVDR legt eine '/etc/vdr/conf.d/03-vdr-lirc.conf' an, in der die
+  Lirc-Unterstützung für den VDR angeschaltet wird. Ohne Pfadangabe wird
+  '/var/run/lirc/lircd' genutzt.
+  Werden nur die yaVDR VDR-Pakete genutzt, muss die Nutzung von Lirc
+  durch den VDR vom Anwender selbst aktiviert werden.
+
+[[charset-config-faq]]
+Wie kann ich einen Zeichensatz für das EPG erzwingen?::
+  Die Charset-Einstellung erfolgt über die
+  '/etc/vdr/conf.d/02-vdr-charset.conf'. Die Datei ist getemplated und
+  ihr Inhalt wird normalerweise durch die Einstellung im Webfrontend
+  bestimmt.
+
 [[qa-remote]]
 === Fernbedienung ===
 
-[[namespace-faq]] [qanda] Was bedeutet *Namespace-konform*?::
+[[namespace-faq]]
+[qanda]
+Was bedeutet *Namespace-konform*?::
   In yaVDR dürfen aufgrund der Nutzung von Eventlircd nur bestimmte
   Tastennamen verwendet werden. Dabei handelt es sich prinzipiell um
   alle Key-Events (erkennbar an "KEY_<Taste>", die vom Kernel
@@ -39,7 +102,8 @@ yaVDR angepasst werden.
   der remote.conf passt. Die nötige hardware.conf für Lircd wird in
   den meisten Fällen über das <<wfe-remote,Webfrontend erzeugt>>.
   Wichtig ist, dass die Tastennamen in der lircd.conf so angepasst
-  werden, dass sie *Namespace-konform* sind, d.h. den in der input.h
+  werden, dass sie *Namespace-konform* sind, d.h. den in der
+  https://github.com/torvalds/linux/blob/master/include/uapi/linux/input.h#L205[input.h]
   der Kernelheader definierten Tastennamen entsprechen.
 
 

@@ -29,7 +29,7 @@ aufrufen, das es erlaubt das Bootgerät für den Start zu wählen.
 =====================================================================
 
 Sobald das System von der Installations-CD bootet, erscheint ein
-Auswahlmenü in dem man die Sprache für die Installation auswählen kann:
+Auswahlmenü in dem man die Sprache auswählen kann:
 
 image:./installation/00_sprachwahl.png[]
 
@@ -41,7 +41,11 @@ Um yaVDR zu installieren wählt man also den ersten Punkt in der Liste aus:
 
 image:./installation/01_bootscreen.png[]
 
-Um Sprache und Zeit auszuwählen wird der Standort des Systems abgefragt:
+Zuerst wird die Sprache ausgewählt:
+
+image:./installation/02_sprachwahl.png[]
+
+Dann der Standort:
 
 image:./installation/02_standortwahl.png[]
 
@@ -50,7 +54,7 @@ Tastenbelegung selbst zu wählen anstatt sie automatisch bestimmen zu lassen:
 
 image:./installation/03_tastenerkennung.png[]
 
-Als erstes wählt man das Land...
+Als erstes wählt man das Land für das Tastaturlayout...
 
 image:./installation/04_keyboard_konfig.png[]
 
@@ -59,7 +63,7 @@ keine literarischen Meisterwerke entstehen sollen,
 aber ggf. Einstellungen in der Shell vorgenommen werden sollen,
 bietet es sich an die Akzenttasten zu deaktivieren,
 so dass die Eingabe von häufig verwendeten Zeichen wie z.B.
-der Tilde "~" erleichtert wird:
+der Tilde *"~"* erleichtert wird:
 
 image:./installation/05_keyboard_konfig-2.png[]
 
@@ -136,6 +140,11 @@ Die Installation des Systems nimmt nun etwas Zeit in Anspruch:
 
 image:./installation/16_installation_der_pakete.png[]
 
+Im preseed nach der eigentlichen Installation werden falls
+erforderlich Treiber vorinstalliert und das System vorkonfiguriert:
+
+image:./installation/16_preseed.png[]
+
 Bevor das System für den ersten Start vorbereitet werden kann,
 muss noch der Ort für die Installation des Bootloaders gewählt werden.
 Hat man keine besonderen Wünsche, kann man die Standard-Auswahl einfach
@@ -144,8 +153,8 @@ der Systemplatte installieren.
 
 image:./installation/17_grub_installation.png[]
 
-Nach Abschluss der Installation soltle man das Installationsmedium
-entfernen und den Rechner neu starten.
+Nach Abschluss der Installation entfernt man das Installationsmedium
+entfernen und lässt den Rechner neu starten.
 
 image:./installation/18_done.png[]
 
