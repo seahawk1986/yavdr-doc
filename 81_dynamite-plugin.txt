@@ -1,4 +1,5 @@
-[[dynamite]] ==== Dynamite-Plugin ====
+[[dynamite]]
+==== Dynamite-Plugin ====
 
 Dieses Plugin erlaubt es DVB-Geräte dynamisch in den VDR einzubinden
 und wieder zu entfernen, ohne dass ein Neustart des VDR notwendig ist.

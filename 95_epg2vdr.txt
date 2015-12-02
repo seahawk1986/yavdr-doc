@@ -46,7 +46,28 @@ bekannt gemacht werden.
 
 ====
 
-Die Konfiguration erfolgt gemäß der
+.Die initiale Konfiguration von MySQL bzw. MariaDB kann so erfolgen:
+----
+$ sudo apt-get install mysql-server
+$ sudo apt-get install vdr-epg-daemon
+$ sudo sed -i 's/^bind-address/# bind-address/' /etc/mysql/my.cnf
+$ sudo sed -i 's/^log-bin/# log-bin/' /etc/mysql/my.cnf # optional, verbessert die Performance, verschlechtert Wiederherstellbarkeit der Daten
+$ sudo mysql -u root -p
+mysql> CREATE DATABASE epg2vdr charset utf8; # Datenbank anlegen
+mysql> CREATE USER 'epg2vdr'@'%' IDENTIFIED BY 'epg'; # Nutzer anlegen, Passwort ist "epg"
+mysql> GRANT ALL PRIVILEGES ON epg2vdr.* TO 'epg2vdr'@'%'; # Zugriff übers Netzwerk erlauben
+mysql> GRANT ALL PRIVILEGES ON epg2vdr.* TO 'epg2vdr'@'localhost' IDENTIFIED BY 'epg'; # Zugriff vom lokalen System aus zulassen
+mysql> FLUSH PRIVILEGES; # Änderungen an Berechtigungen übernehmen
+mysql> USE epg2vdr; # in Datenbank wechseln
+mysql> DROP FUNCTION IF EXISTS epglv; # falls vorhanden alte Funktion entfernen
+mysql> DROP FUNCTION IF EXISTS epglvr; # dito
+mysql> CREATE FUNCTION epglv RETURNS INT SONAME 'mysqlepglv.so'; # Funktion aus externem Plugin hinzufügen
+mysql> CREATE FUNCTION epglvr RETURNS INT SONAME 'mysqlepglv.so'; # Funktion aus externem Plugin hinzufügen
+# mysql mit STRG+D verlassen, dann MySQL-Server neu starten:
+$ sudo service mysql restart
+----
+
+Die weitere Konfiguration erfolgt gemäß der
 http://projects.vdr-developer.org/git/vdr-epg-daemon.git/tree/README[README].
 Wichtig ist die Konfigurationsdateien im Verzeichnis '/etc/epgd/' auf
 die eigene Konfiguration anzupassen, insbesondere die Dateien
