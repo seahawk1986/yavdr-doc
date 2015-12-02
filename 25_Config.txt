@@ -173,7 +173,7 @@ Wenn man lokale Aufnahmen, Wechseldatenträger und über den
 avahi-linker eingebundene Aufnahmen anderer VDRs sowie
 Archivverzeichnisse ohne störende Trennung durch extra Unterordner in der
 Aufnahmendarstellung des VDR nutzen möchte, kann man den
-hide-first-recording-level Patch aktivieren - die Hilfe des VDR zu der Funktion
+hide-first-recording-level Patch aktivieren - die originale Beschreibung der Funktion 
 sieht so aus:
 
 ----
@@ -186,9 +186,9 @@ sieht so aus:
                            with your local video directory
 ----
 
-Um die Funktion zu aktivieren, geht man folgendermaßen vor:
+Um den hide-first-recording-level Patch zu aktivieren, geht man folgendermaßen vor:
 
-- VDR stoppen
+- den VDR stoppen
 ----
 sudo stop vdr
 ----
@@ -205,7 +205,7 @@ sudo chown vdr:vdr /srv/vdr/video/local
 - alle bestehenden Aufnahmen aus dem VIDEODIR nach VIDEODIR/local verschieben:
 ----
 cd /srv/vdr/video
-mv */ local/ # alle Ordner nach local verschieben
+sudo mv !(local)/ local/ # alle Ordner in das Verzeichnis local verschieben
 ----
 - vdr wieder starten:
 ----
@@ -216,16 +216,24 @@ sudo start vdr
 .Wichtig!
 =====================================================================
 
-Der VDR und seine Plugins müssen beim Verschieben von Aufnahmen den
-vollständigen Pfad übergeben bekommen, d.h. im live-Plugin z.B.
-'local\~Filme\~Heidi'  statt dem gewohnten 'Filme~Heidi'. Die
-folders.conf des VDR sollte man auch um eine Ebene local erweitern,
-z.B.:
+Wird der hide-first-recording-level Patch genutzt, müssen beim
+Verschieben von Aufnahmen der vollständige Pfad an den VDR und seine Plugins 
+übergeben werden, d.h. im live-Plugin nutzt man dann z.B.
+'local\~Filme\~Heidi'  statt dem gewohnten Pfad 'Filme~Heidi'. Die
+folders.conf des VDR sollte man auch um eine Basis-Ebene local
+erweitern, damit die Aufnahmen an der richtigen Stelle landen. Auch
+eine Voreinstellung zum Kopieren von Aufnahmen ins Archiv (hier unter
+'/srv/vdr/video/Archiv' verfügbar) lässt sich so umsetzen:
 
 ----
 local {
 Dokumentationen
 Kabarett
+Filme
+Serien
+}
+Archiv {
+Dokumentationen
 Filme
 Serien
 }

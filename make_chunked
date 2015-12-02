@@ -1,5 +1,6 @@
 #!/bin/bash
 DESTDIR=~/Dokumente
-
-a2x -f chunked yaVDR_doc.txt --xsl-file=ya_chunked.xsl --stylesheet=ya_docbook-xsl.css -a toclevels=8 --destination-dir=$DESTDIR -L --icons --xsltproc-opts="--param local.l10n.xml document\(\'custom-chapter.xml\'\)" --xsltproc-opts "--stringparam toc.section.depth 8" 
+mkdir -p "$DESTDIR"
+#--fop -a 'source-highlighter=pygments' -a "pygments-style=default'
+a2x -f chunked yaVDR_doc.txt --xsl-file=ya_chunked.xsl --stylesheet=ya_docbook-xsl.css -a toclevels=8 -a 'source-highlighter=source-highlitcht' --destination-dir=$DESTDIR -L --icons --xsltproc-opts="--param local.l10n.xml document\(\'custom-chapter.xml\'\)" --xsltproc-opts "--stringparam toc.section.depth 8" 
 # read -p "Done. Press [ENTER] to exit..."

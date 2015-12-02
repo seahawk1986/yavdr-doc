@@ -37,14 +37,22 @@ den Support-Aufwand für das yaVDR-Team.
 
 .Einspielen von Updates für das System
 ----
+sudo apt update && sudo apt full-upgrade
+# oder
 sudo apt-get update && sudo apt-get dist-upgrade
 ----
 
-*****
-Die Verwendung von *apt-get dist-upgrade* statt *apt-get upgrade* ist
-empfehlenswert, da so bei der Aktualisierung eines Paketes neu
-hinzugekommene Abhängigkeiten automatisch installiert werden können.
-****
+[TIP]
+=====
+
+Die Verwendung von *apt full-upgrade* bzw. *apt-get dist-upgrade*
+statt *apt upgrade* bzw. *apt-get upgrade* ist empfehlenswert, da so
+bei der Aktualisierung eines Paketes neu hinzugekommene Abhängigkeiten
+automatisch installiert werden können.
+Ein Upgrade auf ein neueres Ubuntu-Release mittels
+*do-release-upgrade* ist ungetestet und wird nicht empfohlen.
+
+=====
 
 [[vdr-guide]]
 ==== Bedienung des VDR ====
@@ -61,7 +69,27 @@ Auch wenn eine Fernbedienung die Bedienung deutlich bequemer macht,
 ist es nach der Installation oft hilfreich wenn man yaVDR auch mit der
 Tastatur bedienen kann.
 
-.Tastaturbelegung in yaVDR
+[TIP]
+====
+
+Mit softhddevice kann man Text über die Tastatur eingeben, ohne auf
+die vergleichsweise umständliche Nutzung der Zifferntasten zur Texteingabe
+zurückgreifen zu müssen. Deswegen wurde die remote.conf für yavdr 0.6
+abweichend vom bislang gewohnten Schema so angepasst, dass alle
+Tasten für die Eingabe von Buchstaben frei bleiben.
+Falls die alte Tastenbelegung bevorzugt wird, kann sie mit
+https://raw.githubusercontent.com/yavdr/yavdr-utils/8f374ad802014e0e1c10b72acecb2f0f090acfc1/templates/var/lib/vdr/remote.conf/50_key[diesem Template]
+wiederhergestellt werden, das unter
+'/etc/yavdr/templates_custom/var/lib/vdr/remote.conf/50_keys' abgelegt
+werden sollte, bevor man die '/var/lib/vdr/remote.conf' <<template, neu erstellen
+lässt>>.
+
+====
+
+image:yavdr-keyboard_small.png["Standard-Tastaturbelegung für yaVDR 0.6",align="center",scale=50%,link="yaVDR-Keyboard.png"]
+
+
+.Tastaturbelegung in yaVDR für softhddevice und xineliboutput
 [cols="h,2*",options="header",width="90%"]
 |========================================================
 |*Taste*          |*Funktion*     |*Anmerkung*
@@ -86,7 +114,8 @@ Tastatur bedienen kann.
 |*Zifferntasten*  |*Ziffern 0-9*  |
 |==========================================================
 
-image:yaVDR-Keyboard.png["Standard-Tastaturbelegung für yaVDR 0.6", align="center", width="200%"]
+Die Tastenbelegung für xine kann man sich hier ansehen:
+https://github.com/yavdr/yavdr-base/blob/bfd782113f148c7983643922fd2399e71b834493/etc/xine/keymap
 
 [[Remote-HOWTO]]
 ===== Konfiguration der Fernbedienung =====

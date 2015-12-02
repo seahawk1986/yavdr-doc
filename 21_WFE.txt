@@ -163,7 +163,7 @@ eingestellt werden. Außerdem können hier die Deinterlacing-Methoden
 für HD- und SD-Material konfiguriert werden.
 
 [NOTE]
-.Beschränkungen
+.Beschränkungen bei den Anzeigeeinstellungen
 ====
 Über das Webfrontend kann eine (NVidia-)Grafikkarte mit maximal zwei
 angeschlossenen Bildschirmen konfiguriert werden. Falls man eine

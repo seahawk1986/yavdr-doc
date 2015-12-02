@@ -13,13 +13,15 @@ erhalten bleiben sollen, ist es notwendig Custom-Templates anzulegen.
 //////////////////////////////////////////////////////////////////////
 
 Unter yaVDR werden viele Konfigurationsdateien automatisch aus
-Vorlagen zusammengesetzt. Diese Vorlagen werden *Templates* genannt.
+Vorlagen zusammengesetzt und mit den Informationen aus
+'/var/lib/yavdrdb.hdf', in die unter anderem das Webfrontend seine
+Daten speicher, ergänzt. Diese Vorlagen werden *Templates* genannt und
+nutzen http://www.clearsilver.net/docs/[ClearSilver] als
+Auszeichnungssprache.
 
 Die Templates, die das yaVDR-Team mit seinen Paketen ausliefert, sind
-so genannte *Standard-Templates*. Eine
-http://www.yavdr.org/developer-zone/template-overview/[Übersicht der
-Standard-Templates] befindet sich im Entwicklerbereich auf der yaVDR
-Homepage.
+so genannte *Standard-Templates*, die in '/usr/share/yavdr/templates/'
+von den Paketen abgelegt werden.
 
 Wollte man nun etwas direkt an einer Konfigurationsdatei ändern, die
 aus Templates generiert wird, entstünde folgendes Problem: Die
@@ -49,14 +51,15 @@ Vorlagen in diesem Ordner werden bei Paketupdates nicht verändert.
 
 *Custom-Templates* sind unter '/etc/yavdr/templates_custom/' zu finden.
 
-Zusätzliche Custom-Templates werden in Konfigurationsdateien
-eingefügt, gleichnamige Custom-Templates [red]#überschreiben# das
-entsprechende Standard-Template.
+Zusätzliche Custom-Templates werden beim Erstellen der
+Konfigurationsdateien entsprechend ihrem Dateinamen zwischen den
+Standard-Templates eingefügt, gleichnamige Custom-Templates
+[red]#überschreiben# das entsprechende Standard-Template.
 
 Man kann die Erstellung einer Konfigurationsdatei aus den Templates so
-aufrufen:
+anstoßen:
 ------------------------
-user@yavdr04:~$ sudo process-template <Pfad zur Konfigurationsdatei>
+user@yavdr06:~$ sudo process-template <Pfad zur Konfigurationsdatei>
 ------------------------
 ======================================================================================
 
@@ -112,7 +115,7 @@ zusammengesetzt:
 
 .Beispiel für ein Template-Verzeichnis
 ------------------------------------------------------------------------------------
-user@yavdr04:~$  ls -1 /usr/share/yavdr/templates/etc/vdr/vdr-addon-acpiwakeup.conf/
+user@yavdr06:~$  ls -1 /usr/share/yavdr/templates/etc/vdr/vdr-addon-acpiwakeup.conf/
 02_header               <1>
 10_enable-acpiwakeup    <2>
 20_start-ahead          <3>
@@ -135,13 +138,13 @@ dürfen daher auch weiterhin durch zukünftige Updates überschrieben
 werden):
 
 -----------------------------------------
-user@yavdr04:~$ sudo mkdir -p /etc/yavdr/templates_custom/etc/vdr/vdr-addon-acpiwakeup.conf
-user@yavdr04:~$ sudo cp /usr/share/yavdr/templates/etc/vdr/vdr-addon-acpiwakeup.conf/30_regular-days /etc/yavdr/templates_custom/etc/vdr/vdr-addon-acpiwakeup.conf/30_regular-days
+user@yavdr06:~$ sudo mkdir -p /etc/yavdr/templates_custom/etc/vdr/vdr-addon-acpiwakeup.conf
+user@yavdr06:~$ sudo cp /usr/share/yavdr/templates/etc/vdr/vdr-addon-acpiwakeup.conf/30_regular-days /etc/yavdr/templates_custom/etc/vdr/vdr-addon-acpiwakeup.conf/30_regular-days
 -----------------------------------------
 
 Jetzt passen wir mit dem Text-Editor unserer Wahl dieses Custom-Template an und ändern es so ab, dass der VDR jeden Abend um 19:45 aufwacht:
 -----------------------------------------
-user@yavdr04:~$ sudo nano /etc/yavdr/templates_custom/etc/vdr/vdr-addon-acpiwakeup.conf/30_regular-days
+user@yavdr06:~$ sudo nano /etc/yavdr/templates_custom/etc/vdr/vdr-addon-acpiwakeup.conf/30_regular-days
 -----------------------------------------
 
 -----------------------------------------
@@ -154,6 +157,7 @@ ACPI_REGULAR_DAYS="1 2 3 4 5 6 7"
 # Wakeup time
 ACPI_REGULAR_TIME=19:45  # HH:MM
 -----------------------------------------
+
 Nachdem das Custom-Template gespeichert wurde, lassen wir die Konfigurationsdatei aus den Templates neu erstellen:
 -----------------------------------------
 user@yavdr04:~$ sudo process-template /etc/vdr/vdr-addon-acpiwakeup.conf
