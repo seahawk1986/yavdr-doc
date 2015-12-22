@@ -73,6 +73,11 @@ Wichtig ist die Konfigurationsdateien im Verzeichnis '/etc/epgd/' auf
 die eigene Konfiguration anzupassen, insbesondere die Dateien
 *channelmap.conf* und die *epgd.conf*
 
+.Nach der Konfiguration kann epgd gestartet werden:
+----
+sudo start epgd
+----
+
 Auf den Clients wird das Paket *vdr-plugin-epg2vdr* und falls
 gewünscht auch *vdr-plugin-scraper2vdr* installiert. Dann wird der VDR
 gestoppt und die Datei '/var/cache/vdr/epg.data' gelöscht. Nach dem
