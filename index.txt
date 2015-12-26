@@ -14,15 +14,14 @@ http://www.yavdr.org/documentation/0.4/de/
 
 === yaVDR 0.5 ===
 
-http://www.yavdr.org/documentation/0.5/de/
+http://www.yavdr.org/documentation/0.5/de/ (deutsch)
+http://www.yavdr.org/documentation/0.5/en/ (english)
 
 === yaVDR 0.6 ===
 
 http://www.yavdr.org/documentation/0.6/de/
 
 === Weitere Quellen ===
-
-http://www.partyfotos.de/vdr/[Deutschsprachiges Tutorial von Bernie7, (wir aktuell von yaVDR 0.3 auf 0.4 umgestellt)]
 
 http://channelpedia.yavdr.com/[Channelpedia - wird ab yaVDR 0.4 im Webfrontend eingebunden] 
 

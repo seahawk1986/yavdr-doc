@@ -1,8 +1,7 @@
 === KODI ===
 
 Um die Bedienung und die umfassenden Konfigurationsmöglichkeiten für
-KODI besser kennenzulernen sollte man sich im
-http://wiki.kodi.org/index.php?title=Main_Page[KODI-Wiki] einlesen.
+KODI besser kennenzulernen sollte man sich im http://kodi.wiki/[KODI-Wiki] einlesen.
 
 ==== Konfigurationsdateien ====
 
@@ -62,3 +61,26 @@ zugewiesen.footnote:[http://wiki.kodi.org/index.php?title=Userdata/lircmap.xml]
 remote.xml:: In der '/var/lib/vdr/.kodi/userdata/keymaps/remote.xml'
 erfolgt dann die Funktionszuweisung der Tasten abhängig vom Kontext in
 KODI.
+
+==== Bildschirmunschaltung ====
+
+KODI selbst verfügt über die Möglichkeit den Ausgabebildschirm im
+laufenden Betrieb in den System-Einstellungen zu wechseln. Daneben
+gibt es im VDR-Menü die Möglichkeit KODI direkt auf einem zweiten
+angeschlossenen Bildschirm starten zu lassen. Um diese Funktion zu
+realisieren, wird beim Start von KODI in der '/etc/init/kodi.conf' die
+*DISPLAY* Umgebungsvariable genutzt, um den Namen des gewünschten
+Bildschirms zu ermitteln und die
+'/var/lib/vdr/.kodi/userdata/guisettings.xml' entsprechend abzuändern.
+Das erfolgt durch das Skript '/usr/bin/set-kodi-display'.  Vor der
+Änderung an der guisettings.xml wird der komplette <videoscreen>
+Knoten mit allen Kindern nach
+'/var/lib/vdr/.kodi/.display_cache/<monitor>-videodevice.xml' kopiert,
+um die Einstellungen für den aktuell gesetzten Bildschirm zu sichern.
+Falls es bereits eine passende
+'/var/lib/vdr/.kodi/.display_cache/<monitr>-videodevice.xml' gibt,
+werden die Einstellungen daraus in die guisettings.xml kopiert,
+ansonsten wird eine minimale Vorkofiguration für den Bildschirm
+erzeugt. Somit müssen die Einstellungen für jeden Bildschirm einmalig
+vorgenommen werden, um in Zukunft wieder automatisch eingespielt
+werden zu können.

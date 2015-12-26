@@ -102,7 +102,7 @@ Festplatten genutzt werden sollen.
 Die Root-Partition sollte mindestens 8 GB groß sein.
 Damit genug Platz für die Installation weiterer Pakete und Metadaten
 für den VDR und KODI bleibt, ist eine Größe von 16 - 20 GB empfehlenswert.
-Alle lokalen Mediendateien sollten später unter /srv/vdr liegen.
+Alle lokalen Mediendateien sollten später unter /srv liegen.
 Dies ist der bei yaVDR voreingestellte Ort, an dem später Aufnahmen
 abgelegt werden und an dem KODI Medien in den entsprechenden
 Unterverzeichnissen erwartet.

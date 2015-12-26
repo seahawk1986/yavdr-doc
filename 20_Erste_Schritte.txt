@@ -78,7 +78,7 @@ zurückgreifen zu müssen. Deswegen wurde die remote.conf für yavdr 0.6
 abweichend vom bislang gewohnten Schema so angepasst, dass alle
 Tasten für die Eingabe von Buchstaben frei bleiben.
 Falls die alte Tastenbelegung bevorzugt wird, kann sie mit
-https://raw.githubusercontent.com/yavdr/yavdr-utils/8f374ad802014e0e1c10b72acecb2f0f090acfc1/templates/var/lib/vdr/remote.conf/50_key[diesem Template]
+https://raw.githubusercontent.com/yavdr/yavdr-utils/8f374ad802014e0e1c10b72acecb2f0f090acfc1/templates/var/lib/vdr/remote.conf/50_keys[diesem Template]
 wiederhergestellt werden, das unter
 '/etc/yavdr/templates_custom/var/lib/vdr/remote.conf/50_keys' abgelegt
 werden sollte, bevor man die '/var/lib/vdr/remote.conf' <<template, neu erstellen
