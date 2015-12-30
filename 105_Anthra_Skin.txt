@@ -3,10 +3,24 @@
 
 Die Anthra-Skins bieten einige Darstellungsoptionen, die nicht über
 das text2skin-Einstellungsmenü erreichbar sind. Um sie zu nutzen ist
-es notwendig die Skin-Datei zu bearbeiten oder das Paket mit den
+es notwendig die Skin-Datei zu bearbeiten bzw. mit Änderungen an der
+Make.config neu zu erstellen oder (als "sauberer" Ansatz) das Paket mit den
 veränderten Einstellungen neu zu kompilieren.
 
-Der generelle Ablauf zum Rekompilieren eines Pakets ist dabei folgendermaßen:
+Die Anthra-Skins bieten die Möglichkeit die Skindateien mit
+veränderten Parametern neu zu erzeugen (diese werden bei einem
+Paketupdate oder einer Reinstallation allerdings einfach mit den
+Dateien aus dem entsprechenden Paket überschrieben):
+Dazu wechselt man in den Ordner mit den Skindateien (z.B.
+'/usr/share/vdr-skins/anthra_1920_FSE/'), passt die Make.config an und
+lässt die Skindatei neu erstellen:
+
+----
+sudo make clean
+sudo make
+----
+
+Alternativ kann man ein Skin-Paket so Rekompilieren:
 
 Als erstes müssen die zum Bauen benötigten Pakete installiert werden.
 Dies geschieht über *apt-get build-dep*
@@ -49,10 +63,11 @@ anpassen.
 Nun wird das Paket gebaut:
 
 ----
-dpkg-buildpackage -tc -us <1>
+dpkg-buildpackage -tc -us -b <1>
 ----
-<1> Falls man einen GPG-Schlüssel besitzt und diesen auf Launchpad zur
-    Signierung des Paketes hinterlegt hat, kann man das Paket
+<1> Falls man einen GPG-Schlüssel für die im Changelog angegebene
+    E-Mailadresse besitzt und diesen zur
+    Signierung des Paketes nutzt, kann man das Paket
     natürlich auch signieren (das Argument *-uc* entfällt dann).
 
 
