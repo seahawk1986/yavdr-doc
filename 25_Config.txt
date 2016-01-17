@@ -212,6 +212,10 @@ sudo mv !(local)/ local/ # alle Ordner in das Verzeichnis local verschieben
 sudo start vdr
 ----
 
+Wenn mehrere VDRs den hist-first-recording-level Patch nutzen,
+empfiehlt es sich die '/etc/init/mhddfs.conf' entsprechend anzupassen,
+damit '/srv/vdr/video.00/local' nach '/srv/share/vdr' gemountet wird.
+
 [IMPORTANT]
 .Wichtig!
 =====================================================================

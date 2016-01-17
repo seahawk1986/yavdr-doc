@@ -39,16 +39,21 @@ Verzeichnisstruktur planen.
 Der Avahi-Linker ist ein Python-Skript, das nach Avahi-Announcements
 für NFS-Freigaben im Netzwerk sucht und diese - falls eine gültige
 Service-Konfiguration existiert - automatisch zusammen mit den lokalen
-Medien unter '/media/<Kategorie>/<Ort der Dateien>' verlinkt. Das
-Einbinden der NFS-Freigaben erfolgt über Autofs. In der Voreinstellung
-wird eine Freigabe nach einer Inaktivitätsdauer von 60 Sekunden wieder
-ausgehängt, so dass das der Server, der die Freigabe bereitstellt,
-herunterfahren kann, wenn die Clients diese nicht mehr benötigen. In
-der Datei '/etc/autofs/auto.master.d/avahi-linker.autofs' kann man
-über die Option *--timeout=* festlegen, nach wie vielen Sekunden
-Inaktivität eine vom avahi-linker eingebundene Freigabe wieder
-ausgehängt werden soll. Für Rechner mit {version} geschieht das
-automatisch für alle <<standard-dir,lokalen Standardverzeichnisse>>.
+Medien unter '/media/<Kategorie>/<Ort der Dateien>' verlinkt.
+Freigaben mit dem Subtyp "vdr" werden zusätzlich in das
+Aufnahmeverzeichnis des VDR verlinkt und danach ein erneutes Einlesen des
+Aufnahmeverzeichnis durch den VDR angestoßen.
+
+Das Einbinden der NFS-Freigaben erfolgt über Autofs. In der
+Voreinstellung wird eine Freigabe nach einer Inaktivitätsdauer von 60
+Sekunden wieder ausgehängt, so dass das der Server, der die Freigabe
+bereitstellt, herunterfahren kann, wenn die Clients diese nicht mehr
+benötigen. In der Datei
+'/etc/autofs/auto.master.d/avahi-linker.autofs' kann man über die
+Option *--timeout=* festlegen, nach wie vielen Sekunden Inaktivität
+eine vom avahi-linker eingebundene Freigabe wieder ausgehängt werden
+soll. Für Rechner mit {version} geschieht das automatisch für alle
+<<standard-dir,lokalen Standardverzeichnisse>>.
 
 Möchte man also sowohl lokale als auch über das Netzwerk eingebundene
 Dateien für VDR-Plugins oder KODI nutzen, empfiehlt es sich als
@@ -93,7 +98,7 @@ avahi-linker: Konfiguration beschreiben
 Die Konfigurationsdatein für den avahi-linker liegen im Ordner
 '/etc/avahilinker/'. 
 
-.default.cfg
+.Konfigurationsdatei für den avhi-linker 'default.cfg'
 ----
 [localdirs]
 # localdirs are linked to the "media" path defined under targetdirs
@@ -177,6 +182,50 @@ setzen:
 ----
 ENABLED=0
 ----
+
+[[avahi-announcement]]
+===== NFS-Freigaben mit avahi ankündigen =====
+
+Um eine NFS-Freigabe für den avahi-linker anzukündigen, kann man in
+'/etc/avahi/services/' eine Dateien anlegen, die die nötigen
+Informationen enthalten. Der avahi-linker bringt bereits entsprechende
+Dateien für die weiter oben erwähnten NFS-Freigaben der
+Standardverzeichnisse mit.
+
+.Beispiel für eine eigene Service-Datei '/etc/avahi/services/vdr-vdr-series.service'
+----
+<?xml version="1.0" standalone='no'?>
+<!DOCTYPE service-group SYSTEM "avahi-service.dtd">
+<service-group>
+<name replace-wildcards="yes">Serien-Archiv on %h</name> <1>
+<service>
+  <type>_nfs._tcp</type> <2>
+  <port>2049</port>
+  <txt-record>path=/srv/archive/vdr/series</txt-record> <3>
+  <txt-record>subtype=vdr</txt-record> <4>
+  <txt-record>category=Serien</txt-record> <5>
+</service>
+</service-group>
+----
+<1> name: Einzigartiger Name für die Freigabe (im gesamten Netzwerk).
+Wird von avahi-linker für die Benennung der eingebundenen Freigabe
+genutzt. Der Platzhalter '%h' wird durch den Hostnamen ersetzt.
+<2> type, port: Typ und Port für die Freigabe. Für NFS-Freigaben ist
+    der Typ *_nfs._tcp* und der Port *2049*.
+<3> path: Pfad der NFS-Freigabe, die angekündigt werden soll
+<4> subtype: Subtyp für die Freigabe, der bestimmt, wo der
+avahi-linker diese einhängt. Wenn *use_i18n* im Abschnitt *[Options]*
+auf True gesetzt ist, werden die Subtypen übersetzt.
+Standard-Subtypen sind: *audio*, *picture*, *video* and *vdr*.
+Prinzipiell können beliebige Bezeichnungen genutzt werden, die dann
+unter '/media/<subtype>' eingebunden werden.
+Freigaben mit dem Subtyp *vdr* werden ins Aufnahmeverzeichnis
+verlinkt.
+<5> category: Kategorie für die Freigabe mit der ein Unterverzeichnis
+bestimmt werden kann. In diesem Beispiel wird ein Verzeichnis mit
+einem Archiv für Serien-Aufnahmen freigegeben, die im Unterverzeichnis
+"Serien" im VDR einsortiert werden sollen.
+
 
 
 
