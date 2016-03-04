@@ -98,14 +98,15 @@ Nun kann die Zeitzone eingestellt werden:
 image:./installation/11_zeitzonenvorschlag.png[]
 
 Im nächsten Schritt kann man konfigurieren, wie die verbaute(n)
-Festplatten genutzt werden sollen.
-Die Root-Partition sollte mindestens 8 GB groß sein.
-Damit genug Platz für die Installation weiterer Pakete und Metadaten
-für den VDR und KODI bleibt, ist eine Größe von 16 - 20 GB empfehlenswert.
-Alle lokalen Mediendateien sollten später unter /srv liegen.
-Dies ist der bei yaVDR voreingestellte Ort, an dem später Aufnahmen
-abgelegt werden und an dem KODI Medien in den entsprechenden
-Unterverzeichnissen erwartet.
+Festplatten genutzt werden sollen.  Die Root-Partition sollte
+mindestens 8 GB groß sein.  Damit genug Platz für die Installation
+weiterer Pakete und Metadaten für den VDR und KODI bleibt, ist eine
+Größe von 16 - 20 GB empfehlenswert.  Alle lokalen Mediendateien
+sollten später unter /srv liegen.  Dies ist der bei yaVDR
+voreingestellte Ort, an dem später Aufnahmen abgelegt werden (im
+Verzeichnis '/srv/vdr/video') in den anderen Unterverzeichnissen
+können Bilder, Musik und Videos abgelegt werden.
+
 Für weitere Informationen lohnt sich ein Blick in den Abschnitt
 <<directories,*Verzeichnissstruktur*>>.
 
