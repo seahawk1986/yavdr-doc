@@ -31,10 +31,11 @@ Die empfohlene Festplattengröße hängt von der gewünschten
 Aufnahmekapazität ab.  Eine Partition für Standard-Installation von
 yaVDR sollte mindestens 8 GB groß sein, um genug Platz für Updates,
 KODI-Metadateien und zusätzliche Pakete zu haben, werden mindestens 12
-GB empfohlen.  Die Größe der SWAP-Partition entspricht normalerweise
-der Größe des Arbeitsspeichers.  Für SD-TV werden fallen in abhängig
-von der Bitrate des Senders bis zu 2,7 GB pro Stunde Aufnahme an, für
-HD-TV bis zu 9 GB pro Stunde.  Im normalen Betrieb hat sich eine
+GB empfohlen.  Eine SWAP-Partition wird nicht zwingend benötigt. Ihre
+Größe entspricht normalerweise der Größe des Arbeitsspeichers.  Für
+SD-TV werden fallen in abhängig von der Bitrate des Senders bis zu 2,7
+GB pro Stunde Aufnahme an, für HD-TV bis zu 9 GB pro Stunde.  Im
+normalen Betrieb hat sich eine
 Festplattengröße von mindestens 160 GB bewährt.  Für den Fall, dass
 Aufnahmen gesammelt werden, ist eine Partition mit 2 TB oder mehr
 empfehlenswert.
