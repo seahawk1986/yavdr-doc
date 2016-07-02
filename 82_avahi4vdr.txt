@@ -1,0 +1,11 @@
+[[avahi4vdr]]
+==== avahi4vdr ====
+
+Das avahi4vdr Plugin erlaubt es avahi-Announcements bei laufendem VDR
+vorzunehmen. In der Voreinstellung werden der SVDRP-Port, das
+live-Plugin, streamdev-server und restfulapi angekündigt. Die
+vom Plugin angekündigten Dienste können in der getemplateten
+Konfigurationsdatei '/var/lib/vdr/plugins/avahi4vdr/services.conf'
+festgelegt werden.
+
+

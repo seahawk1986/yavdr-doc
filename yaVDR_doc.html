@@ -841,7 +841,7 @@ asciidoc.install(4);
 <span id="author">Alexander_Grothe_(seahawk1986)</span><br />
 <span id="email"><code>&lt;<a href="mailto:seahawk1986@hotmail.com">seahawk1986@hotmail.com</a>&gt;</code></span><br />
 <span id="revnumber">version v0.6,</span>
-<span id="revdate">2015-12-02</span>
+<span id="revdate">2016-03-20</span>
 <div id="toc">
   <div id="toctitle">Inhaltsverzeichnis</div>
   <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
@@ -1410,10 +1410,11 @@ Intel-Prozessoren mit Intel64-Unterstützung]<br /></span> verwendet werden muss
 Aufnahmekapazität ab.  Eine Partition für Standard-Installation von
 yaVDR sollte mindestens 8 GB groß sein, um genug Platz für Updates,
 KODI-Metadateien und zusätzliche Pakete zu haben, werden mindestens 12
-GB empfohlen.  Die Größe der SWAP-Partition entspricht normalerweise
-der Größe des Arbeitsspeichers.  Für SD-TV werden fallen in abhängig
-von der Bitrate des Senders bis zu 2,7 GB pro Stunde Aufnahme an, für
-HD-TV bis zu 9 GB pro Stunde.  Im normalen Betrieb hat sich eine
+GB empfohlen.  Eine SWAP-Partition wird nicht zwingend benötigt. Ihre
+Größe entspricht normalerweise der Größe des Arbeitsspeichers.  Für
+SD-TV werden fallen in abhängig von der Bitrate des Senders bis zu 2,7
+GB pro Stunde Aufnahme an, für HD-TV bis zu 9 GB pro Stunde.  Im
+normalen Betrieb hat sich eine
 Festplattengröße von mindestens 160 GB bewährt.  Für den Fall, dass
 Aufnahmen gesammelt werden, ist eine Partition mit 2 TB oder mehr
 empfehlenswert.</p></div>
@@ -3357,15 +3358,15 @@ kP3f2v8eXf/3bj+k1b08Pg8Ow7n5Oj6gf4O2vL6/zb7+9PS0z98OBgCgLN0///xjJhAAoCG///67
 mUAAgBb9H/WDY8Ue1+OOAAAAAElFTkSuQmCC" />
 </span></p></div>
 <div class="paragraph"><p>Im nächsten Schritt kann man konfigurieren, wie die verbaute(n)
-Festplatten genutzt werden sollen.
-Die Root-Partition sollte mindestens 8 GB groß sein.
-Damit genug Platz für die Installation weiterer Pakete und Metadaten
-für den VDR und KODI bleibt, ist eine Größe von 16 - 20 GB empfehlenswert.
-Alle lokalen Mediendateien sollten später unter /srv/vdr liegen.
-Dies ist der bei yaVDR voreingestellte Ort, an dem später Aufnahmen
-abgelegt werden und an dem KODI Medien in den entsprechenden
-Unterverzeichnissen erwartet.
-Für weitere Informationen lohnt sich ein Blick in den Abschnitt
+Festplatten genutzt werden sollen.  Die Root-Partition sollte
+mindestens 8 GB groß sein.  Damit genug Platz für die Installation
+weiterer Pakete und Metadaten für den VDR und KODI bleibt, ist eine
+Größe von 16 - 20 GB empfehlenswert.  Alle lokalen Mediendateien
+sollten später unter /srv liegen.  Dies ist der bei yaVDR
+voreingestellte Ort, an dem später Aufnahmen abgelegt werden (im
+Verzeichnis <em>/srv/vdr/video</em>) in den anderen Unterverzeichnissen
+können Bilder, Musik und Videos abgelegt werden.</p></div>
+<div class="paragraph"><p>Für weitere Informationen lohnt sich ein Blick in den Abschnitt
 <a href="#directories"><strong>Verzeichnissstruktur</strong></a>.</p></div>
 <div class="paragraph"><p>Man kann den Installer entweder automatisch die Festplatte aufteilen lassen
 ("<strong>Geführt - verwende vollständige Festplatte</strong>"),
@@ -5042,7 +5043,7 @@ zurückgreifen zu müssen. Deswegen wurde die remote.conf für yavdr 0.6
 abweichend vom bislang gewohnten Schema so angepasst, dass alle
 Tasten für die Eingabe von Buchstaben frei bleiben.
 Falls die alte Tastenbelegung bevorzugt wird, kann sie mit
-<a href="https://raw.githubusercontent.com/yavdr/yavdr-utils/8f374ad802014e0e1c10b72acecb2f0f090acfc1/templates/var/lib/vdr/remote.conf/50_key">diesem Template</a>
+<a href="https://raw.githubusercontent.com/yavdr/yavdr-utils/8f374ad802014e0e1c10b72acecb2f0f090acfc1/templates/var/lib/vdr/remote.conf/50_keys">diesem Template</a>
 wiederhergestellt werden, das unter
 <em>/etc/yavdr/templates_custom/var/lib/vdr/remote.conf/50_keys</em> abgelegt
 werden sollte, bevor man die <em>/var/lib/vdr/remote.conf</em> <a href="#template">neu erstellen lässt</a>.</p></div>
@@ -26075,6 +26076,9 @@ vdr wieder starten:
 <div class="content">
 <pre><code>sudo start vdr</code></pre>
 </div></div>
+<div class="paragraph"><p>Wenn mehrere VDRs den hist-first-recording-level Patch nutzen,
+empfiehlt es sich die <em>/etc/init/mhddfs.conf</em> entsprechend anzupassen,
+damit <em>/srv/vdr/video.00/local</em> nach <em>/srv/share/vdr</em> gemountet wird.</p></div>
 <div class="admonitionblock">
 <table><tr>
 <td class="icon">
@@ -26293,16 +26297,20 @@ Verzeichnisstruktur planen.</p></div>
 <div class="paragraph"><p>Der Avahi-Linker ist ein Python-Skript, das nach Avahi-Announcements
 für NFS-Freigaben im Netzwerk sucht und diese - falls eine gültige
 Service-Konfiguration existiert - automatisch zusammen mit den lokalen
-Medien unter <em>/media/&lt;Kategorie&gt;/&lt;Ort der Dateien&gt;</em> verlinkt. Das
-Einbinden der NFS-Freigaben erfolgt über Autofs. In der Voreinstellung
-wird eine Freigabe nach einer Inaktivitätsdauer von 60 Sekunden wieder
-ausgehängt, so dass das der Server, der die Freigabe bereitstellt,
-herunterfahren kann, wenn die Clients diese nicht mehr benötigen. In
-der Datei <em>/etc/autofs/auto.master.d/avahi-linker.autofs</em> kann man
-über die Option <strong>--timeout=</strong> festlegen, nach wie vielen Sekunden
-Inaktivität eine vom avahi-linker eingebundene Freigabe wieder
-ausgehängt werden soll. Für Rechner mit yaVDR 0.6 geschieht das
-automatisch für alle <a href="#standard-dir">lokalen Standardverzeichnisse</a>.</p></div>
+Medien unter <em>/media/&lt;Kategorie&gt;/&lt;Ort der Dateien&gt;</em> verlinkt.
+Freigaben mit dem Subtyp "vdr" werden zusätzlich in das
+Aufnahmeverzeichnis des VDR verlinkt und danach ein erneutes Einlesen des
+Aufnahmeverzeichnis durch den VDR angestoßen.</p></div>
+<div class="paragraph"><p>Das Einbinden der NFS-Freigaben erfolgt über Autofs. In der
+Voreinstellung wird eine Freigabe nach einer Inaktivitätsdauer von 60
+Sekunden wieder ausgehängt, so dass das der Server, der die Freigabe
+bereitstellt, herunterfahren kann, wenn die Clients diese nicht mehr
+benötigen. In der Datei
+<em>/etc/autofs/auto.master.d/avahi-linker.autofs</em> kann man über die
+Option <strong>--timeout=</strong> festlegen, nach wie vielen Sekunden Inaktivität
+eine vom avahi-linker eingebundene Freigabe wieder ausgehängt werden
+soll. Für Rechner mit yaVDR 0.6 geschieht das automatisch für alle
+<a href="#standard-dir">lokalen Standardverzeichnisse</a>.</p></div>
 <div class="paragraph"><p>Möchte man also sowohl lokale als auch über das Netzwerk eingebundene
 Dateien für VDR-Plugins oder KODI nutzen, empfiehlt es sich als
 Standard-Verzeichnis <em>/media/&lt;Kategorie&gt;/</em> zu wählen.</p></div>
@@ -26344,7 +26352,7 @@ sieht sind die lokal abgelegten Medien jeweils über einen Ordner
 <div class="paragraph"><p>Die Konfigurationsdatein für den avahi-linker liegen im Ordner
 <em>/etc/avahilinker/</em>.</p></div>
 <div class="listingblock">
-<div class="title">default.cfg</div>
+<div class="title">Konfigurationsdatei für den avhi-linker <em>default.cfg</em></div>
 <div class="content">
 <pre><code>[localdirs]
 # localdirs are linked to the "media" path defined under targetdirs
@@ -26422,6 +26430,123 @@ setzen:</p></div>
 <div class="content">
 <pre><code>ENABLED=0</code></pre>
 </div></div>
+</div>
+<div class="sect4">
+<h5 id="avahi-announcement">NFS-Freigaben mit avahi ankündigen</h5>
+<div class="paragraph"><p>Um eine NFS-Freigabe für den avahi-linker anzukündigen, kann man in
+<em>/etc/avahi/services/</em> eine Dateien anlegen, die die nötigen
+Informationen enthalten. Der avahi-linker bringt bereits entsprechende
+Dateien für die weiter oben erwähnten NFS-Freigaben der
+Standardverzeichnisse mit.</p></div>
+<div class="listingblock">
+<div class="title">Beispiel für eine eigene Service-Datei <em>/etc/avahi/services/vdr-vdr-series.service</em></div>
+<div class="content">
+<pre><code>&lt;?xml version="1.0" standalone='no'?&gt;
+&lt;!DOCTYPE service-group SYSTEM "avahi-service.dtd"&gt;
+&lt;service-group&gt;
+&lt;name replace-wildcards="yes"&gt;Serien-Archiv on %h&lt;/name&gt; <img alt="1" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII=" />
+&lt;service&gt;
+  &lt;type&gt;_nfs._tcp&lt;/type&gt; <img alt="2" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB7SURBVHja
+HY6hFcMwDEQ/NDQsNSwU9Apdo7Cw0CsIBoZmhKzQEQJLDQsFVclHpHu693W429Zr7bu541Pg3kCm
+Y0K75u9TEUPhuGgWU4mQDvieEaSQEnsT6zKPeZY0EUNtrHMCXvYUuSUg0PsMjUSvpysUT6OOSil9
+izp/VNk1YJ8vf6MAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8w
+MSBjcmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBlYWU1
+MjljOTRhN2Y0N2RlY2NmYWRhMjhhY2I5ZGblb7ENAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30A
+AAAASUVORK5CYII=" />
+  &lt;port&gt;2049&lt;/port&gt;
+  &lt;txt-record&gt;path=/srv/archive/vdr/series&lt;/txt-record&gt; <img alt="3" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB4SURBVHja
+JU6rFcNADBM09BqBhl6ltDCwKxQeDOwKB7tGYGCoYaChK6cmlt7TD1W5uap/sgoVBnEXWBTSoOdx
+7gpLDOAVorWC0ABdcBPqwZtx8Muf+DPXJpQ96Nu/LSMYl/n17oCOnplTOrpiwW3sUs4ZJmob5/wA
+Ubg1Y/zrjUwAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBj
+cmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBiYmRhMjcy
+NmRkYWNlOGFiOGEwMWY1OWRlMmViZGII/Q51AAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAA
+SUVORK5CYII=" />
+  &lt;txt-record&gt;subtype=vdr&lt;/txt-record&gt; <img alt="4" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABzSURBVHja
+HY0hEoUwEEMjkZVYZGVlr1CJxCKRXKPyy28reyVsZeXKsCFi573ZzAQk+x5jaQ6gFQAxIA8XceEN
+ZEN3DkOCH/TobUoSVuAYwSSLyzbvaHWVFJxUmmp+PF+twrLkuXzLwPmZ8+OjtH8KS6pGvuoGNo5b
+6rzDAAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkvMDgvMDEgY3Jpc3R5
+QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlADlmODJmY2FjOWUwMzlj
+YmRiNzIzODBhNDU5MTMyNGY1gLv4dgAAAA50RVh0UGFnZQAxMngxMiswKzCEbbt9AAAAAElFTkSu
+QmCC" />
+  &lt;txt-record&gt;category=Serien&lt;/txt-record&gt; <img alt="5" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB2SURBVHja
+FY6hEcQwDAQPChqGGhoaqgWX8PUYBhqGBn4rX0JooKDh/UlsZ3b2BJKXH8XPTYLh1lpt1h+BwxkR
+A23jhsCQd2IkfH9T3HEkzPFegCXUKSUSpJUPsN7UFOgc9VkZUBoz9l0yrVHZarUcJZeb9XznDyNb
+Ny9CX3/7AAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkvMDgvMDEgY3Jp
+c3R5QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlAGZlNjkwNDYzMzc5
+ZWIyNWU1NjJmY2M4Y2M5YjNjN2Uw37I5ngAAAA50RVh0UGFnZQAxMngxMiswKzCEbbt9AAAAAElF
+TkSuQmCC" />
+&lt;/service&gt;
+&lt;/service-group&gt;</code></pre>
+</div></div>
+<div class="colist arabic"><table>
+<tr><td><img alt="1" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII=" /></td><td>
+name: Einzigartiger Name für die Freigabe (im gesamten Netzwerk).
+Wird von avahi-linker für die Benennung der eingebundenen Freigabe
+genutzt. Der Platzhalter <em>%h</em> wird durch den Hostnamen ersetzt.
+</td></tr>
+<tr><td><img alt="2" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB7SURBVHja
+HY6hFcMwDEQ/NDQsNSwU9Apdo7Cw0CsIBoZmhKzQEQJLDQsFVclHpHu693W429Zr7bu541Pg3kCm
+Y0K75u9TEUPhuGgWU4mQDvieEaSQEnsT6zKPeZY0EUNtrHMCXvYUuSUg0PsMjUSvpysUT6OOSil9
+izp/VNk1YJ8vf6MAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8w
+MSBjcmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBlYWU1
+MjljOTRhN2Y0N2RlY2NmYWRhMjhhY2I5ZGblb7ENAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30A
+AAAASUVORK5CYII=" /></td><td>
+type, port: Typ und Port für die Freigabe. Für NFS-Freigaben ist
+    der Typ <strong>_nfs._tcp</strong> und der Port <strong>2049</strong>.
+</td></tr>
+<tr><td><img alt="3" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB4SURBVHja
+JU6rFcNADBM09BqBhl6ltDCwKxQeDOwKB7tGYGCoYaChK6cmlt7TD1W5uap/sgoVBnEXWBTSoOdx
+7gpLDOAVorWC0ABdcBPqwZtx8Muf+DPXJpQ96Nu/LSMYl/n17oCOnplTOrpiwW3sUs4ZJmob5/wA
+Ubg1Y/zrjUwAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBj
+cmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBiYmRhMjcy
+NmRkYWNlOGFiOGEwMWY1OWRlMmViZGII/Q51AAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAA
+SUVORK5CYII=" /></td><td>
+path: Pfad der NFS-Freigabe, die angekündigt werden soll
+</td></tr>
+<tr><td><img alt="4" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABzSURBVHja
+HY0hEoUwEEMjkZVYZGVlr1CJxCKRXKPyy28reyVsZeXKsCFi573ZzAQk+x5jaQ6gFQAxIA8XceEN
+ZEN3DkOCH/TobUoSVuAYwSSLyzbvaHWVFJxUmmp+PF+twrLkuXzLwPmZ8+OjtH8KS6pGvuoGNo5b
+6rzDAAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkvMDgvMDEgY3Jpc3R5
+QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlADlmODJmY2FjOWUwMzlj
+YmRiNzIzODBhNDU5MTMyNGY1gLv4dgAAAA50RVh0UGFnZQAxMngxMiswKzCEbbt9AAAAAElFTkSu
+QmCC" /></td><td>
+subtype: Subtyp für die Freigabe, der bestimmt, wo der
+avahi-linker diese einhängt. Wenn <strong>use_i18n</strong> im Abschnitt <strong>[Options]</strong>
+auf True gesetzt ist, werden die Subtypen übersetzt.
+Standard-Subtypen sind: <strong>audio</strong>, <strong>picture</strong>, <strong>video</strong> and <strong>vdr</strong>.
+Prinzipiell können beliebige Bezeichnungen genutzt werden, die dann
+unter <em>/media/&lt;subtype&gt;</em> eingebunden werden.
+Freigaben mit dem Subtyp <strong>vdr</strong> werden ins Aufnahmeverzeichnis
+verlinkt.
+</td></tr>
+<tr><td><img alt="5" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB2SURBVHja
+FY6hEcQwDAQPChqGGhoaqgWX8PUYBhqGBn4rX0JooKDh/UlsZ3b2BJKXH8XPTYLh1lpt1h+BwxkR
+A23jhsCQd2IkfH9T3HEkzPFegCXUKSUSpJUPsN7UFOgc9VkZUBoz9l0yrVHZarUcJZeb9XznDyNb
+Ny9CX3/7AAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkvMDgvMDEgY3Jp
+c3R5QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlAGZlNjkwNDYzMzc5
+ZWIyNWU1NjJmY2M4Y2M5YjNjN2Uw37I5ngAAAA50RVh0UGFnZQAxMngxMiswKzCEbbt9AAAAAElF
+TkSuQmCC" /></td><td>
+category: Kategorie für die Freigabe mit der ein Unterverzeichnis
+bestimmt werden kann. In diesem Beispiel wird ein Verzeichnis mit
+einem Archiv für Serien-Aufnahmen freigegeben, die im Unterverzeichnis
+"Serien" im VDR einsortiert werden sollen.
+</td></tr>
+</table></div>
 </div>
 </div>
 <div class="sect3">
@@ -29876,6 +30001,125 @@ $ sudo irrecord -H irman -d /dev/irman lircd.conf</code></pre>
 </div>
 </div>
 <div class="sect3">
+<h4 id="usb_irmp">IRMP Empfänger</h4>
+<div class="paragraph"><p>Die USB-IRMP-Empfänger benötigen das Paket <strong>yavdr-addon-irmp</strong>. Bei der Installation werden alle nötigen Programme wie irmplircd und ir_control mitinstalliert. Wird das Gerät anhand seine Attribute ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="27d9" über udev erkannt, wird der Upstart-Job /etc/init/irmplircd gestartet.</p></div>
+<div class="paragraph"><p>Damit die empfangenen Tastendrücke von <a href="#lircd2uinput">lircd2uinput</a> an <a href="#evenlircd">eventlircd</a> weitergegeben werden können, muss in der <em>/etc/default/irmplircd</em> noch der Pfad für eine passende Keymap als Wert für Variable <strong>KEYMAP</strong> angegeben werden (für weitere Informationen zur Konfiguration siehe <em>/usr/share/doc/irmplircd/README.Debian</em>).</p></div>
+<div class="paragraph"><p>Die nötige Zuordnung erhält man durch das Auslesen der Scancodes mittels irw vom Sockel von irmplircd:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>$ sudo irw /var/run/irmplircd
+<img alt="1" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII=" />            <img alt="2" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB7SURBVHja
+HY6hFcMwDEQ/NDQsNSwU9Apdo7Cw0CsIBoZmhKzQEQJLDQsFVclHpHu693W429Zr7bu541Pg3kCm
+Y0K75u9TEUPhuGgWU4mQDvieEaSQEnsT6zKPeZY0EUNtrHMCXvYUuSUg0PsMjUSvpysUT6OOSil9
+izp/VNk1YJ8vf6MAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8w
+MSBjcmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBlYWU1
+MjljOTRhN2Y0N2RlY2NmYWRhMjhhY2I5ZGblb7ENAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30A
+AAAASUVORK5CYII=" /> <img alt="3" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB4SURBVHja
+JU6rFcNADBM09BqBhl6ltDCwKxQeDOwKB7tGYGCoYaChK6cmlt7TD1W5uap/sgoVBnEXWBTSoOdx
+7gpLDOAVorWC0ABdcBPqwZtx8Muf+DPXJpQ96Nu/LSMYl/n17oCOnplTOrpiwW3sUs4ZJmob5/wA
+Ubg1Y/zrjUwAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBj
+cmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBiYmRhMjcy
+NmRkYWNlOGFiOGEwMWY1OWRlMmViZGII/Q51AAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAA
+SUVORK5CYII=" />           <img alt="4" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABzSURBVHja
+HY0hEoUwEEMjkZVYZGVlr1CJxCKRXKPyy28reyVsZeXKsCFi573ZzAQk+x5jaQ6gFQAxIA8XceEN
+ZEN3DkOCH/TobUoSVuAYwSSLyzbvaHWVFJxUmmp+PF+twrLkuXzLwPmZ8+OjtH8KS6pGvuoGNo5b
+6rzDAAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkvMDgvMDEgY3Jpc3R5
+QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlADlmODJmY2FjOWUwMzlj
+YmRiNzIzODBhNDU5MTMyNGY1gLv4dgAAAA50RVh0UGFnZQAxMngxMiswKzCEbbt9AAAAAElFTkSu
+QmCC" />
+0250af00f200 0 0250af00f200 IRMP
+0250af00b600 0 0250af00b600 IRMP
+[...]</code></pre>
+</div></div>
+<div class="colist arabic"><table>
+<tr><td><img alt="1" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII=" /></td><td>
+Scancode
+</td></tr>
+<tr><td><img alt="2" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB7SURBVHja
+HY6hFcMwDEQ/NDQsNSwU9Apdo7Cw0CsIBoZmhKzQEQJLDQsFVclHpHu693W429Zr7bu541Pg3kCm
+Y0K75u9TEUPhuGgWU4mQDvieEaSQEnsT6zKPeZY0EUNtrHMCXvYUuSUg0PsMjUSvpysUT6OOSil9
+izp/VNk1YJ8vf6MAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8w
+MSBjcmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBlYWU1
+MjljOTRhN2Y0N2RlY2NmYWRhMjhhY2I5ZGblb7ENAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30A
+AAAASUVORK5CYII=" /></td><td>
+n-te Wiederholung
+</td></tr>
+<tr><td><img alt="3" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB4SURBVHja
+JU6rFcNADBM09BqBhl6ltDCwKxQeDOwKB7tGYGCoYaChK6cmlt7TD1W5uap/sgoVBnEXWBTSoOdx
+7gpLDOAVorWC0ABdcBPqwZtx8Muf+DPXJpQ96Nu/LSMYl/n17oCOnplTOrpiwW3sUs4ZJmob5/wA
+Ubg1Y/zrjUwAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBj
+cmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBiYmRhMjcy
+NmRkYWNlOGFiOGEwMWY1OWRlMmViZGII/Q51AAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAA
+SUVORK5CYII=" /></td><td>
+gemappter Tastencode (momentan kein Mapping vorhanden)
+</td></tr>
+<tr><td><img alt="4" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABzSURBVHja
+HY0hEoUwEEMjkZVYZGVlr1CJxCKRXKPyy28reyVsZeXKsCFi573ZzAQk+x5jaQ6gFQAxIA8XceEN
+ZEN3DkOCH/TobUoSVuAYwSSLyzbvaHWVFJxUmmp+PF+twrLkuXzLwPmZ8+OjtH8KS6pGvuoGNo5b
+6rzDAAAAQ3RFWHRTb2Z0d2FyZQBAKCMpSW1hZ2VNYWdpY2sgNC4yLjggOTkvMDgvMDEgY3Jpc3R5
+QG15c3RpYy5lcy5kdXBvbnQuY29tkbohuAAAACp0RVh0U2lnbmF0dXJlADlmODJmY2FjOWUwMzlj
+YmRiNzIzODBhNDU5MTMyNGY1gLv4dgAAAA50RVh0UGFnZQAxMngxMiswKzCEbbt9AAAAAElFTkSu
+QmCC" /></td><td>
+Name
+</td></tr>
+</table></div>
+<div class="paragraph"><p>Daraus lässt sich dann eine Keymap erstellen, die z.B. so aussieht:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code><img alt="1" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII=" />            <img alt="2" src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB7SURBVHja
+HY6hFcMwDEQ/NDQsNSwU9Apdo7Cw0CsIBoZmhKzQEQJLDQsFVclHpHu693W429Zr7bu541Pg3kCm
+Y0K75u9TEUPhuGgWU4mQDvieEaSQEnsT6zKPeZY0EUNtrHMCXvYUuSUg0PsMjUSvpysUT6OOSil9
+izp/VNk1YJ8vf6MAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8w
+MSBjcmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBlYWU1
+MjljOTRhN2Y0N2RlY2NmYWRhMjhhY2I5ZGblb7ENAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30A
+AAAASUVORK5CYII=" />
+0250af00f200 KEY_UP
+0254ab002c00 KEY_RIGHT
+[...]</code></pre>
+</div></div>
+<div class="colist arabic"><table>
+<tr><td><img alt="1" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
+VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
+gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
+YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
+dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
+ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII=" /></td><td>
+Scancode
+</td></tr>
+<tr><td><img alt="2" src="data:image/png;base64, iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAAB7SURBVHja
+HY6hFcMwDEQ/NDQsNSwU9Apdo7Cw0CsIBoZmhKzQEQJLDQsFVclHpHu693W429Zr7bu541Pg3kCm
+Y0K75u9TEUPhuGgWU4mQDvieEaSQEnsT6zKPeZY0EUNtrHMCXvYUuSUg0PsMjUSvpysUT6OOSil9
+izp/VNk1YJ8vf6MAAABDdEVYdFNvZnR3YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8w
+MSBjcmlzdHlAbXlzdGljLmVzLmR1cG9udC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUAODBlYWU1
+MjljOTRhN2Y0N2RlY2NmYWRhMjhhY2I5ZGblb7ENAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30A
+AAAASUVORK5CYII=" /></td><td>
+Tastenname
+</td></tr>
+</table></div>
+<div class="paragraph"><p>Die verwendeten Tastennamen müssen <a href="#namespace-faq"><strong>Namespace-konform</strong> zur input.h des Kernels</a> sein und sollten sich (wenn sie zur Steuerung des VDR und XBMC genutzt werden sollen) an der <a href="#remote.conf">remote.conf</a> orientieren, da die Fernbedienung dann sowohl mit dem VDR als auch unter XBMC ohne weitere Konfiguration verwendet werden kann.</p></div>
+</div>
+<div class="sect3">
 <h4 id="X10">X10-Fernbedienungen</h4>
 <div class="paragraph"><p>Mit dem neuen Kernel 3.2.x in yaVDR 0.6 werden die X10-Empfänger über rc-core eingebunden.</p></div>
 <div class="admonitionblock">
@@ -29989,6 +30233,72 @@ PAr9L8j/96+U/w3yCoCXW14B8HLLvwDd67nwZIEPdgAAAABJRU5ErkJggg==" />
 <td class="content">
 <div class="title">X10-Fernbedienungen mit Scrollrad</div>
 <div class="paragraph"><p>Momentan unterstützt das standardmäßig von yaVDR 0.6 genutzte Treibermodul ati_remote das Scrollrad bestimmter X10-Fernbedienungen nicht. Einen Vorschlag für einen möglichen Patch kann man hier finden: [<a href="http://www.vdr-portal.de/board18-vdr-hardware/board13-fernbedienungen/p1059478-fortgeschrittenes-linux-problem-mit-der-scrollrad-x10/#post1059478">http://www.vdr-portal.de/board18-vdr-hardware/board13-fernbedienungen/p1059478-fortgeschrittenes-linux-problem-mit-der-scrollrad-x10/#post1059478</a>]</p></div>
+</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img alt="Anmerkung" src="data:image/png;base64,
+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" />
+</td>
+<td class="content">
+<div class="title">X10-Fernbedienungen liefern nach einiger Zeit doppelte Tastendrücke</div>
+<div class="paragraph"><p>In einigen Hardware-Konstellationen kann es vorkommen, dass der
+X10-Empfänger nach einiger Zeit plötzlich doppelte Tastendrücke
+liefert. Abhilfe schafft dann das deaktivieren des Autosuspend für die
+USB-Ports und die Kernel-Option irqpoll, die über ein
+<a href="#template">custom Template</a> für die <em>/etc/default/grub</em> der Variable
+<strong>GRUB_CMDLINE_LINUX_DEFAULT</strong> hinzugefügt werden können:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>usbcore.autosuspend_delay_ms=-1 irqpoll</code></pre>
+</div></div>
+<div class="paragraph"><p>Quelle:
+<a href="http://www.vdr-portal.de/board16-video-disk-recorder/board99-distributionen/board96-yavdr/p1268129-gel%C3%B6st-0-6-1-fernbedienung-unter-kodi-zu-sensibel/#post1268129">http://www.vdr-portal.de/board16-video-disk-recorder/board99-distributionen/board96-yavdr/p1268129-gel%C3%B6st-0-6-1-fernbedienung-unter-kodi-zu-sensibel/#post1268129</a></p></div>
 </td>
 </tr></table>
 </div>
@@ -33475,7 +33785,9 @@ Noch keine große Zahl an Clients, die das Protokoll ausreizen
 </li>
 </ul></div>
 <div class="paragraph"><p>Die API des Plugins kann man unter folgender Webadresse einsehen: <strong>http://&lt;IP des VDR&gt;:8002/info.html</strong></p></div>
-<div class="paragraph"><p><a id="dynamite"></a> ==== Dynamite-Plugin ====</p></div>
+</div>
+<div class="sect3">
+<h4 id="dynamite">Dynamite-Plugin</h4>
 <div class="paragraph"><p>Dieses Plugin erlaubt es DVB-Geräte dynamisch in den VDR einzubinden
 und wieder zu entfernen, ohne dass ein Neustart des VDR notwendig ist.
 Somit kann der VDR schneller starten, ohne z.B. auf "langsame"
@@ -33486,6 +33798,15 @@ von gerade nicht benötigten DVB-Karten geplant um Strom zu sparen und
 die Lebensdauer der Komponenten zu verlängern.</p></div>
 <div class="paragraph"><p>Ausführliche Informationen zum Plugin findet man in der beiliegenden
 README-Datei.</p></div>
+</div>
+<div class="sect3">
+<h4 id="avahi4vdr">avahi4vdr</h4>
+<div class="paragraph"><p>Das avahi4vdr Plugin erlaubt es avahi-Announcements bei laufendem VDR
+vorzunehmen. In der Voreinstellung werden der SVDRP-Port, das
+live-Plugin, streamdev-server und restfulapi angekündigt. Die
+vom Plugin angekündigten Dienste können in der getemplateten
+Konfigurationsdatei <em>/var/lib/vdr/plugins/avahi4vdr/services.conf</em>
+festgelegt werden.</p></div>
 </div>
 <div class="sect3">
 <h4 id="_epg2vdr">epg2vdr</h4>
@@ -33586,11 +33907,37 @@ bekannt gemacht werden.</p></div>
 </td>
 </tr></table>
 </div>
-<div class="paragraph"><p>Die Konfiguration erfolgt gemäß der
+<div class="listingblock">
+<div class="title">Die initiale Konfiguration von MySQL bzw. MariaDB kann so erfolgen:</div>
+<div class="content">
+<pre><code>$ sudo apt-get install mysql-server
+$ sudo apt-get install vdr-epg-daemon
+$ sudo sed -i 's/^bind-address/# bind-address/' /etc/mysql/my.cnf
+$ sudo sed -i 's/^log-bin/# log-bin/' /etc/mysql/my.cnf # optional, verbessert die Performance, verschlechtert Wiederherstellbarkeit der Daten
+$ sudo mysql -u root -p
+mysql&gt; CREATE DATABASE epg2vdr charset utf8; # Datenbank anlegen
+mysql&gt; CREATE USER 'epg2vdr'@'%' IDENTIFIED BY 'epg'; # Nutzer anlegen, Passwort ist "epg"
+mysql&gt; GRANT ALL PRIVILEGES ON epg2vdr.* TO 'epg2vdr'@'%'; # Zugriff übers Netzwerk erlauben
+mysql&gt; GRANT ALL PRIVILEGES ON epg2vdr.* TO 'epg2vdr'@'localhost' IDENTIFIED BY 'epg'; # Zugriff vom lokalen System aus zulassen
+mysql&gt; FLUSH PRIVILEGES; # Änderungen an Berechtigungen übernehmen
+mysql&gt; USE epg2vdr; # in Datenbank wechseln
+mysql&gt; DROP FUNCTION IF EXISTS epglv; # falls vorhanden alte Funktion entfernen
+mysql&gt; DROP FUNCTION IF EXISTS epglvr; # dito
+mysql&gt; CREATE FUNCTION epglv RETURNS INT SONAME 'mysqlepglv.so'; # Funktion aus externem Plugin hinzufügen
+mysql&gt; CREATE FUNCTION epglvr RETURNS INT SONAME 'mysqlepglv.so'; # Funktion aus externem Plugin hinzufügen
+# mysql mit STRG+D verlassen, dann MySQL-Server neu starten:
+$ sudo service mysql restart</code></pre>
+</div></div>
+<div class="paragraph"><p>Die weitere Konfiguration erfolgt gemäß der
 <a href="http://projects.vdr-developer.org/git/vdr-epg-daemon.git/tree/README">README</a>.
 Wichtig ist die Konfigurationsdateien im Verzeichnis <em>/etc/epgd/</em> auf
 die eigene Konfiguration anzupassen, insbesondere die Dateien
 <strong>channelmap.conf</strong> und die <strong>epgd.conf</strong></p></div>
+<div class="listingblock">
+<div class="title">Nach der Konfiguration kann epgd gestartet werden:</div>
+<div class="content">
+<pre><code>sudo start epgd</code></pre>
+</div></div>
 <div class="paragraph"><p>Auf den Clients wird das Paket <strong>vdr-plugin-epg2vdr</strong> und falls
 gewünscht auch <strong>vdr-plugin-scraper2vdr</strong> installiert. Dann wird der VDR
 gestoppt und die Datei <em>/var/cache/vdr/epg.data</em> gelöscht. Nach dem
@@ -33638,8 +33985,7 @@ erstellt und ein Backtrace daraus generiert werden.</p></div>
 <h2 id="_kodi">KODI</h2>
 <div class="sectionbody">
 <div class="paragraph"><p>Um die Bedienung und die umfassenden Konfigurationsmöglichkeiten für
-KODI besser kennenzulernen sollte man sich im
-<a href="http://wiki.kodi.org/index.php?title=Main_Page">KODI-Wiki</a> einlesen.</p></div>
+KODI besser kennenzulernen sollte man sich im <a href="http://kodi.wiki/">KODI-Wiki</a> einlesen.</p></div>
 <div class="sect2">
 <h3 id="_konfigurationsdateien">Konfigurationsdateien</h3>
 <div class="paragraph"><p>Die globalen Konfigurationsdateien, Addons und Skins von KODI liegen
@@ -33717,6 +34063,29 @@ KODI.
 </td>
 </tr>
 </table></div>
+</div>
+<div class="sect2">
+<h3 id="_bildschirmunschaltung">Bildschirmunschaltung</h3>
+<div class="paragraph"><p>KODI selbst verfügt über die Möglichkeit den Ausgabebildschirm im
+laufenden Betrieb in den System-Einstellungen zu wechseln. Daneben
+gibt es im VDR-Menü die Möglichkeit KODI direkt auf einem zweiten
+angeschlossenen Bildschirm starten zu lassen. Um diese Funktion zu
+realisieren, wird beim Start von KODI in der <em>/etc/init/kodi.conf</em> die
+<strong>DISPLAY</strong> Umgebungsvariable genutzt, um den Namen des gewünschten
+Bildschirms zu ermitteln und die
+<em>/var/lib/vdr/.kodi/userdata/guisettings.xml</em> entsprechend abzuändern.
+Das erfolgt durch das Skript <em>/usr/bin/set-kodi-display</em>.  Vor der
+Änderung an der guisettings.xml wird der komplette &lt;videoscreen&gt;
+Knoten mit allen Kindern nach
+<em>/var/lib/vdr/.kodi/.display_cache/&lt;monitor&gt;-videodevice.xml</em> kopiert,
+um die Einstellungen für den aktuell gesetzten Bildschirm zu sichern.
+Falls es bereits eine passende
+<em>/var/lib/vdr/.kodi/.display_cache/&lt;monitr&gt;-videodevice.xml</em> gibt,
+werden die Einstellungen daraus in die guisettings.xml kopiert,
+ansonsten wird eine minimale Vorkofiguration für den Bildschirm
+erzeugt. Somit müssen die Einstellungen für jeden Bildschirm einmalig
+vorgenommen werden, um in Zukunft wieder automatisch eingespielt
+werden zu können.</p></div>
 </div>
 </div>
 </div>
@@ -34318,9 +34687,22 @@ man auch über Samba-Freigaben darauf zugreifen kann:</p></div>
 <h3 id="anthra">Anpassen der Anthra-Skins</h3>
 <div class="paragraph"><p>Die Anthra-Skins bieten einige Darstellungsoptionen, die nicht über
 das text2skin-Einstellungsmenü erreichbar sind. Um sie zu nutzen ist
-es notwendig die Skin-Datei zu bearbeiten oder das Paket mit den
+es notwendig die Skin-Datei zu bearbeiten bzw. mit Änderungen an der
+Make.config neu zu erstellen oder (als "sauberer" Ansatz) das Paket mit den
 veränderten Einstellungen neu zu kompilieren.</p></div>
-<div class="paragraph"><p>Der generelle Ablauf zum Rekompilieren eines Pakets ist dabei folgendermaßen:</p></div>
+<div class="paragraph"><p>Die Anthra-Skins bieten die Möglichkeit die Skindateien mit
+veränderten Parametern neu zu erzeugen (diese werden bei einem
+Paketupdate oder einer Reinstallation allerdings einfach mit den
+Dateien aus dem entsprechenden Paket überschrieben):
+Dazu wechselt man in den Ordner mit den Skindateien (z.B.
+<em>/usr/share/vdr-skins/anthra_1920_FSE/</em>), passt die Make.config an und
+lässt die Skindatei neu erstellen:</p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code>sudo make clean
+sudo make</code></pre>
+</div></div>
+<div class="paragraph"><p>Alternativ kann man ein Skin-Paket so Rekompilieren:</p></div>
 <div class="paragraph"><p>Als erstes müssen die zum Bauen benötigten Pakete installiert werden.
 Dies geschieht über <strong>apt-get build-dep</strong></p></div>
 <div class="listingblock">
@@ -34357,7 +34739,7 @@ anpassen.</p></div>
 <div class="paragraph"><p>Nun wird das Paket gebaut:</p></div>
 <div class="listingblock">
 <div class="content">
-<pre><code>dpkg-buildpackage -tc -us <img alt="1" src="data:image/png;base64,
+<pre><code>dpkg-buildpackage -tc -us -b <img alt="1" src="data:image/png;base64,
 iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAAAAABzHgM7AAAAAmJLR0QAAKqNIzIAAABjSURBVHja
 VY6xDcAwCAS/pPQaLim9QmajdOk2I2SNrMEIlARIoigU8Cek/4e7zdHaWOYOVwaoA6wOCw05Y7FB
 gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
@@ -34372,8 +34754,9 @@ gE0tIWQ+sBcwKM8qoD/wB5wGL8hjfdzWrh01GRp1hInGjDoXwHgsFuzBVLQAAABDdEVYdFNvZnR3
 YXJlAEAoIylJbWFnZU1hZ2ljayA0LjIuOCA5OS8wOC8wMSBjcmlzdHlAbXlzdGljLmVzLmR1cG9u
 dC5jb22RuiG4AAAAKnRFWHRTaWduYXR1cmUANThhMDcyZTA3MGRhMjJmNjEzNWNiZDNlNDE0NTQ2
 ZjloaiHtAAAADnRFWHRQYWdlADEyeDEyKzArMIRtu30AAAAASUVORK5CYII=" /></td><td>
-Falls man einen GPG-Schlüssel besitzt und diesen auf Launchpad zur
-    Signierung des Paketes hinterlegt hat, kann man das Paket
+Falls man einen GPG-Schlüssel für die im Changelog angegebene
+    E-Mailadresse besitzt und diesen zur
+    Signierung des Paketes nutzt, kann man das Paket
     natürlich auch signieren (das Argument <strong>-uc</strong> entfällt dann).
 </td></tr>
 </table></div>
@@ -34467,7 +34850,7 @@ debian/dbus2vdr.conf DISABLED</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version v0.6<br />
-Letzte Änderung 2015-09-12 12:32:48 CEST
+Letzte Änderung 2015-12-21 15:13:45 CET
 </div>
 </div>
 </body>

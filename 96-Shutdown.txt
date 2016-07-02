@@ -1,0 +1,25 @@
+Wie funktioniert das Herunterfahren des Rechners?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Bei {version} ist der VDR so vorkofiguriert, dass er als Shutdown-Befehl das Programm '/usr/lib/vdr/vdr-shutdown.wrapper' ausführt. Dieser Wrapper erlaubt es, das eigentliche Shutdown-Skript '/usr/lib/vdr/vdr-shutdown' mit root-Rechten auszuführen:
+
+.'/usr/lib/vdr/vdr-shutdown.wrapper'
+----
+#include <unistd.h>
+
+int main (int argc, char *argv[]) {
+   setuid(0);
+   return execv("/usr/lib/vdr/vdr-shutdown", argv);
+}
+----
+
+Damit der Benutzer vdr den Wrapper mit dem Aufruf setuid(0) erfolgreich aufrufen kann, benötigt er erhöhte Rechte. Daher gehört das Programm dem Benutzer root und der Gruppe vdr und die Bits für set-user-ID und set-group-ID sind gesetzt:
+
+----
+~$ ls -l /usr/lib/vdr/vdr-shutdown.wrapper
+-rwsr-s--- 1 root vdr 6272 Jul 27 19:11 /usr/lib/vdr/vdr-shutdown.wrapper
+----
+
+Das hat den Effekt, dass das Programm mit den Rechten von root ausgeführt wird.
+
+Das eigentliche Shutdown-Skript '/usr/lib/vdr/vdr-shutdown' arbeitet dann die Shutdown-Hooks (siehe Beschreibung in der Datei '/usr/share/doc/vdr/README.Debian.gz') ab und führt im Erfolgsfall das $SHUTDOWNCMD aus, das bei yaVDR in der getemplateten Datei '/usr/share/vdr/shutdown-hooks/S99.shutdown' definiert wird.
