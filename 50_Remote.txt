@@ -857,25 +857,15 @@ sudo start lircd
 [[usb_irmp]]
 ==== IRMP Empfänger ====
 
-Die USB-IRMP-Empfänger benötigen das Paket *yavdr-addon-irmp*. Bei der
-Installation werden alle nötigen Programme wie irmplircd und
-ir_control mitinstalliert. Wird das Gerät anhand seine Attribute
-(ATTRS\{idVendor\}=="16c0", ATTRS\{idProduct\}=="27d9" bzw.
-ATTRS\{idVendor\}=="1209", ATTRS\{idProduct\}=="4444") über udev
-erkannt, wird der Upstart-Job '/etc/init/irmplircd' gestartet.
+Die USB-IRMP-Empfänger benötigen das Paket *yavdr-addon-irmp*. Bei der Installation werden alle nötigen Programme wie irmplircd und ir_control mitinstalliert. Wird das Gerät anhand seine Attribute ATTRS\{idVendor\}=="16c0", ATTRS\{idProduct\}=="27d9" über udev erkannt, wird der Upstart-Job /etc/init/irmplircd gestartet.
 
-Damit die empfangenen Tastendrücke von <<lircd2uinput,lircd2uinput>>
-an <<evenlircd,eventlircd>> weitergegeben werden können, muss in der
-'/etc/default/irmplircd' noch der Pfad für eine passende Keymap als
-Wert für die Variable *KEYMAP* angegeben werden (für weitere Informationen
-zur Konfiguration siehe '/usr/share/doc/irmplircd/README.Debian').
+Damit die empfangenen Tastendrücke von <<lircd2uinput,lircd2uinput>> an <<evenlircd,eventlircd>> weitergegeben werden können, muss in der '/etc/default/irmplircd' noch der Pfad für eine passende Keymap als Wert für Variable *KEYMAP* angegeben werden (für weitere Informationen zur Konfiguration siehe '/usr/share/doc/irmplircd/README.Debian').
 
-Die nötige Zuordnung erhält man durch das Auslesen der Scancodes
-mittels irw vom Sockel von irmplircd:
+Die nötige Zuordnung erhält man durch das Auslesen der Scancodes mittels irw vom Sockel von irmplircd:
 
 ----
-$ sudo irw /var/run/irmplircd
-<1>           <2> <3>           <4>
+$ sudo irw /var/run/lirc/irmplircd
+<1>            <2> <3>           <4>
 0250af00f200 0 0250af00f200 IRMP
 0250af00b600 0 0250af00b600 IRMP
 [...]
@@ -897,12 +887,7 @@ Daraus lässt sich dann eine Keymap erstellen, die z.B. so aussieht:
 <1> Scancode
 <2> Tastenname
 
-Die verwendeten Tastennamen müssen <<namespace-faq,
-*Namespace-konform* zur input.h des Kernels>> sein und sollten sich
-(wenn sie zur Steuerung des VDR und XBMC genutzt werden sollen) an der
-<<remote.conf, remote.conf>> orientieren, da die Fernbedienung dann
-sowohl mit dem VDR als auch unter XBMC ohne weitere Konfiguration
-verwendet werden kann.
+Die verwendeten Tastennamen müssen <<namespace-faq, *Namespace-konform* zur input.h des Kernels>> sein und sollten sich (wenn sie zur Steuerung des VDR und XBMC genutzt werden sollen) an der <<remote.conf, remote.conf>> orientieren, da die Fernbedienung dann sowohl mit dem VDR als auch unter XBMC ohne weitere Konfiguration verwendet werden kann.
 
 
 [[X10]]
@@ -943,19 +928,12 @@ X10 Fernbedienung liefert doppelte Tastendrücke]
 [[bluetooth]]
 ==== Bluetooth-Geräte ====
 
-Prinzipiell ist es unter yaVDR möglich auch Bluetooth-Geräte, die als
-Eingabegerät erkannt werden zur Steuerung zu nutzen. Dabei sollte man
-sich überlegen ob man das Gerät nur als Tastatur bzw. Maus oder als
-Fernbedienung für VDR und KODI nutzen will - letzteres erfoldert etwas
-Bastelarbeit mit udev-Regeln, wie weiter unten beschrieben.
+Prinzipiell ist es unter yaVDR möglich auch Bluetooth-Geräte, die als Eingabegerät erkannt werden zur Steuerung zu nutzen. Dabei sollte man sich überlegen ob man das Gerät nur als Tastatur bzw. Maus oder als Fernbedienung für VDR und KODI nutzen will - letzteres erfoldert etwas Bastelarbeit mit udev-Regeln, wie weiter unten beschrieben.
 
 [[bt-pairing]]
 ===== Pairing =====
 
-Damit ein Bluetooth-Gerät mit dem Rechner kommunizieren kann, muss es
-erst Authentifiziert werden. Um sich nicht von Verwaltungsprogrammen
-mit GUI abhängig zu machen, verwenden wir die Tools aus dem Paket
-*bluez-utils*, das ggf. noch nachinstalliert werden muss.
+Damit ein Bluetooth-Gerät mit dem Rechner kommunizieren kann, muss es erst Authentifiziert werden. Um sich nicht von Verwaltungsprogrammen mit GUI abhängig zu machen, verwenden wir die Tools aus dem Paket *bluez-utils*, das ggf. noch nachinstalliert werden muss.
 
 .Anzeigen der Bluetooth-Adapter - liefert das hci<X> Gerät
 -----
