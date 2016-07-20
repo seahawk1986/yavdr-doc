@@ -51,7 +51,7 @@ bekannt gemacht werden.
 $ sudo apt-get install mysql-server
 $ sudo apt-get install vdr-epg-daemon
 $ sudo sed -i 's/^bind-address/# bind-address/' /etc/mysql/my.cnf
-$ sudo sed -i 's/^log-bin/# log-bin/' /etc/mysql/my.cnf # optional, verbessert die Performance, verschlechtert Wiederherstellbarkeit der Daten
+$ sudo sed -i 's/^log_bin/# log_bin/' /etc/mysql/my.cnf # optional, verbessert die Performance, verschlechtert Wiederherstellbarkeit der Daten
 $ sudo mysql -u root -p
 mysql> CREATE DATABASE epg2vdr charset utf8; # Datenbank anlegen
 mysql> CREATE USER 'epg2vdr'@'%' IDENTIFIED BY 'epg'; # Nutzer anlegen, Passwort ist "epg"
