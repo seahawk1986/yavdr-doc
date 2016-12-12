@@ -109,7 +109,7 @@ Lirc-Sockeln an eventlircd weiterzureichen.
 [TIP]
 .Alle Wege führen zu Eventlircd
 =====================================================================
-image:EventlircdOrganigrammconfigfilesyaVDR0.5.png["Übersicht der Eventlircd",align="center"]
+image:Eventlircd_Organigramm_+_config_files_yaVDR_0.6.png["Übersicht der Eventlircd",align="center"]
 
 Je nachdem welchen Anschluss und welche Treiber die eigenen Empfänger
 bzw. TV-Karten verwenden kann der Weg eines Tastendrucks also sehr
@@ -342,7 +342,7 @@ B: EV=100013
 B: KEY=108fc010 2468d100000000 0 18000 18040002801 8e168000000000 ffe
 B: MSC=10
 ----
-<1> Existiert ein Gerät mit einem Sysfs-Pfad, der mit */devices/virtual/rc/rc* beginnt, kann es mittels <<ir-keytable, ir-keytable>> konfiguriert werden.
+<1> Existiert ein Gerät mit einem Sysfs-Pfad, in dem *rc/rc[0-9]* enthalten ist, kann es mittels <<ir-keytable, ir-keytable>> konfiguriert werden.
 
 .Lirc-Gerät mit --uinput
 ----
